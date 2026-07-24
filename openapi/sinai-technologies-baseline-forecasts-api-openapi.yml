@@ -1,0 +1,993 @@
+openapi: 3.1.0
+info:
+  title: SINAI Baseline forecasts API
+  description: The SINAI application API
+  version: 1.0.0
+  contact:
+    name: API Support
+    url: https://help.sinai.com/en/
+    email: support@sinai.com
+servers:
+- url: https://api.sinai.com/
+  description: Production server
+security:
+- OAuth2ClientCredentialsProduction:
+  - https://api.sinai.com/organization
+  - https://api.sinai.com/carbon_accounting
+  - https://api.sinai.com/baseline_forecasts
+  - https://api.sinai.com/transition_plan
+  - https://api.sinai.com/reduction_projects
+  - https://api.sinai.com/decarbonization_roadmap
+- OAuth2AuthCodeProduction: []
+tags:
+- name: Baseline forecasts
+paths:
+  /v1/baseline_forecasts/baseline_scenarios/{id}:
+    get:
+      summary: Get a baseline scenario by its ID
+      tags:
+      - Baseline forecasts
+      description: Retrieves a baseline scenario by its ID.
+      operationId: getBaselineScenario
+      x-eov-operation-handler: baselineForecasts/baselineScenarios
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the baseline scenario to retrieve
+        schema:
+          $ref: '#/components/schemas/BaselineScenarioID'
+      responses:
+        '200':
+          description: Baseline scenario retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaselineScenario'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/baseline_forecasts
+      - OAuth2AuthCodeProduction: []
+  /v1/baseline_forecasts/baseline_scenarios:
+    get:
+      summary: Get all baseline scenarios
+      tags:
+      - Baseline forecasts
+      description: Retrieves a list of all baseline scenarios.
+      operationId: getBaselineScenarios
+      x-eov-operation-handler: baselineForecasts/baselineScenarios
+      responses:
+        '200':
+          description: Baseline scenarios retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  defaultScenario:
+                    $ref: '#/components/schemas/BaselineScenario'
+                  alternateScenarios:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BaselineScenario'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/baseline_forecasts
+      - OAuth2AuthCodeProduction: []
+  /v1/baseline_forecasts/activity_projections/{id}:
+    get:
+      summary: Get an activity projection by its ID
+      tags:
+      - Baseline forecasts
+      description: Retrieves an activity projection and its config by its ID.
+      operationId: getActivityProjection
+      x-eov-operation-handler: baselineForecasts/activityProjections
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the activity projection to retrieve
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Activity projection retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityDataProjection'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/baseline_forecasts
+      - OAuth2AuthCodeProduction: []
+  /v1/baseline_forecasts/activity_projections:
+    get:
+      summary: Get activity projections
+      tags:
+      - Baseline forecasts
+      description: 'Retrieves a list of activity projections filtered by baseline scenario ID and optionally by business entity ID. If no business entity ID is provided, the activity projections for the entire organization will be returned. This endpoint supports pagination, since the number of activity projections can be quite large.
+
+        '
+      operationId: getActivityProjections
+      x-eov-operation-handler: baselineForecasts/activityProjections
+      parameters:
+      - name: baseline_scenario_id
+        in: query
+        required: true
+        description: The ID of the baseline scenario to filter the activity projections by
+        schema:
+          $ref: '#/components/schemas/BaselineScenarioID'
+      - name: business_entity_id
+        in: query
+        required: false
+        description: The ID of the business entity to filter the activity projections by
+        schema:
+          $ref: '#/components/schemas/BusinessEntityID'
+      - name: offset
+        in: query
+        required: false
+        description: The offset of the activity projections to retrieve
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        required: false
+        description: The limit of the activity projections to retrieve
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Activity projections retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projections:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ActivityDataProjection'
+                  pagination:
+                    $ref: '#/components/schemas/PaginationResult'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/baseline_forecasts
+      - OAuth2AuthCodeProduction: []
+  /v1/baseline_forecasts/main_metric_projections/{id}:
+    get:
+      summary: Get a main metric projection by its ID
+      tags:
+      - Baseline forecasts
+      description: Retrieves a main metric projection and its config by its ID.
+      operationId: getMainMetricProjection
+      x-eov-operation-handler: baselineForecasts/mainMetricProjections
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the main metric projection to retrieve
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Main metric projection retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MainMetricProjection'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/baseline_forecasts
+      - OAuth2AuthCodeProduction: []
+  /v1/baseline_forecasts/main_metric_projections:
+    get:
+      summary: Get main metric projections
+      tags:
+      - Baseline forecasts
+      description: 'Retrieves a list of main metric projections filtered by baseline scenario ID and optionally by business entity ID. If no business entity ID is provided, the main metric projections for the entire organization will be returned. This endpoint supports pagination, since the number of main metric projections can be quite large.
+
+        '
+      operationId: getMainMetricProjections
+      x-eov-operation-handler: baselineForecasts/mainMetricProjections
+      parameters:
+      - name: baseline_scenario_id
+        in: query
+        required: true
+        description: The ID of the baseline scenario to filter the main metric projections by
+        schema:
+          $ref: '#/components/schemas/BaselineScenarioID'
+      - name: business_entity_id
+        in: query
+        required: false
+        description: The ID of the business entity to filter the main metric projections by
+        schema:
+          $ref: '#/components/schemas/BusinessEntityID'
+      - name: offset
+        in: query
+        required: false
+        description: The offset of the main metric projections to retrieve
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        required: false
+        description: The limit of the main metric projections to retrieve
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Main metric projections retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projections:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MainMetricProjection'
+                  pagination:
+                    $ref: '#/components/schemas/PaginationResult'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/baseline_forecasts
+      - OAuth2AuthCodeProduction: []
+  /v1/baseline_forecasts/projections_summaries/business_entity_summary:
+    get:
+      summary: Get forecast summary for the organization or a specific business entity
+      tags:
+      - Baseline forecasts
+      description: Retrieves the historical and forecasted emissions and intensity data for the entire organization or optionally filtered for a specific business entity.
+      operationId: getProjectionsSummaryForBusinessEntity
+      x-eov-operation-handler: baselineForecasts/projectionsSummaries
+      parameters:
+      - name: business_entity_id
+        in: query
+        required: false
+        description: 'The unique identifier for a business entity to filter the summary. If omitted, the summary for the entire organization is returned.
+
+          '
+        schema:
+          $ref: '#/components/schemas/BusinessEntityID'
+      - name: baseline_scenario_id
+        in: query
+        required: false
+        description: 'Return the summary for a specific baseline scenario. If omitted, the default baseline scenario will be used.
+
+          '
+        schema:
+          $ref: '#/components/schemas/BaselineScenarioID'
+      responses:
+        '200':
+          description: Forecast summary retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessEntityBaselineForecastSummary'
+        '400':
+          $ref: '#/components/responses/UserInputError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/baseline_forecasts
+      - OAuth2AuthCodeProduction: []
+components:
+  schemas:
+    BusinessEntityBaselineForecastSummary:
+      type: object
+      properties:
+        functionalUnitID:
+          type: string
+          format: uuid
+          description: The ID of the functional unit for the forecasts.
+          nullable: true
+        forecastStartYear:
+          type: integer
+          description: The starting year of the forecast data - any data points prior to this year are historical.
+        mainMetricDisplayUnit:
+          type: string
+          description: The unit used for displaying the main metric.
+          nullable: true
+        data:
+          type: array
+          description: Array of historical and forecasted data points with emissions and intensity.
+          items:
+            $ref: '#/components/schemas/ForecastSummaryDataPoint'
+      required:
+      - forecastStartYear
+      - data
+      additionalProperties: false
+    UserInputError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+          enum:
+          - 400
+        name:
+          type: string
+          example: Bad Request
+        type:
+          type: string
+          example: bad_request
+          enum:
+          - bad_request
+        message:
+          type: string
+          example: You are missing a parameter.
+        details:
+          type: string
+          example: You are missing the id parameter.
+    NullableOrganizationID:
+      type: string
+      format: uuid
+      nullable: true
+    MainMetricProjection:
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/MainMetricProjectionConfig'
+        projection:
+          $ref: '#/components/schemas/MainMetricProjectionData'
+      required:
+      - config
+      - projection
+    ActivityDataProjectionEmissionsProjectionMethod:
+      type: object
+      description: 'Describes how a projection is configured. This is a discriminated union of objects with a ''projectionMethod'' property of type ProjectionMethod.
+
+        '
+      oneOf:
+      - $ref: '#/components/schemas/HistoricalAverageGrowthRateProjectionConfig'
+      - $ref: '#/components/schemas/HistoricalAverageValueProjectionConfig'
+      - $ref: '#/components/schemas/HistoricalFixedValueProjectionConfig'
+      - $ref: '#/components/schemas/CustomDataProjectionConfig'
+      - $ref: '#/components/schemas/CustomGrowthRateProjectionConfig'
+      - $ref: '#/components/schemas/CustomYearlyPercentageChangesConfig'
+    EmissionsScope:
+      type: number
+      enum:
+      - 1
+      - 2
+      - 21
+      - 22
+      - 3
+      - -1
+      description: The GHG protocol scope this source belongs to
+    CustomYearlyPercentageChangesConfig:
+      type: object
+      properties:
+        projectionMethod:
+          type: string
+          enum:
+          - CUSTOM_YEARLY_PERCENTAGE_CHANGES
+          example: CUSTOM_YEARLY_PERCENTAGE_CHANGES
+        baseYear:
+          $ref: '#/components/schemas/Year'
+        yearlyValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/YearData'
+      required:
+      - projectionMethod
+      - baseYear
+      - yearlyValues
+    EmissionsSourceTypeID:
+      type: string
+      format: uuid
+    ActivityTypeID:
+      type: string
+      format: uuid
+    FunctionalUnitID:
+      type: string
+      format: uuid
+    BaselineScenarioID:
+      type: string
+      format: uuid
+    HistoricalFixedValueProjectionConfig:
+      type: object
+      properties:
+        projectionMethod:
+          type: string
+          enum:
+          - HISTORICAL_FIXED_VALUE
+          example: HISTORICAL_FIXED_VALUE
+        baseYear:
+          $ref: '#/components/schemas/Year'
+      required:
+      - projectionMethod
+      - baseYear
+    ActivityDataProjectionData:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ActivityDataProjectionID'
+        processID:
+          $ref: '#/components/schemas/BusinessEntityID'
+        emissionsSourceID:
+          $ref: '#/components/schemas/EmissionsSourceID'
+        emissionsSourceTypeID:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+        emissionsModelID:
+          $ref: '#/components/schemas/EmissionsModelID'
+        activityTypeID:
+          $ref: '#/components/schemas/ActivityTypeID'
+        activityType:
+          $ref: '#/components/schemas/ActivityType'
+        scope:
+          $ref: '#/components/schemas/EmissionsScope'
+        startYear:
+          $ref: '#/components/schemas/Year'
+        endYear:
+          $ref: '#/components/schemas/Year'
+        serverUnit:
+          $ref: '#/components/schemas/Unit'
+        displayUnit:
+          $ref: '#/components/schemas/Unit'
+        emissionsUnit:
+          $ref: '#/components/schemas/Unit'
+        secondaryActivityValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/YearData'
+        historicalActivityValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/YearData'
+        projectedActivityValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/YearData'
+        historicalScopeEmissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/YearData'
+        projectedScopeEmissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/YearData'
+        historicalBioCO2Emissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/YearData'
+        projectedBioCO2Emissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/YearData'
+      required:
+      - id
+      - processID
+      - emissionsSourceID
+      - emissionsSourceTypeID
+      - emissionsModelID
+      - activityTypeID
+      - activityType
+      - scope
+      - startYear
+      - endYear
+      - serverUnit
+      - displayUnit
+      - emissionsUnit
+      - secondaryActivityValues
+      - historicalActivityValues
+      - projectedActivityValues
+      - historicalScopeEmissions
+      - projectedScopeEmissions
+      - historicalBioCO2Emissions
+      - projectedBioCO2Emissions
+    PaginationResult:
+      type: object
+      properties:
+        offset:
+          type: integer
+          description: The current offset in the pagination
+        limit:
+          type: integer
+          description: The maximum number of items per page
+        total:
+          type: integer
+          description: The total number of items available
+        hasMore:
+          type: boolean
+          description: Whether there are more items available after this page
+        nextOffset:
+          type: integer
+          description: The offset for the next page, if available
+          nullable: true
+        previousOffset:
+          type: integer
+          description: The offset for the previous page, if available
+          nullable: true
+      required:
+      - offset
+      - limit
+      - total
+      - hasMore
+      additionalProperties: false
+    Unit:
+      type: string
+      description: A unit of measurement (e.g., kg, MWh, etc).
+      example: kg
+    MainMetricProjectionProjectionMethod:
+      type: object
+      description: 'Describes how a projection is configured. This is a discriminated union of objects with a ''projectionMethod'' property of type ProjectionMethod.
+
+        '
+      oneOf:
+      - $ref: '#/components/schemas/HistoricalAverageGrowthRateProjectionConfig'
+      - $ref: '#/components/schemas/HistoricalAverageValueProjectionConfig'
+      - $ref: '#/components/schemas/HistoricalFixedValueProjectionConfig'
+      - $ref: '#/components/schemas/CustomDataProjectionConfig'
+      - $ref: '#/components/schemas/CustomGrowthRateProjectionConfig'
+      - $ref: '#/components/schemas/CustomYearlyPercentageChangesConfig'
+    ActivityDataProjectionValueProjectionMethod:
+      type: object
+      description: 'Describes how a projection is configured. This is a discriminated union of objects with a ''projectionMethod'' property of type ProjectionMethod.
+
+        '
+      oneOf:
+      - $ref: '#/components/schemas/HistoricalAverageGrowthRateProjectionConfig'
+      - $ref: '#/components/schemas/HistoricalAverageValueProjectionConfig'
+      - $ref: '#/components/schemas/HistoricalFixedValueProjectionConfig'
+      - $ref: '#/components/schemas/CustomDataProjectionConfig'
+      - $ref: '#/components/schemas/CustomGrowthRateProjectionConfig'
+      - $ref: '#/components/schemas/CustomYearlyPercentageChangesConfig'
+    Year:
+      type: string
+      pattern: ^\d{4}$
+      example: '2025'
+    CustomGrowthRateProjectionConfig:
+      type: object
+      properties:
+        projectionMethod:
+          type: string
+          enum:
+          - CUSTOM_GROWTH_RATE
+          example: CUSTOM_GROWTH_RATE
+        baseYear:
+          $ref: '#/components/schemas/Year'
+        customGrowthRate:
+          type: number
+      required:
+      - projectionMethod
+      - baseYear
+      - customGrowthRate
+    YearData:
+      type: object
+      properties:
+        year:
+          $ref: '#/components/schemas/Year'
+        value:
+          type: number
+      required:
+      - year
+      - value
+    MainMetricProjectionConfig:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/MainMetricProjectionID'
+        processID:
+          $ref: '#/components/schemas/BusinessEntityID'
+        baselineScenarioID:
+          $ref: '#/components/schemas/BaselineScenarioID'
+        startYear:
+          $ref: '#/components/schemas/Year'
+        endYear:
+          $ref: '#/components/schemas/Year'
+        projectionMethod:
+          $ref: '#/components/schemas/MainMetricProjectionProjectionMethod'
+      required:
+      - id
+      - processID
+      - startYear
+      - endYear
+      - projectionMethod
+      - baselineScenarioID
+    MainMetricProjectionID:
+      type: string
+      format: uuid
+    ForecastSummaryDataPoint:
+      type: object
+      properties:
+        year:
+          type: integer
+          description: The year for this data point.
+        value:
+          $ref: '#/components/schemas/ForecastSummaryDataPointValue'
+          description: The forecast values for the year.
+      required:
+      - year
+      - value
+      additionalProperties: false
+    NotFoundError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 404
+          enum:
+          - 404
+        name:
+          type: string
+          example: Not Found
+        type:
+          type: string
+          example: not_found
+          enum:
+          - not_found
+        message:
+          type: string
+          example: Object not found
+        details:
+          type: string
+          example: The object with the specified ID does not exist in the database.
+    OrganizationID:
+      type: string
+      format: uuid
+    EmissionsSourceID:
+      type: string
+      format: uuid
+    ActivityDataProjection:
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/ActivityDataProjectionConfig'
+        projection:
+          $ref: '#/components/schemas/ActivityDataProjectionData'
+      required:
+      - config
+      - projection
+    BaselineScenario:
+      description: 'A baseline scenario is the collection of main metric and activity data projections for an organization. Each business entity process has a specific main metric projection under a baseline scenario. Each activity data type within each emissions source has a projection under a baseline scenario. Together they make up a baseline scenario. All organizations have a default baseline scenario that is created when the organization is created. Additional baseline scenarios can be defined.
+
+        '
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/BaselineScenarioID'
+          description: The unique identifier of the baseline scenario
+        name:
+          type: string
+          description: The name of the baseline scenario
+        description:
+          type: string
+          nullable: true
+          description: A description of the baseline scenario
+        isDefault:
+          type: boolean
+          description: Whether this is the default baseline scenario
+        orgID:
+          $ref: '#/components/schemas/OrganizationID'
+          description: The ID of the organization this baseline scenario belongs to
+      required:
+      - name
+      - isDefault
+      - orgID
+      additionalProperties: false
+    MainMetricProjectionData:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/MainMetricProjectionID'
+        processID:
+          $ref: '#/components/schemas/BusinessEntityID'
+        startYear:
+          $ref: '#/components/schemas/Year'
+        endYear:
+          $ref: '#/components/schemas/Year'
+        valuesBaseYear:
+          $ref: '#/components/schemas/Year'
+        functionalUnit:
+          $ref: '#/components/schemas/FunctionalUnit'
+        displayUnit:
+          $ref: '#/components/schemas/Unit'
+        historicalValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/YearData'
+        projectedValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/YearData'
+      required:
+      - id
+      - processID
+      - startYear
+      - endYear
+      - valuesBaseYear
+      - functionalUnitID
+      - displayUnit
+      - historicalValues
+      - projectedValues
+    ForbiddenError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 403
+          enum:
+          - 403
+        name:
+          type: string
+          example: Forbidden
+        type:
+          type: string
+          example: forbidden
+          enum:
+          - forbidden
+        message:
+          type: string
+          example: You do not have permission to access this resource.
+        details:
+          type: string
+          example: You are authenticated but do not have sufficient permissions.
+    EmissionsModelID:
+      type: string
+      format: uuid
+    HistoricalAverageValueProjectionConfig:
+      type: object
+      properties:
+        projectionMethod:
+          type: string
+          enum:
+          - HISTORICAL_AVERAGE_VALUE
+          example: HISTORICAL_AVERAGE_VALUE
+        historicalPeriodStart:
+          $ref: '#/components/schemas/Year'
+        historicalPeriodEnd:
+          $ref: '#/components/schemas/Year'
+      required:
+      - projectionMethod
+      - historicalPeriodStart
+      - historicalPeriodEnd
+    BusinessEntityID:
+      type: string
+      format: uuid
+    EmissionsFactorOverride:
+      type: object
+      description: Map of emissions factor keys to override objects.
+      properties:
+        key:
+          type: string
+        value:
+          type: number
+        unit:
+          $ref: '#/components/schemas/Unit'
+      required:
+      - key
+      - value
+      - unit
+    ForecastSummaryDataPointValue:
+      type: object
+      properties:
+        mainMetric:
+          type: number
+          description: Value of the main metric for the year.
+          nullable: true
+        scope1Emissions:
+          type: number
+          description: Scope 1 emissions value for the year.
+          nullable: true
+        scope2Emissions:
+          type: number
+          description: Scope 2 emissions value for the year.
+          nullable: true
+        scope3Emissions:
+          type: number
+          description: Scope 3 emissions value for the year.
+          nullable: true
+        emissionsIntensity:
+          type: number
+          description: Calculated intensity value for the year.
+          nullable: true
+      additionalProperties: false
+    NullableIndustryTaxonomySubIndustryCode:
+      type: string
+      pattern: ^\d{8}$
+      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
+      nullable: true
+    ActivityDataProjectionID:
+      type: string
+      format: uuid
+    FunctionalUnit:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/FunctionalUnitID'
+        name:
+          type: string
+          description: The name of the functional unit
+        description:
+          type: string
+          description: The description of the functional unit
+        defaultDisplayUnit:
+          $ref: '#/components/schemas/Unit'
+        supportedUnits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Unit'
+        orgID:
+          $ref: '#/components/schemas/NullableOrganizationID'
+          description: The ID of the organization that owns the functional unit
+        subIndustryCode:
+          $ref: '#/components/schemas/NullableIndustryTaxonomySubIndustryCode'
+          description: The sub-industry code of the functional unit
+        measurementType:
+          $ref: '#/components/schemas/FunctionalUnitMeasurementType'
+          description: The type of measurement of the functional unit
+      required:
+      - id
+      - name
+      - supportedUnits
+      - defaultDisplayUnit
+      - subIndustryCode
+    SecondaryActivityValueOverride:
+      type: object
+      description: Map of secondary activity value keys to override objects.
+      properties:
+        displayName:
+          type: string
+        key:
+          type: string
+        value:
+          type: number
+        unit:
+          $ref: '#/components/schemas/Unit'
+      required:
+      - displayName
+      - key
+      - value
+      - unit
+    ActivityType:
+      type: string
+    FunctionalUnitMeasurementType:
+      type: string
+      description: 'The type of measurement of the functional unit. COUNTER is used for attributes that are added across time periods (e.g., steel produced). GAUGE is used for attributes that are not added across time periods (e.g., number of employees).
+
+        '
+      enum:
+      - COUNTER
+      - GAUGE
+    ActivityDataProjectionConfig:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ActivityDataProjectionID'
+        scenarioID:
+          $ref: '#/components/schemas/BaselineScenarioID'
+        processID:
+          $ref: '#/components/schemas/BusinessEntityID'
+        emissionsSourceID:
+          $ref: '#/components/schemas/EmissionsSourceID'
+        emissionsSourceTypeID:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+        emissionsModelID:
+          $ref: '#/components/schemas/EmissionsModelID'
+        activityTypeID:
+          $ref: '#/components/schemas/ActivityTypeID'
+        activityType:
+          $ref: '#/components/schemas/ActivityType'
+        scope:
+          $ref: '#/components/schemas/EmissionsScope'
+        startYear:
+          $ref: '#/components/schemas/Year'
+        endYear:
+          $ref: '#/components/schemas/Year'
+        valueProjectionMethod:
+          $ref: '#/components/schemas/ActivityDataProjectionValueProjectionMethod'
+        emissionsProjectionMethod:
+          $ref: '#/components/schemas/ActivityDataProjectionEmissionsProjectionMethod'
+        emissionsFactorsOverrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmissionsFactorOverride'
+        secondaryActivityValueOverrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecondaryActivityValueOverride'
+      required:
+      - id
+      - scenarioID
+      - processID
+      - emissionsSourceID
+      - emissionsSourceTypeID
+      - emissionsModelID
+      - activityTypeID
+      - activityType
+      - scope
+      - startYear
+      - endYear
+      - valueProjectionMethod
+      - emissionsProjectionMethod
+      - emissionsFactorsOverrides
+      - secondaryActivityValueOverrides
+    CustomDataProjectionConfig:
+      type: object
+      properties:
+        projectionMethod:
+          type: string
+          enum:
+          - CUSTOM_DATA
+          example: CUSTOM_DATA
+        yearlyValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/YearData'
+      required:
+      - projectionMethod
+      - yearlyValues
+    HistoricalAverageGrowthRateProjectionConfig:
+      type: object
+      properties:
+        projectionMethod:
+          type: string
+          enum:
+          - HISTORICAL_AVERAGE_GROWTH_RATE
+          example: HISTORICAL_AVERAGE_GROWTH_RATE
+        baseYear:
+          $ref: '#/components/schemas/Year'
+        historicalPeriodStart:
+          $ref: '#/components/schemas/Year'
+        historicalPeriodEnd:
+          $ref: '#/components/schemas/Year'
+      required:
+      - projectionMethod
+      - baseYear
+      - historicalPeriodStart
+      - historicalPeriodEnd
+  responses:
+    UserInputError:
+      description: Your request is missing a parameter or has the wrong data type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserInputError'
+    NotFoundError:
+      description: Object not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundError'
+    ForbiddenError:
+      description: You are not authorized to access this object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ForbiddenError'
+  securitySchemes:
+    OAuth2ClientCredentialsProduction:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.sinai.com/oauth2/token
+          scopes:
+            https://api.sinai.com/organization: Grants access to organization functions
+            https://api.sinai.com/carbon_accounting: Grants read/write access to carbon accounting data
+            https://api.sinai.com/baseline_forecasts: Grants read/write access to baseline forecasts data
+            https://api.sinai.com/transition_plan: Grants read/write access to transition plan data
+            https://api.sinai.com/reduction_projects: Grants read/write access to reduction projects data
+            https://api.sinai.com/decarbonization_roadmap: Grants read/write access to decarbonization roadmap data
+    OAuth2AuthCodeProduction:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.sinai.com/oauth2/authorize
+          tokenUrl: https://auth.sinai.com/oauth2/token
+          scopes: {}

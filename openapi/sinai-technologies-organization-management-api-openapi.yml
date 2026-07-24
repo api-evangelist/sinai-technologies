@@ -1,0 +1,1532 @@
+openapi: 3.1.0
+info:
+  title: SINAI Baseline forecasts Organization management API
+  description: The SINAI application API
+  version: 1.0.0
+  contact:
+    name: API Support
+    url: https://help.sinai.com/en/
+    email: support@sinai.com
+servers:
+- url: https://api.sinai.com/
+  description: Production server
+security:
+- OAuth2ClientCredentialsProduction:
+  - https://api.sinai.com/organization
+  - https://api.sinai.com/carbon_accounting
+  - https://api.sinai.com/baseline_forecasts
+  - https://api.sinai.com/transition_plan
+  - https://api.sinai.com/reduction_projects
+  - https://api.sinai.com/decarbonization_roadmap
+- OAuth2AuthCodeProduction: []
+tags:
+- name: Organization management
+paths:
+  /v1/organization/reporting_months:
+    get:
+      summary: Get reporting months for a given calendar or fiscal year
+      tags:
+      - Organization management
+      description: 'Use this endpoint to get a list of all the reporting months for a given calendar or fiscal year. If you ask for calendar year 2024, you will be given "2024-01", "2024-02", ..., "2024-12".
+
+        '
+      operationId: getReportingMonths
+      x-eov-operation-handler: organization/reportingMonths
+      parameters:
+      - name: fiscal_year
+        in: query
+        description: Get reporting months for a specific fiscal year, using the organization's fiscal start month setting
+        required: false
+        schema:
+          $ref: '#/components/schemas/Year'
+      - name: calendar_year
+        in: query
+        description: Get reporting months for a specific calendar year
+        required: false
+        schema:
+          $ref: '#/components/schemas/Year'
+      responses:
+        '200':
+          description: Reporting months for a given calendar or fiscal year retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Month'
+        '400':
+          $ref: '#/components/responses/UserInputError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/organization:
+    get:
+      summary: Retrieve the current organization
+      tags:
+      - Organization management
+      description: Use this endpoint to get the organization details.
+      operationId: getCurrentOrganization
+      x-eov-operation-handler: organization/organizations
+      responses:
+        '200':
+          description: Organization retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/functional_units:
+    get:
+      summary: List functional units
+      tags:
+      - Organization management
+      description: 'Use this endpoint to get a list of all functional units. If not filter is provided, only the functional units that are not industry-specific will be returned.
+
+        '
+      operationId: getFunctionalUnits
+      x-eov-operation-handler: organization/functionalUnits
+      parameters:
+      - name: sub_industry_code
+        in: query
+        description: 'Include functional units for this sub-industry configured. This is an additive filter.
+
+          '
+        required: false
+        schema:
+          $ref: '#/components/schemas/IndustryTaxonomySubIndustryCode'
+      responses:
+        '200':
+          description: Functional units retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FunctionalUnit'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+    post:
+      summary: Create a functional unit
+      tags:
+      - Organization management
+      description: Use this endpoint to create a new functional unit.
+      operationId: createFunctionalUnit
+      x-eov-operation-handler: organization/functionalUnits
+      requestBody:
+        description: The functional unit to create
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - defaultDisplayUnit
+              properties:
+                name:
+                  type: string
+                  description: The name of the functional unit
+                description:
+                  type: string
+                  description: The description of the functional unit
+                defaultDisplayUnit:
+                  $ref: '#/components/schemas/Unit'
+                  description: The default display unit for the functional unit
+                subIndustryCode:
+                  $ref: '#/components/schemas/NullableIndustryTaxonomySubIndustryCode'
+                  description: The sub-industry code of the functional unit
+                measurementType:
+                  $ref: '#/components/schemas/FunctionalUnitMeasurementType'
+                  description: The type of measurement of the functional unit
+      responses:
+        '201':
+          description: Functional unit created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionalUnit'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/functional_units/{id}:
+    get:
+      summary: Retrieve a functional unit by its ID
+      tags:
+      - Organization management
+      description: Use this endpoint to get a specific functional unit by its ID.
+      operationId: getFunctionalUnit
+      x-eov-operation-handler: organization/functionalUnits
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the functional unit
+        required: true
+        schema:
+          $ref: '#/components/schemas/FunctionalUnitID'
+      responses:
+        '200':
+          description: Functional unit retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionalUnit'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/industry_taxonomy/sectors:
+    get:
+      summary: List industry taxonomy sectors
+      tags:
+      - Organization management
+      description: Use this endpoint to get a list of industry taxonomy sectors.
+      operationId: getSectors
+      x-eov-operation-handler: organization/industryTaxonomy
+      responses:
+        '200':
+          description: Industry taxonomy sectors retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IndustryTaxonomySector'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/industry_taxonomy/industry_groups:
+    get:
+      summary: List industry taxonomy industry groups
+      tags:
+      - Organization management
+      description: Use this endpoint to get a list of industry taxonomy industry groups.
+      operationId: getIndustryGroups
+      x-eov-operation-handler: organization/industryTaxonomy
+      parameters:
+      - name: sector_code
+        in: query
+        description: filter industry groups by this sector code
+        required: false
+        schema:
+          $ref: '#/components/schemas/IndustryTaxonomySectorCode'
+      responses:
+        '200':
+          description: Industry taxonomy industry groups retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IndustryTaxonomyIndustryGroup'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/industry_taxonomy/industries:
+    get:
+      summary: List industry taxonomy industries
+      tags:
+      - Organization management
+      description: Use this endpoint to get a list of industry taxonomy industries.
+      operationId: getIndustries
+      x-eov-operation-handler: organization/industryTaxonomy
+      parameters:
+      - name: industry_group_code
+        in: query
+        description: filter industries by this industry group code
+        required: false
+        schema:
+          $ref: '#/components/schemas/IndustryTaxonomyIndustryGroupCode'
+      responses:
+        '200':
+          description: Industry taxonomy industries retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IndustryTaxonomyIndustry'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/industry_taxonomy/sub_industries:
+    get:
+      summary: List industry taxonomy sub-industries
+      tags:
+      - Organization management
+      description: Use this endpoint to get a list of industry taxonomy sub-industries.
+      operationId: getSubIndustries
+      x-eov-operation-handler: organization/industryTaxonomy
+      parameters:
+      - name: industry_code
+        in: query
+        description: filter sub-industries by this industry code
+        required: false
+        schema:
+          $ref: '#/components/schemas/IndustryTaxonomyIndustryCode'
+      responses:
+        '200':
+          description: Industry taxonomy sub-industries retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IndustryTaxonomySubIndustry'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/business_entities/{id}:
+    get:
+      summary: Retrieve a business entity by its ID
+      tags:
+      - Organization management
+      description: Use this endpoint to get a specific business entity by its ID.
+      operationId: getBusinessEntity
+      x-eov-operation-handler: organization/businessEntities
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier for the business entity
+        required: true
+        schema:
+          $ref: '#/components/schemas/BusinessEntityID'
+      responses:
+        '200':
+          description: Business entity retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessEntity'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+    put:
+      summary: Update a business entity
+      tags:
+      - Organization management
+      description: This endpoint updates the details of a specified business entity in the system.
+      operationId: updateBusinessEntity
+      x-eov-operation-handler: organization/businessEntities
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique identifier of the business entity to be updated.
+        schema:
+          $ref: '#/components/schemas/BusinessEntityID'
+      requestBody:
+        description: The new business entity details to be updated.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  example: New business entity name
+                  description: The new name of the business entity.
+                description:
+                  type: string
+                  example: This is an updated description for the business entity.
+                  description: The new description of the business entity.
+      responses:
+        '200':
+          description: Business entity successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessEntity'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+    delete:
+      summary: Delete a business entity
+      tags:
+      - Organization management
+      description: This endpoint deletes a specified business entity from the system.
+      operationId: deleteBusinessEntity
+      x-eov-operation-handler: organization/businessEntities
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique identifier of the business entity to be deleted.
+        schema:
+          $ref: '#/components/schemas/BusinessEntityID'
+      responses:
+        '204':
+          description: Business entity successfully deleted
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/business_entities/{id}/descendants:
+    get:
+      summary: Retrieve all descendants of a business entity
+      tags:
+      - Organization management
+      description: 'Use this endpoint to get all the business entities that are descendants of the entity specified by the ID. Descendants include children of a business entities and also the children of those children.
+
+        '
+      operationId: getBusinessEntityDescendants
+      x-eov-operation-handler: organization/businessEntities
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier for the business entity
+        required: true
+        schema:
+          $ref: '#/components/schemas/BusinessEntityID'
+      - name: business_entity_type_id
+        in: query
+        description: filter entities by this type id
+        required: false
+        schema:
+          $ref: '#/components/schemas/BusinessEntityTypeID'
+      - name: business_entity_type_category
+        in: query
+        description: filter entities by this type category
+        required: false
+        schema:
+          $ref: '#/components/schemas/BusinessEntityTypeCategory'
+      responses:
+        '200':
+          description: Business entity retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessEntity'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/business_entities:
+    post:
+      summary: Create a new business entity
+      tags:
+      - Organization management
+      description: This endpoint creates a new business entity.
+      operationId: createBusinessEntity
+      x-eov-operation-handler: organization/businessEntities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parentID:
+                  $ref: '#/components/schemas/BusinessEntityID'
+                  description: The ID of the parent business entity.
+                name:
+                  type: string
+                  example: New Business Entity
+                  description: The name of the new business entity.
+                description:
+                  type: string
+                  example: Description of the new business entity.
+                  description: The description of the new business entity.
+                countryCode:
+                  $ref: '#/components/schemas/CountryCode'
+                  description: The country code of the new business entity.
+                subIndustryCode:
+                  $ref: '#/components/schemas/IndustryTaxonomySubIndustryCode'
+                  description: The sub-industry code of the new business entity.
+                facilityTypeID:
+                  $ref: '#/components/schemas/NullableFacilityTypeID'
+                  description: The facility type of the new business entity.
+                processTypeID:
+                  $ref: '#/components/schemas/NullableProcessTypeID'
+                  description: The process type of the new business entity.
+                businessEntityTypeID:
+                  $ref: '#/components/schemas/BusinessEntityTypeID'
+                  description: The type of business entity to create.
+                defaultFunctionalUnitID:
+                  $ref: '#/components/schemas/FunctionalUnitID'
+                  description: The default functional unit for the new business entity.
+                customFunctionalUnitName:
+                  type: string
+                  description: 'The name of the custom functional unit for the business entity. If you want to define a custom functional unit for the business entity, make sure to set this parameter.
+
+                    '
+                defaultDisplayUnit:
+                  type: string
+                  description: 'The default display unit for the functional unit of the business entity. If you want to define a custom functional unit for the business entity, make sure to set this parameter.
+
+                    '
+                activeStartTimestamp:
+                  type: number
+                  description: The timestamp when the business entity becomes active, in milliseconds since epoch.
+                activeEndTimestamp:
+                  type: number
+                  description: The timestamp when the business entity becomes inactive, in milliseconds since epoch.
+              required:
+              - parentID
+              - name
+              - businessEntityTypeID
+      responses:
+        '201':
+          description: Business entity successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessEntity'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+    get:
+      summary: List business entities in an org
+      tags:
+      - Organization management
+      description: Use this endpoint to get a list of business entities that meet a specific filtering criteria.
+      operationId: getBusinessEntities
+      x-eov-operation-handler: organization/businessEntities
+      parameters:
+      - name: business_entity_type_id
+        in: query
+        description: filter entities by this type id
+        required: false
+        schema:
+          $ref: '#/components/schemas/BusinessEntityTypeID'
+      - name: business_entity_type_category
+        in: query
+        description: filter entities by this type category
+        required: false
+        schema:
+          $ref: '#/components/schemas/BusinessEntityTypeCategory'
+      responses:
+        '200':
+          description: the list of business entities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessEntity'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/business_entity_types:
+    get:
+      summary: List business entity types
+      tags:
+      - Organization management
+      description: Use this endpoint to get a list of business entity types.
+      operationId: getBusinessEntityTypes
+      x-eov-operation-handler: organization/businessEntityTypes
+      responses:
+        '200':
+          description: The list of business entity types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessEntityType'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/facility_types:
+    get:
+      summary: List facility types
+      tags:
+      - Organization management
+      description: Use this endpoint to get a list of facility types.
+      operationId: getFacilityTypes
+      x-eov-operation-handler: organization/facilityTypes
+      parameters:
+      - name: sub_industry_code
+        in: query
+        description: 'Filter facility types by sub industry code. This is an additive filter; if specified, facility types with a sub industry code that matches the provided code will be returned in addition to facility types that do not have a sub industry code.
+
+          '
+        required: false
+        schema:
+          $ref: '#/components/schemas/IndustryTaxonomySubIndustryCode'
+      responses:
+        '200':
+          description: The list of facility types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FacilityType'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/process_types:
+    get:
+      summary: List process types
+      tags:
+      - Organization management
+      description: Use this endpoint to get a list of process types.
+      operationId: getProcessTypes
+      x-eov-operation-handler: organization/processTypes
+      parameters:
+      - name: facility_type_id
+        in: query
+        description: Filter process types by facility type ID
+        required: false
+        schema:
+          $ref: '#/components/schemas/FacilityTypeID'
+      responses:
+        '200':
+          description: The list of process types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProcessType'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/emissions_sources/{id}:
+    get:
+      summary: Retrieve an emissions source by its ID
+      tags:
+      - Organization management
+      description: Use this endpoint to get a specific emissions source by its ID.
+      operationId: getEmissionsSource
+      x-eov-operation-handler: organization/emissionsSources
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier for the emissions source
+        required: true
+        schema:
+          $ref: '#/components/schemas/EmissionsSourceID'
+      responses:
+        '200':
+          description: Emissions source retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmissionsSource'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+    put:
+      summary: Update an emissions source
+      tags:
+      - Organization management
+      description: Updates an existing emissions source with new details.
+      operationId: updateEmissionsSource
+      x-eov-operation-handler: organization/emissionsSources
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique identifier of the emissions source to be updated
+        schema:
+          $ref: '#/components/schemas/EmissionsSourceID'
+      requestBody:
+        description: The updated emissions source details
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - processID
+              - emissionsSourceTypeID
+              - emissionsModelID
+              properties:
+                processID:
+                  $ref: '#/components/schemas/BusinessEntityID'
+                  description: The id of the process business entity this emissions source belongs to
+                emissionsSourceTypeID:
+                  $ref: '#/components/schemas/EmissionsSourceTypeID'
+                  description: The type of emissions source this emissions source represents
+                emissionsModelID:
+                  $ref: '#/components/schemas/EmissionsModelID'
+                  description: The id of the emissions model used to compute the emissions
+                relatedSourceID:
+                  $ref: '#/components/schemas/EmissionsSourceID'
+                  description: ID of a related emissions source
+                scope:
+                  $ref: '#/components/schemas/EmissionsScope'
+                  description: The GHG protocol scope this source belongs to
+                status:
+                  $ref: '#/components/schemas/EmissionsSourceStatus'
+                  description: The status of this emissions source
+                description:
+                  type: string
+                  description: A description of what this emissions source represents
+                referenceSourceIDs:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EmissionsSourceID'
+                  description: List of reference emissions source IDs
+      responses:
+        '200':
+          description: Emissions source successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmissionsSource'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+    delete:
+      summary: Delete an emissions source
+      tags:
+      - Organization management
+      description: Deletes an emissions source and all emissions activity data associated with it.
+      operationId: deleteEmissionsSource
+      x-eov-operation-handler: organization/emissionsSources
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique identifier of the emissions source to be deleted
+        schema:
+          $ref: '#/components/schemas/EmissionsSourceID'
+      responses:
+        '204':
+          description: Emissions source successfully deleted
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/emissions_sources:
+    post:
+      summary: Create a new emissions source
+      tags:
+      - Organization management
+      description: Creates a new emissions source under the specified business entity process.
+      operationId: createEmissionsSource
+      x-eov-operation-handler: organization/emissionsSources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - processID
+              - emissionsSourceTypeID
+              - emissionsModelID
+              properties:
+                processID:
+                  $ref: '#/components/schemas/BusinessEntityID'
+                  description: The id of the process business entity this emissions source belongs to
+                emissionsSourceTypeID:
+                  $ref: '#/components/schemas/EmissionsSourceTypeID'
+                  description: The type of emissions source this emissions source represents.
+                emissionsModelID:
+                  $ref: '#/components/schemas/EmissionsModelID'
+                  description: The id of the emissions model used to compute the emissions of this emissions source
+                relatedSourceID:
+                  $ref: '#/components/schemas/EmissionsSourceID'
+                scope:
+                  $ref: '#/components/schemas/EmissionsScope'
+                status:
+                  $ref: '#/components/schemas/EmissionsSourceStatus'
+                description:
+                  type: string
+                  description: A description of what this emissions source represents
+                referenceSourceIDs:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EmissionsSourceID'
+      responses:
+        '201':
+          description: The newly created emissions source
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmissionsSource'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+    get:
+      summary: List emissions sources in an org
+      tags:
+      - Organization management
+      description: 'Use this endpoint to get a list of emissions sources in the organization.  If no filters are specified, all emissions sources in the organization are returned. You can optionally filter the results by process ID or business entity ID.
+
+        '
+      operationId: getEmissionsSources
+      x-eov-operation-handler: organization/emissionsSources
+      parameters:
+      - name: process_id
+        in: query
+        description: Filter emissions sources by process ID
+        required: false
+        schema:
+          $ref: '#/components/schemas/BusinessEntityID'
+      - name: business_entity_id
+        in: query
+        description: 'Filter emissions sources by business entity ID. This will return all emissions sources that are descendants of the specified business entity.
+
+          '
+        required: false
+        schema:
+          $ref: '#/components/schemas/BusinessEntityID'
+      - name: emissions_source_type_id
+        in: query
+        description: Filter emissions sources by source type ID
+        required: false
+        schema:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+      responses:
+        '200':
+          description: The list of emissions sources
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmissionsSource'
+        '400':
+          $ref: '#/components/responses/UserInputError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/emissions_source_types/{id}:
+    get:
+      summary: Retrieve an emissions source type by its ID
+      tags:
+      - Organization management
+      description: Use this endpoint to get a specific emissions source type by its ID.
+      operationId: getEmissionsSourceType
+      x-eov-operation-handler: organization/emissionsSourceTypes
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier for the emissions source type
+        required: true
+        schema:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+      responses:
+        '200':
+          description: Emissions source type retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmissionsSourceType'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/emissions_source_types:
+    get:
+      summary: List emissions source types
+      tags:
+      - Organization management
+      description: Use this endpoint to get a list of all emissions source types.
+      operationId: getEmissionsSourceTypes
+      x-eov-operation-handler: organization/emissionsSourceTypes
+      parameters:
+      - name: scope
+        in: query
+        description: Filter source types by GHG protocol scope
+        required: false
+        schema:
+          $ref: '#/components/schemas/EmissionsScope'
+      responses:
+        '200':
+          description: The list of emissions source types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmissionsSourceType'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/emissions_models/{id}:
+    get:
+      summary: Retrieve an emissions model by its ID
+      tags:
+      - Organization management
+      description: Use this endpoint to get a specific emissions model by its ID.
+      operationId: getEmissionsModel
+      x-eov-operation-handler: organization/emissionsModels
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier for the emissions model
+        required: true
+        schema:
+          $ref: '#/components/schemas/EmissionsModelID'
+      responses:
+        '200':
+          description: Emissions model retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmissionsModel'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+  /v1/organization/emissions_models:
+    get:
+      summary: List emissions models
+      tags:
+      - Organization management
+      description: Use this endpoint to get a list of emissions models, optionally filtered by emissions source type and protocol.
+      operationId: getEmissionsModels
+      x-eov-operation-handler: organization/emissionsModels
+      parameters:
+      - name: emissions_source_type_id
+        in: query
+        description: Filter models by emissions source type ID
+        required: false
+        schema:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+      - name: protocol_id
+        in: query
+        description: Filter models by protocol ID
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: The list of emissions models
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmissionsModel'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/organization
+      - OAuth2AuthCodeProduction: []
+components:
+  schemas:
+    BusinessEntityType:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/BusinessEntityTypeID'
+          description: The unique identifier of the business entity type
+        name:
+          type: string
+          description: The name of the business entity type
+        description:
+          type: string
+          description: A description of the business entity type
+        typeCategory:
+          $ref: '#/components/schemas/BusinessEntityTypeCategory'
+          description: The category of the business entity type
+        allowedAtRoot:
+          type: boolean
+          description: Whether the business entity type is allowed at the root level
+        orgID:
+          $ref: '#/components/schemas/NullableOrganizationID'
+          description: The ID of the organization this business entity type belongs to
+      required:
+      - id
+      - name
+      - typeCategory
+    UserInputError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+          enum:
+          - 400
+        name:
+          type: string
+          example: Bad Request
+        type:
+          type: string
+          example: bad_request
+          enum:
+          - bad_request
+        message:
+          type: string
+          example: You are missing a parameter.
+        details:
+          type: string
+          example: You are missing the id parameter.
+    NullableOrganizationID:
+      type: string
+      format: uuid
+      nullable: true
+    EmissionsSourceType:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+          description: The unique identifier of the emissions source type
+        name:
+          type: string
+          description: The name of the emissions source type
+        scope:
+          $ref: '#/components/schemas/EmissionsScope'
+          description: The GHG protocol scope this source type belongs to
+      required:
+      - id
+      - name
+      - scope
+      additionalProperties: false
+    Organization:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/OrganizationID'
+          description: The id of the organization
+        rootBusinessEntityID:
+          $ref: '#/components/schemas/BusinessEntityID'
+          description: The id of the root business entity
+        defaultFunctionalUnitID:
+          $ref: '#/components/schemas/FunctionalUnitID'
+          description: The id of the default functional unit
+        fiscalYearStartMonth:
+          type: number
+          description: The month of the fiscal year start
+    EmissionsScope:
+      type: number
+      enum:
+      - 1
+      - 2
+      - 21
+      - 22
+      - 3
+      - -1
+      description: The GHG protocol scope this source belongs to
+    NullableBusinessEntityID:
+      type: string
+      format: uuid
+      nullable: true
+    IndustryTaxonomyIndustryGroupCode:
+      type: string
+      pattern: ^\d{4}$
+      description: The industry group code of the business entity or functional unit, formatted as four digits.
+    CountryCode:
+      type: string
+      description: The country code of the business entity.
+    EmissionsSourceTypeID:
+      type: string
+      format: uuid
+    IndustryTaxonomyIndustryGroupID:
+      type: string
+      format: uuid
+    FunctionalUnitID:
+      type: string
+      format: uuid
+    NullableFacilityTypeID:
+      type: string
+      format: uuid
+      description: The facility type of the business entity if it is a facility.
+      nullable: true
+    Unit:
+      type: string
+      description: A unit of measurement (e.g., kg, MWh, etc).
+      example: kg
+    IndustryTaxonomySubIndustry:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/IndustryTaxonomySubIndustryID'
+        name:
+          type: string
+        subIndustryCode:
+          $ref: '#/components/schemas/IndustryTaxonomySubIndustryCode'
+      required:
+      - id
+      - name
+      - subIndustryCode
+    Year:
+      type: string
+      pattern: ^\d{4}$
+      example: '2025'
+    ProcessType:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ProcessTypeID'
+          description: The unique identifier of the process type
+        name:
+          type: string
+          description: The name of the process type
+        description:
+          type: string
+          description: A description of the process type
+          nullable: true
+        facilityTypeID:
+          $ref: '#/components/schemas/NullableFacilityTypeID'
+          description: The facility type of the process type
+        orgID:
+          $ref: '#/components/schemas/NullableOrganizationID'
+          description: The ID of the organization this process type belongs to, if any
+      required:
+      - id
+      - name
+      - facilityTypeID
+    IndustryTaxonomySectorID:
+      type: string
+      format: uuid
+    NotFoundError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 404
+          enum:
+          - 404
+        name:
+          type: string
+          example: Not Found
+        type:
+          type: string
+          example: not_found
+          enum:
+          - not_found
+        message:
+          type: string
+          example: Object not found
+        details:
+          type: string
+          example: The object with the specified ID does not exist in the database.
+    OrganizationID:
+      type: string
+      format: uuid
+    EmissionsSourceID:
+      type: string
+      format: uuid
+    BusinessEntity:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/BusinessEntityID'
+          description: The unique identifier of the business entity
+        orgID:
+          $ref: '#/components/schemas/OrganizationID'
+          description: The ID of the organization this business entity belongs to
+        parentID:
+          $ref: '#/components/schemas/NullableBusinessEntityID'
+          description: The ID of the parent business entity
+        name:
+          type: string
+          example: Manufacturing plant
+          description: The name of the business entity
+        description:
+          type: string
+          example: The building where things are manufactured
+          description: A description of the business entity
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
+          description: The country code of the business entity
+        subIndustryCode:
+          $ref: '#/components/schemas/NullableIndustryTaxonomySubIndustryCode'
+          description: The industry code of the business entity
+        facilityTypeID:
+          $ref: '#/components/schemas/NullableFacilityTypeID'
+          description: The facility type of the business entity
+        processTypeID:
+          $ref: '#/components/schemas/NullableProcessTypeID'
+          description: The process type of the business entity
+        businessEntityTypeID:
+          $ref: '#/components/schemas/BusinessEntityTypeID'
+          description: The type of business entity
+        defaultFunctionalUnitID:
+          $ref: '#/components/schemas/FunctionalUnitID'
+          description: The default functional unit for the business entity
+        defaultDisplayUnit:
+          type: string
+          description: The default display unit for the functional unit of the business entity
+        activeStartTimestamp:
+          type: number
+          description: The timestamp when the business entity becomes active, in milliseconds since epoch
+        activeEndTimestamp:
+          type: number
+          description: The timestamp when the business entity becomes inactive, in milliseconds since epoch
+      required:
+      - id
+      - name
+      additionalProperties: false
+    IndustryTaxonomySubIndustryID:
+      type: string
+      format: uuid
+    ForbiddenError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 403
+          enum:
+          - 403
+        name:
+          type: string
+          example: Forbidden
+        type:
+          type: string
+          example: forbidden
+          enum:
+          - forbidden
+        message:
+          type: string
+          example: You do not have permission to access this resource.
+        details:
+          type: string
+          example: You are authenticated but do not have sufficient permissions.
+    EmissionsModelID:
+      type: string
+      format: uuid
+    IndustryTaxonomySectorCode:
+      type: string
+      pattern: ^\d{2}$
+      description: The sector code of the business entity or functional unit, formatted as two digits.
+    Month:
+      type: string
+      pattern: ^\d{4}-\d{2}$
+      example: 2025-03
+    EmissionsSourceStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+      description: The status of this emissions source
+    BusinessEntityID:
+      type: string
+      format: uuid
+    FacilityType:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/FacilityTypeID'
+          description: The unique identifier of the facility type
+        name:
+          type: string
+          description: The name of the facility type
+        description:
+          type: string
+          description: A description of the facility type
+          nullable: true
+        subIndustryCode:
+          $ref: '#/components/schemas/NullableIndustryTaxonomySubIndustryCode'
+          description: The industry code of the facility type
+        orgID:
+          $ref: '#/components/schemas/NullableOrganizationID'
+          description: The ID of the organization this facility type belongs to
+      required:
+      - id
+      - name
+      - subIndustryCode
+    IndustryTaxonomySubIndustryCode:
+      type: string
+      pattern: ^\d{8}$
+      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
+    EmissionsSource:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/EmissionsSourceID'
+          description: The unique identifier of the emissions source
+        processID:
+          $ref: '#/components/schemas/BusinessEntityID'
+          description: The id of the process business entity this source belongs to
+        emissionsSourceTypeID:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+          description: The type of emissions source this is
+        emissionsModelID:
+          $ref: '#/components/schemas/EmissionsModelID'
+          description: The id of the emissions model used to compute the emissions
+        relatedSourceID:
+          $ref: '#/components/schemas/NullableEmissionsSourceID'
+          description: ID of a related emissions source, or null if there is no related source
+        scope:
+          $ref: '#/components/schemas/EmissionsScope'
+          description: The GHG protocol scope this source belongs to
+        status:
+          $ref: '#/components/schemas/EmissionsSourceStatus'
+          description: The status of this emissions source
+        description:
+          type: string
+          description: A description of what this emissions source represents
+        referenceSourceIDs:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmissionsSourceID'
+          description: List of reference emissions source IDs
+          nullable: true
+      required:
+      - id
+      - processID
+      - emissionsSourceTypeID
+      - emissionsModelID
+      - scope
+      - status
+      additionalProperties: false
+    NullableIndustryTaxonomySubIndustryCode:
+      type: string
+      pattern: ^\d{8}$
+      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
+      nullable: true
+    IndustryTaxonomyIndustry:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/IndustryTaxonomyIndustryID'
+        name:
+          type: string
+        industryCode:
+          $ref: '#/components/schemas/IndustryTaxonomyIndustryCode'
+      required:
+      - id
+      - name
+      - industryCode
+    FacilityTypeID:
+      type: string
+      format: uuid
+      description: The facility type of the business entity if it is a facility.
+    IndustryTaxonomyIndustryGroup:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/IndustryTaxonomyIndustryGroupID'
+        name:
+          type: string
+        industryGroupCode:
+          $ref: '#/components/schemas/IndustryTaxonomyIndustryGroupCode'
+      required:
+      - id
+      - name
+      - industryGroupCode
+    FunctionalUnit:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/FunctionalUnitID'
+        name:
+          type: string
+          description: The name of the functional unit
+        description:
+          type: string
+          description: The description of the functional unit
+        defaultDisplayUnit:
+          $ref: '#/components/schemas/Unit'
+        supportedUnits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Unit'
+        orgID:
+          $ref: '#/components/schemas/NullableOrganizationID'
+          description: The ID of the organization that owns the functional unit
+        subIndustryCode:
+          $ref: '#/components/schemas/NullableIndustryTaxonomySubIndustryCode'
+          description: The sub-industry code of the functional unit
+        measurementType:
+          $ref: '#/components/schemas/FunctionalUnitMeasurementType'
+          description: The type of measurement of the functional unit
+      required:
+      - id
+      - name
+      - supportedUnits
+      - defaultDisplayUnit
+      - subIndustryCode
+    EmissionsModel:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/EmissionsModelID'
+          description: The unique identifier of the emissions model
+        emissionsSourceTypeID:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+          description: The type of emissions source this model is for
+        protocol:
+          $ref: '#/components/schemas/Protocol'
+          description: The protocol this model follows
+        displayName:
+          type: string
+          description: The display name of the emissions model
+        emissionsFactorsSources:
+          type: array
+          items:
+            type: string
+          description: List of emissions factors sources used by this model
+      required:
+      - id
+      - protocol
+      - displayName
+      - emissionsFactorsSources
+      additionalProperties: false
+    ProcessTypeID:
+      type: string
+      format: uuid
+      description: The process type of the business entity if it is a process.
+    NullableProcessTypeID:
+      type: string
+      format: uuid
+      description: The process type of the business entity if it is a process.
+      nullable: true
+    IndustryTaxonomyIndustryID:
+      type: string
+      format: uuid
+    IndustryTaxonomySector:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/IndustryTaxonomySectorID'
+        name:
+          type: string
+        sectorCode:
+          $ref: '#/components/schemas/IndustryTaxonomySectorCode'
+      required:
+      - id
+      - name
+      - sectorCode
+    FunctionalUnitMeasurementType:
+      type: string
+      description: 'The type of measurement of the functional unit. COUNTER is used for attributes that are added across time periods (e.g., steel produced). GAUGE is used for attributes that are not added across time periods (e.g., number of employees).
+
+        '
+      enum:
+      - COUNTER
+      - GAUGE
+    IndustryTaxonomyIndustryCode:
+      type: string
+      pattern: ^\d{6}$
+      description: The industry code of the business entity or functional unit, formatted as six digits.
+    BusinessEntityTypeCategory:
+      type: string
+      enum:
+      - ORG_LEVEL
+      - MID_LEVEL
+      - FACILITY_LEVEL
+      - PROCESS_LEVEL
+    BusinessEntityTypeID:
+      type: string
+      format: uuid
+    Protocol:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the protocol
+        displayName:
+          type: string
+          description: The display name of the protocol
+      required:
+      - id
+      - displayName
+      additionalProperties: false
+    NullableEmissionsSourceID:
+      type: string
+      format: uuid
+      nullable: true
+  responses:
+    UserInputError:
+      description: Your request is missing a parameter or has the wrong data type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserInputError'
+    NotFoundError:
+      description: Object not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundError'
+    ForbiddenError:
+      description: You are not authorized to access this object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ForbiddenError'
+  securitySchemes:
+    OAuth2ClientCredentialsProduction:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.sinai.com/oauth2/token
+          scopes:
+            https://api.sinai.com/organization: Grants access to organization functions
+            https://api.sinai.com/carbon_accounting: Grants read/write access to carbon accounting data
+            https://api.sinai.com/baseline_forecasts: Grants read/write access to baseline forecasts data
+            https://api.sinai.com/transition_plan: Grants read/write access to transition plan data
+            https://api.sinai.com/reduction_projects: Grants read/write access to reduction projects data
+            https://api.sinai.com/decarbonization_roadmap: Grants read/write access to decarbonization roadmap data
+    OAuth2AuthCodeProduction:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.sinai.com/oauth2/authorize
+          tokenUrl: https://auth.sinai.com/oauth2/token
+          scopes: {}

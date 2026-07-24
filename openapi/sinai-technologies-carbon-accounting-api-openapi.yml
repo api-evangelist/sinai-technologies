@@ -1,0 +1,670 @@
+openapi: 3.1.0
+info:
+  title: SINAI Baseline forecasts Carbon accounting API
+  description: The SINAI application API
+  version: 1.0.0
+  contact:
+    name: API Support
+    url: https://help.sinai.com/en/
+    email: support@sinai.com
+servers:
+- url: https://api.sinai.com/
+  description: Production server
+security:
+- OAuth2ClientCredentialsProduction:
+  - https://api.sinai.com/organization
+  - https://api.sinai.com/carbon_accounting
+  - https://api.sinai.com/baseline_forecasts
+  - https://api.sinai.com/transition_plan
+  - https://api.sinai.com/reduction_projects
+  - https://api.sinai.com/decarbonization_roadmap
+- OAuth2AuthCodeProduction: []
+tags:
+- name: Carbon accounting
+paths:
+  /v1/carbon_accounting/summaries/monthly_detailed_emissions_summaries:
+    get:
+      summary: Retrieve monthly, activity-level detailed emissions summaries
+      tags:
+      - Carbon accounting
+      description: 'Use this endpoint to retrieve emissions summaries at month and activity levels.
+
+        '
+      operationId: getMonthlyDetailedEmissionsSummaries
+      x-eov-operation-handler: carbonAccounting/monthlyDetailedEmissionsSummaries
+      parameters:
+      - name: fiscal_year
+        in: query
+        description: Filter by a specific fiscal year, using the organization's fiscal start month setting
+        required: false
+        schema:
+          $ref: '#/components/schemas/Year'
+      - name: calendar_year
+        in: query
+        description: Filter by a specific calendar year
+        required: false
+        schema:
+          $ref: '#/components/schemas/Year'
+      - name: month
+        in: query
+        description: Filter by a specific month in YYYY-MM format
+        required: false
+        schema:
+          $ref: '#/components/schemas/Month'
+      - name: from_month
+        in: query
+        description: Filter starting at a specific month, inclusive. Can optionally use with to_month.
+        required: false
+        schema:
+          $ref: '#/components/schemas/Month'
+      - name: to_month
+        in: query
+        description: Filter up to a specific month, inclusive. Can optionally use with from_month.
+        required: false
+        schema:
+          $ref: '#/components/schemas/Month'
+      - name: process_ids
+        in: query
+        description: A list of process UUIDs to filter against, returning any summary that matches any process in the list
+        required: false
+        schema:
+          $ref: '#/components/schemas/BusinessEntityIDs'
+      - name: emissions_source_ids
+        in: query
+        description: A list of emissions source UUIDs, returning any summary that matches any emissions source in the list
+        required: false
+        schema:
+          $ref: '#/components/schemas/EmissionsSourceIDs'
+      - name: scopes
+        in: query
+        description: Filter source types by GHG protocol scopes
+        required: false
+        schema:
+          $ref: '#/components/schemas/EmissionsScopes'
+      responses:
+        '200':
+          description: Monthly detailed emissions summaries retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summaries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MonthlyDetailedEmissionsSummary'
+                  pagination:
+                    $ref: '#/components/schemas/PaginationResult'
+        '400':
+          $ref: '#/components/responses/UserInputError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/carbon_accounting
+      - OAuth2AuthCodeProduction: []
+  /v1/carbon_accounting/summaries/monthly_emissions_source_emissions_summaries:
+    get:
+      summary: Retrieve monthly emissions summaries by emissions source
+      tags:
+      - Carbon accounting
+      description: 'Use this endpoint to retrieve emissions summaries by emissions source
+
+        '
+      operationId: getMonthlyEmissionsSourceEmissionsSummaries
+      x-eov-operation-handler: carbonAccounting/monthlyEmissionsSourceEmissionsSummaries
+      parameters:
+      - name: fiscal_year
+        in: query
+        description: Filter by a specific fiscal year, using the organization's fiscal start month setting
+        required: false
+        schema:
+          $ref: '#/components/schemas/Year'
+      - name: calendar_year
+        in: query
+        description: Filter by a specific calendar year
+        required: false
+        schema:
+          $ref: '#/components/schemas/Year'
+      - name: month
+        in: query
+        description: Filter by a specific month in YYYY-MM format
+        required: false
+        schema:
+          $ref: '#/components/schemas/Month'
+      - name: from_month
+        in: query
+        description: Filter starting at a specific month, inclusive. Can optionally use with to_month.
+        required: false
+        schema:
+          $ref: '#/components/schemas/Month'
+      - name: to_month
+        in: query
+        description: Filter up to a specific month, inclusive. Can optionally use with from_month.
+        required: false
+        schema:
+          $ref: '#/components/schemas/Month'
+      - name: business_entity_ids
+        in: query
+        description: A list of business entity UUIDs to filter against, returning summaries for sources that are descendants of the given UUIDs
+        required: false
+        schema:
+          $ref: '#/components/schemas/BusinessEntityIDs'
+      - name: emissions_source_ids
+        in: query
+        description: A list of emissions source UUIDs, returning summaries for the given sources only
+        required: false
+        schema:
+          $ref: '#/components/schemas/EmissionsSourceIDs'
+      - name: scopes
+        in: query
+        description: Filter source types by GHG protocol scopes
+        required: false
+        schema:
+          $ref: '#/components/schemas/EmissionsScopes'
+      responses:
+        '200':
+          description: Monthly emissions source summaries retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summaries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MonthlyEmissionsSourceEmissionsSummary'
+                  pagination:
+                    $ref: '#/components/schemas/PaginationResult'
+        '400':
+          $ref: '#/components/responses/UserInputError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/carbon_accounting
+      - OAuth2AuthCodeProduction: []
+  /v1/carbon_accounting/summaries/monthly_business_entity_emissions_summaries:
+    get:
+      summary: Retrieve monthly emissions summaries by business entity
+      tags:
+      - Carbon accounting
+      description: 'Use this endpoint to retrieve emissions summaries by emissions source
+
+        '
+      operationId: getMonthlyBusinessEntityEmissionsSummaries
+      x-eov-operation-handler: carbonAccounting/monthlyBusinessEntityEmissionsSummaries
+      parameters:
+      - name: fiscal_year
+        in: query
+        description: Filter by a specific fiscal year, using the organization's fiscal start month setting
+        required: false
+        schema:
+          $ref: '#/components/schemas/Year'
+      - name: calendar_year
+        in: query
+        description: Filter by a specific calendar year
+        required: false
+        schema:
+          $ref: '#/components/schemas/Year'
+      - name: month
+        in: query
+        description: Filter by a specific month in YYYY-MM format
+        required: false
+        schema:
+          $ref: '#/components/schemas/Month'
+      - name: from_month
+        in: query
+        description: Filter starting at a specific month, inclusive. Can optionally use with to_month.
+        required: false
+        schema:
+          $ref: '#/components/schemas/Month'
+      - name: to_month
+        in: query
+        description: Filter up to a specific month, inclusive. Can optionally use with from_month.
+        required: false
+        schema:
+          $ref: '#/components/schemas/Month'
+      - name: business_entity_ids
+        in: query
+        description: A list of business entity UUIDs to filter against, returning summaries for the specificed business entities
+        required: false
+        schema:
+          $ref: '#/components/schemas/BusinessEntityIDs'
+      - name: parent_business_entity_id
+        in: query
+        description: A business entity UUIDs to filter against, returning summaries for business entities one level below the given parent
+        required: false
+        schema:
+          $ref: '#/components/schemas/BusinessEntityID'
+      - name: business_entity_type_id
+        in: query
+        description: A business entity type to filter against, returning summaries for business entities of this type
+        required: false
+        schema:
+          $ref: '#/components/schemas/BusinessEntityTypeID'
+      responses:
+        '200':
+          description: Monthly emissions source summaries retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summaries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MonthlyBusinessEntityEmissionsSummary'
+                  pagination:
+                    $ref: '#/components/schemas/PaginationResult'
+        '400':
+          $ref: '#/components/responses/UserInputError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/carbon_accounting
+      - OAuth2AuthCodeProduction: []
+  /v1/carbon_accounting/activity_periods/close_activity_month:
+    post:
+      summary: Close an activity month for an emissions source
+      tags:
+      - Carbon accounting
+      description: Closes an activity month for a specific emissions source, preventing further modifications to the period.
+      operationId: closeActivityMonth
+      x-eov-operation-handler: carbonAccounting/activityPeriods
+      parameters:
+      - name: emissions_source_id
+        in: query
+        description: The ID of the emissions source to close the activity month for
+        required: true
+        schema:
+          $ref: '#/components/schemas/EmissionsSourceID'
+      - name: month
+        in: query
+        description: The month to close in YYYY-MM format
+        required: true
+        schema:
+          $ref: '#/components/schemas/Month'
+      responses:
+        '204':
+          description: Activity month successfully closed
+        '400':
+          $ref: '#/components/responses/UserInputError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/carbon_accounting
+      - OAuth2AuthCodeProduction: []
+  /v1/carbon_accounting/activity_periods/open_activity_month:
+    post:
+      summary: Open an activity month for an emissions source
+      tags:
+      - Carbon accounting
+      description: Opens a previously closed activity month for a specific emissions source, allowing modifications to the period.
+      operationId: openActivityMonth
+      x-eov-operation-handler: carbonAccounting/activityPeriods
+      parameters:
+      - name: emissions_source_id
+        in: query
+        description: The ID of the emissions source to open the activity month for
+        required: true
+        schema:
+          $ref: '#/components/schemas/EmissionsSourceID'
+      - name: month
+        in: query
+        description: The month to open in YYYY-MM format
+        required: true
+        schema:
+          $ref: '#/components/schemas/Month'
+      responses:
+        '204':
+          description: Activity month successfully opened
+        '400':
+          $ref: '#/components/responses/UserInputError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+      security:
+      - OAuth2ClientCredentialsProduction:
+        - https://api.sinai.com/carbon_accounting
+      - OAuth2AuthCodeProduction: []
+components:
+  schemas:
+    UserInputError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+          enum:
+          - 400
+        name:
+          type: string
+          example: Bad Request
+        type:
+          type: string
+          example: bad_request
+          enum:
+          - bad_request
+        message:
+          type: string
+          example: You are missing a parameter.
+        details:
+          type: string
+          example: You are missing the id parameter.
+    EmissionsScope:
+      type: number
+      enum:
+      - 1
+      - 2
+      - 21
+      - 22
+      - 3
+      - -1
+      description: The GHG protocol scope this source belongs to
+    EmissionsSourceIDs:
+      type: array
+      items:
+        $ref: '#/components/schemas/EmissionsSourceID'
+      style: form
+      explode: true
+    EmissionsSourceTypeID:
+      type: string
+      format: uuid
+    ActivityTypeID:
+      type: string
+      format: uuid
+    PaginationResult:
+      type: object
+      properties:
+        offset:
+          type: integer
+          description: The current offset in the pagination
+        limit:
+          type: integer
+          description: The maximum number of items per page
+        total:
+          type: integer
+          description: The total number of items available
+        hasMore:
+          type: boolean
+          description: Whether there are more items available after this page
+        nextOffset:
+          type: integer
+          description: The offset for the next page, if available
+          nullable: true
+        previousOffset:
+          type: integer
+          description: The offset for the previous page, if available
+          nullable: true
+      required:
+      - offset
+      - limit
+      - total
+      - hasMore
+      additionalProperties: false
+    Year:
+      type: string
+      pattern: ^\d{4}$
+      example: '2025'
+    MonthlyBusinessEntityEmissionsSummary:
+      type: object
+      properties:
+        month:
+          $ref: '#/components/schemas/Month'
+          description: The month of this detailed emissions summary in YYYY-MM format
+        scopeEmissions:
+          type: number
+          description: The total scope emissions, in kgCO2e
+        scope:
+          $ref: '#/components/schemas/EmissionsScope'
+          description: The GHG protocol scope of this emissions summary
+        energyConsumption:
+          type: number
+          description: The amount of energy consumed, in kWh
+        businessEntityID:
+          $ref: '#/components/schemas/BusinessEntityID'
+          description: The unique identifier for the business entity this emissions summary belongs to
+        businessEntityName:
+          type: string
+          description: The name of the business entity this emissions summary belongs to
+        businessEntityTypeID:
+          $ref: '#/components/schemas/BusinessEntityTypeID'
+          description: The type of business entity this emissions summary belongs to
+        businessEntityTypeName:
+          type: string
+          description: The name of the type of business entity this emissions summary belongs to
+        emissionsModelID:
+          $ref: '#/components/schemas/EmissionsModelID'
+          description: The ID of the emissions model for the source for this emissions summary
+        emissionsModelName:
+          type: string
+          description: The name of the emissions model for the source for this emissions summary
+      required:
+      - month
+      - scopeEmissions
+      - scope
+      - energyConsumption
+      - processID
+      - processName
+      - emissionsSourceID
+      - emissionsSourceName
+      - emissionsSourceTypeID
+      - emissionsSourceTypeName
+      - emissionsModelID
+      - emissionsModelName
+      additionalProperties: false
+    EmissionsSourceID:
+      type: string
+      format: uuid
+    ForbiddenError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 403
+          enum:
+          - 403
+        name:
+          type: string
+          example: Forbidden
+        type:
+          type: string
+          example: forbidden
+          enum:
+          - forbidden
+        message:
+          type: string
+          example: You do not have permission to access this resource.
+        details:
+          type: string
+          example: You are authenticated but do not have sufficient permissions.
+    MonthlyDetailedEmissionsSummary:
+      type: object
+      properties:
+        month:
+          $ref: '#/components/schemas/Month'
+          description: The month of this detailed emissions summary in YYYY-MM format
+        activityType:
+          $ref: '#/components/schemas/ActivityType'
+          description: The activity type for this emissions summary
+        activityTypeID:
+          $ref: '#/components/schemas/ActivityTypeID'
+          description: The unique identifier for the activity type
+        activityValue:
+          type: number
+          description: The total activity amount for this summary month, in the summary's activity units
+        activityUnit:
+          type: string
+          description: The server unit associated with activityValue
+        scopeEmissions:
+          type: number
+          description: The total scope emissions, in kgCO2e
+        scope:
+          $ref: '#/components/schemas/EmissionsScope'
+          description: The GHG protocol scope of this emissions summary
+        energyConsumption:
+          type: number
+          description: The amount of energy consumed, in kWh
+        processID:
+          $ref: '#/components/schemas/BusinessEntityID'
+          description: The unique identifier for the process business entity this emissions summary belongs to
+        processName:
+          type: string
+          description: The name of the process business entity this emissions summary belongs to
+        facilityID:
+          $ref: '#/components/schemas/BusinessEntityID'
+          description: The ID of the facility this emissions summary belongs to
+        facilityName:
+          type: string
+          description: The name of the facility this emissions summary belongs to
+        emissionsSourceID:
+          $ref: '#/components/schemas/EmissionsSourceID'
+          description: The ID of the emissions source for this emissions summary
+        emissionsSourceName:
+          type: string
+          description: The name of the emissions source for this emissions summary
+        emissionsSourceTypeID:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+          description: The ID of the emissions source type for the source for this emissions summary
+        emissionsSourceTypeName:
+          type: string
+          description: The name of the emissions source type for the source for this emissions summary
+        emissionsModelID:
+          $ref: '#/components/schemas/EmissionsModelID'
+          description: The ID of the emissions model for the source for this emissions summary
+        emissionsModelName:
+          type: string
+          description: The name of the emissions model for the source for this emissions summary
+      required:
+      - month
+      - activityType
+      - activityTypeID
+      - activityValue
+      - activityUnit
+      - scopeEmissions
+      - scope
+      - energyConsumption
+      - processID
+      - processName
+      - emissionsSourceID
+      - emissionsSourceName
+      - emissionsSourceTypeID
+      - emissionsSourceTypeName
+      - emissionsModelID
+      - emissionsModelName
+      additionalProperties: false
+    EmissionsModelID:
+      type: string
+      format: uuid
+    BusinessEntityID:
+      type: string
+      format: uuid
+    BusinessEntityIDs:
+      type: array
+      items:
+        $ref: '#/components/schemas/BusinessEntityID'
+      style: form
+      explode: true
+    EmissionsScopes:
+      type: array
+      items:
+        $ref: '#/components/schemas/EmissionsScope'
+      style: form
+      explode: true
+    MonthlyEmissionsSourceEmissionsSummary:
+      type: object
+      properties:
+        month:
+          $ref: '#/components/schemas/Month'
+          description: The month of this detailed emissions summary in YYYY-MM format
+        scopeEmissions:
+          type: number
+          description: The total scope emissions, in kgCO2e
+        scope:
+          $ref: '#/components/schemas/EmissionsScope'
+          description: The GHG protocol scope of this emissions summary
+        energyConsumption:
+          type: number
+          description: The amount of energy consumed, in kWh
+        processID:
+          $ref: '#/components/schemas/BusinessEntityID'
+          description: The unique identifier for the process business entity this emissions summary belongs to
+        processName:
+          type: string
+          description: The name of the process business entity this emissions summary belongs to
+        emissionsSourceID:
+          $ref: '#/components/schemas/EmissionsSourceID'
+          description: The ID of the emissions source for this emissions summary
+        emissionsSourceName:
+          type: string
+          description: The name of the emissions source for this emissions summary
+        emissionsSourceTypeID:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+          description: The ID of the emissions source type for the source for this emissions summary
+        emissionsSourceTypeName:
+          type: string
+          description: The name of the emissions source type for the source for this emissions summary
+        emissionsModelID:
+          $ref: '#/components/schemas/EmissionsModelID'
+          description: The ID of the emissions model for the source for this emissions summary
+        emissionsModelName:
+          type: string
+          description: The name of the emissions model for the source for this emissions summary
+      required:
+      - month
+      - scopeEmissions
+      - scope
+      - energyConsumption
+      - processID
+      - processName
+      - emissionsSourceID
+      - emissionsSourceName
+      - emissionsSourceTypeID
+      - emissionsSourceTypeName
+      - emissionsModelID
+      - emissionsModelName
+      additionalProperties: false
+    ActivityType:
+      type: string
+    BusinessEntityTypeID:
+      type: string
+      format: uuid
+    Month:
+      type: string
+      pattern: ^\d{4}-\d{2}$
+      example: 2025-03
+  responses:
+    UserInputError:
+      description: Your request is missing a parameter or has the wrong data type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserInputError'
+    ForbiddenError:
+      description: You are not authorized to access this object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ForbiddenError'
+  securitySchemes:
+    OAuth2ClientCredentialsProduction:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.sinai.com/oauth2/token
+          scopes:
+            https://api.sinai.com/organization: Grants access to organization functions
+            https://api.sinai.com/carbon_accounting: Grants read/write access to carbon accounting data
+            https://api.sinai.com/baseline_forecasts: Grants read/write access to baseline forecasts data
+            https://api.sinai.com/transition_plan: Grants read/write access to transition plan data
+            https://api.sinai.com/reduction_projects: Grants read/write access to reduction projects data
+            https://api.sinai.com/decarbonization_roadmap: Grants read/write access to decarbonization roadmap data
+    OAuth2AuthCodeProduction:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.sinai.com/oauth2/authorize
+          tokenUrl: https://auth.sinai.com/oauth2/token
+          scopes: {}
