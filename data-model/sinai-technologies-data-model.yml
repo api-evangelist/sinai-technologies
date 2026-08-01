@@ -1,0 +1,82 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/sinai-technologies-openapi-original.yml
+notes: >-
+  Entity-relationship graph derived from OpenAPI component schemas and their
+  id-reference fields (orgID, parentID, processID, emissionsModelID, ...). SINAI
+  models a corporate carbon-accounting hierarchy: an Organization owns a tree of
+  Business Entities, each with Emissions Sources measured by Emissions Models,
+  and forward-looking Baseline Scenarios / projections.
+entities:
+- name: Organization
+  key: id
+  fields: [id, rootBusinessEntityID, defaultFunctionalUnitID, fiscalYearStartMonth]
+  relationships:
+  - type: has_one
+    to: BusinessEntity
+    via: rootBusinessEntityID
+  - type: has_one
+    to: FunctionalUnit
+    via: defaultFunctionalUnitID
+- name: BusinessEntity
+  key: id
+  fields: [id, orgID, parentID, name, subIndustryCode, facilityTypeID, processTypeID, businessEntityTypeID, defaultFunctionalUnitID]
+  relationships:
+  - type: belongs_to
+    to: Organization
+    via: orgID
+  - type: belongs_to
+    to: BusinessEntity
+    via: parentID
+    note: self-referential hierarchy (descendants endpoint walks the tree)
+  - type: has_one
+    to: BusinessEntityType
+    via: businessEntityTypeID
+  - type: has_one
+    to: FacilityType
+    via: facilityTypeID
+  - type: has_one
+    to: ProcessType
+    via: processTypeID
+  - type: has_one
+    to: FunctionalUnit
+    via: defaultFunctionalUnitID
+- name: EmissionsSource
+  key: id
+  fields: [id, processID, emissionsSourceTypeID, emissionsModelID, relatedSourceID, scope, status]
+  relationships:
+  - type: belongs_to
+    to: BusinessEntity
+    via: processID
+    note: attached to a business-entity process
+  - type: has_one
+    to: EmissionsSourceType
+    via: emissionsSourceTypeID
+  - type: has_one
+    to: EmissionsModel
+    via: emissionsModelID
+- name: EmissionsModel
+  key: id
+  fields: [id, emissionsSourceTypeID, protocol, displayName, emissionsFactorsSources]
+  relationships:
+  - type: belongs_to
+    to: EmissionsSourceType
+    via: emissionsSourceTypeID
+- name: FunctionalUnit
+  key: id
+  fields: [id, name, orgID, subIndustryCode, measurementType, supportedUnits]
+  relationships:
+  - type: belongs_to
+    to: Organization
+    via: orgID
+- name: BaselineScenario
+  key: id
+  fields: [id, name, isDefault, orgID]
+  relationships:
+  - type: belongs_to
+    to: Organization
+    via: orgID
+domains:
+  organization: Organization, BusinessEntity, FunctionalUnit, EmissionsSource, EmissionsModel, industry taxonomy
+  carbon_accounting: monthly emissions summaries, activity periods (open/close month)
+  baseline_forecasts: BaselineScenario, activity projections, main-metric projections, projection summaries

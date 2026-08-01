@@ -1,0 +1,18 @@
+{
+  "provider": "sinai-technologies",
+  "sources": [
+    "sinai-technologies-baseline-forecasts-api-openapi.yml",
+    "sinai-technologies-carbon-accounting-api-openapi.yml",
+    "sinai-technologies-organization-management-api-openapi.yml"
+  ],
+  "outputs": [
+    "sinai-technologies-baseline-forecasts-api-openapi.yml",
+    "sinai-technologies-carbon-accounting-api-openapi.yml",
+    "sinai-technologies-organization-management-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

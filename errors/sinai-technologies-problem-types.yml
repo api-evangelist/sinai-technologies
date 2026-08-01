@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/sinai-technologies-openapi-original.yml
+format: http-status
+notes: >-
+  Derived from the SINAI OpenAPI 4xx responses. The spec declares status-only
+  error responses (400 / 403 / 404) without a documented response body media
+  type, so the error envelope shape is not machine-described (not
+  application/problem+json / RFC 9457). Titles and remediation below are derived
+  from HTTP semantics and the operation set; confirm against the provider error
+  reference when published.
+problems:
+- status: 400
+  title: Bad request
+  meaning: The request was malformed or failed validation (bad query params, body, or path values).
+  remediation: Check required parameters, types, and body schema against the OpenAPI definition before retrying.
+- status: 403
+  title: Forbidden
+  meaning: The access token is missing, expired, or lacks the OAuth scope required for the operation.
+  remediation: Obtain a token with the correct scope (e.g. https://api.sinai.com/carbon_accounting) and send it as Authorization Bearer.
+- status: 404
+  title: Not found
+  meaning: The referenced resource (business entity, emissions source, functional unit, scenario, projection) does not exist or is not visible to the caller.
+  remediation: Verify the resource ID and that it belongs to the authenticated organization.

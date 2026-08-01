@@ -1,0 +1,24 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for SINAI API
+  version: 1.0.0
+extends: openapi/sinai-technologies-openapi-original.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-21'
+    x-api-evangelist-provider: sinai-technologies
+    x-artifacts:
+      authentication: authentication/sinai-technologies-authentication.yml
+      scopes: scopes/sinai-technologies-scopes.yml
+      conventions: conventions/sinai-technologies-conventions.yml
+      errors: errors/sinai-technologies-problem-types.yml
+      lifecycle: lifecycle/sinai-technologies-lifecycle.yml
+      data_model: data-model/sinai-technologies-data-model.yml
+- target: $.info
+  update:
+    x-agent-notes: >-
+      OAuth2 (client-credentials for M2M, authorization-code for delegated
+      access). Bearer tokens from https://auth.sinai.com/oauth2/token. List
+      endpoints paginate via limit/offset. No idempotency-key mechanism; treat
+      POST/PUT/DELETE as non-idempotent and avoid blind retries.

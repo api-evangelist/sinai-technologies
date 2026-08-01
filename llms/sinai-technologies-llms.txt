@@ -1,0 +1,56 @@
+# SINAI Developer Portal Documentation
+
+> Documentation for SINAI Developer Portal
+
+## Guides
+- [Welcome to SINAI's Developer Hub](https://docs.sinai.com/docs/welcome-to-sinais-developer-portal.md): The SINAI platform offers a complete suite of integration solutions.
+- [Integrating via the HTTP API](https://docs.sinai.com/docs/getting-started.md): This page will help you get started with SINAI's API.
+- [The Data Import API](https://docs.sinai.com/docs/automated-data-import.md)
+- [Integrating with Oracle JDE EnterpriseOne](https://docs.sinai.com/docs/integrating-with-oracle-jde-enterpriseone.md)
+- [Workiva Integration](https://docs.sinai.com/docs/workiva-integration-1.md)
+- [Configuring the Workiva Integration](https://docs.sinai.com/docs/workiva-integration.md): How to Connect your SINAI Carbon Accounting to Workiva
+- [Snowflake Secure Data Sharing](https://docs.sinai.com/docs/snowflake-secure-data-shares.md): Secure Data Sharing lets you share selected objects in a database in your account with other Snowflake accounts.
+- [BI data exports](https://docs.sinai.com/docs/bi-data-exports.md): For customers that want access to their BI data but do not use Snowflake
+- [Single Sign-On](https://docs.sinai.com/docs/single-sign-on.md): SINAI supports Single Sign-On (SSO) using SAML 2.0, allowing users to securely authenticate through their organization's identity provider.
+
+## API Reference
+- [Accessing the API](https://docs.sinai.com/reference/accessing-the-api.md)
+- [Get reporting months for a given calendar or fiscal year](https://docs.sinai.com/reference/getreportingmonths.md): Use this endpoint to get a list of all the reporting months for a given calendar or fiscal year. If you ask for calendar year 2024, you will be given "2024-01", "2024-02", ..., "2024-12".
+- [Retrieve the current organization](https://docs.sinai.com/reference/getcurrentorganization.md): Use this endpoint to get the organization details.
+- [List functional units](https://docs.sinai.com/reference/getfunctionalunits.md): Use this endpoint to get a list of all functional units. If not filter is provided, only the functional units that are not industry-specific will be returned.
+- [Create a functional unit](https://docs.sinai.com/reference/createfunctionalunit.md): Use this endpoint to create a new functional unit.
+- [Retrieve a functional unit by its ID](https://docs.sinai.com/reference/getfunctionalunit.md): Use this endpoint to get a specific functional unit by its ID.
+- [List industry taxonomy sectors](https://docs.sinai.com/reference/getsectors.md): Use this endpoint to get a list of industry taxonomy sectors.
+- [List industry taxonomy industry groups](https://docs.sinai.com/reference/getindustrygroups.md): Use this endpoint to get a list of industry taxonomy industry groups.
+- [List industry taxonomy industries](https://docs.sinai.com/reference/getindustries.md): Use this endpoint to get a list of industry taxonomy industries.
+- [List industry taxonomy sub-industries](https://docs.sinai.com/reference/getsubindustries.md): Use this endpoint to get a list of industry taxonomy sub-industries.
+- [Retrieve a business entity by its ID](https://docs.sinai.com/reference/getbusinessentity.md): Use this endpoint to get a specific business entity by its ID.
+- [Update a business entity](https://docs.sinai.com/reference/updatebusinessentity.md): This endpoint updates the details of a specified business entity in the system.
+- [Delete a business entity](https://docs.sinai.com/reference/deletebusinessentity.md): This endpoint deletes a specified business entity from the system.
+- [Retrieve all descendants of a business entity](https://docs.sinai.com/reference/getbusinessentitydescendants.md): Use this endpoint to get all the business entities that are descendants of the entity specified by the ID. Descendants include children of a business entities and also the children of those children.
+- [Create a new business entity](https://docs.sinai.com/reference/createbusinessentity.md): This endpoint creates a new business entity.
+- [List business entities in an org](https://docs.sinai.com/reference/getbusinessentities.md): Use this endpoint to get a list of business entities that meet a specific filtering criteria.
+- [List business entity types](https://docs.sinai.com/reference/getbusinessentitytypes.md): Use this endpoint to get a list of business entity types.
+- [List facility types](https://docs.sinai.com/reference/getfacilitytypes.md): Use this endpoint to get a list of facility types.
+- [List process types](https://docs.sinai.com/reference/getprocesstypes.md): Use this endpoint to get a list of process types.
+- [Retrieve an emissions source by its ID](https://docs.sinai.com/reference/getemissionssource.md): Use this endpoint to get a specific emissions source by its ID.
+- [Update an emissions source](https://docs.sinai.com/reference/updateemissionssource.md): Updates an existing emissions source with new details.
+- [Delete an emissions source](https://docs.sinai.com/reference/deleteemissionssource.md): Deletes an emissions source and all emissions activity data associated with it.
+- [Create a new emissions source](https://docs.sinai.com/reference/createemissionssource.md): Creates a new emissions source under the specified business entity process.
+- [List emissions sources in an org](https://docs.sinai.com/reference/getemissionssources.md): Use this endpoint to get a list of emissions sources in the organization.  If no filters are specified, all emissions sources in the organization are returned. You can optionally filter the results by process ID or business entity ID.
+- [Retrieve an emissions source type by its ID](https://docs.sinai.com/reference/getemissionssourcetype.md): Use this endpoint to get a specific emissions source type by its ID.
+- [List emissions source types](https://docs.sinai.com/reference/getemissionssourcetypes.md): Use this endpoint to get a list of all emissions source types.
+- [Retrieve an emissions model by its ID](https://docs.sinai.com/reference/getemissionsmodel.md): Use this endpoint to get a specific emissions model by its ID.
+- [List emissions models](https://docs.sinai.com/reference/getemissionsmodels.md): Use this endpoint to get a list of emissions models, optionally filtered by emissions source type and protocol.
+- [Retrieve monthly, activity-level detailed emissions summaries](https://docs.sinai.com/reference/getmonthlydetailedemissionssummaries.md): Use this endpoint to retrieve emissions summaries at month and activity levels.
+- [Retrieve monthly emissions summaries by emissions source](https://docs.sinai.com/reference/getmonthlyemissionssourceemissionssummaries.md): Use this endpoint to retrieve emissions summaries by emissions source
+- [Retrieve monthly emissions summaries by business entity](https://docs.sinai.com/reference/getmonthlybusinessentityemissionssummaries.md): Use this endpoint to retrieve emissions summaries by emissions source
+- [Close an activity month for an emissions source](https://docs.sinai.com/reference/closeactivitymonth.md): Closes an activity month for a specific emissions source, preventing further modifications to the period.
+- [Open an activity month for an emissions source](https://docs.sinai.com/reference/openactivitymonth.md): Opens a previously closed activity month for a specific emissions source, allowing modifications to the period.
+- [Get a baseline scenario by its ID](https://docs.sinai.com/reference/getbaselinescenario.md): Retrieves a baseline scenario by its ID.
+- [Get all baseline scenarios](https://docs.sinai.com/reference/getbaselinescenarios.md): Retrieves a list of all baseline scenarios.
+- [Get an activity projection by its ID](https://docs.sinai.com/reference/getactivityprojection.md): Retrieves an activity projection and its config by its ID.
+- [Get activity projections](https://docs.sinai.com/reference/getactivityprojections.md): Retrieves a list of activity projections filtered by baseline scenario ID and optionally by business entity ID. If no business entity ID is provided, the activity projections for the entire organization will be returned. This endpoint supports pagination, since the number of activity projections can be quite large.
+- [Get a main metric projection by its ID](https://docs.sinai.com/reference/getmainmetricprojection.md): Retrieves a main metric projection and its config by its ID.
+- [Get main metric projections](https://docs.sinai.com/reference/getmainmetricprojections.md): Retrieves a list of main metric projections filtered by baseline scenario ID and optionally by business entity ID. If no business entity ID is provided, the main metric projections for the entire organization will be returned. This endpoint supports pagination, since the number of main metric projections can be quite large.
+- [Get forecast summary for the organization or a specific business entity](https://docs.sinai.com/reference/getprojectionssummaryforbusinessentity.md): Retrieves the historical and forecasted emissions and intensity data for the entire organization or optionally filtered for a specific business entity.

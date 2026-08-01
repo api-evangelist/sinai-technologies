@@ -1,0 +1,53 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: openapi/sinai-technologies-openapi-original.yml
+notes: >-
+  No official hosted/remote SINAI MCP server was found. This is a CANDIDATE tool
+  list derived one-to-one from the SINAI OpenAPI operations, as a starting point
+  for an MCP wrapper. All calls require an OAuth2 Bearer token
+  (https://auth.sinai.com/oauth2/token) with the appropriate scope.
+server:
+  name: sinai
+  transport: http
+  url: null
+tools:
+- {name: get_reporting_months, source_operation: getReportingMonths, scope: organization}
+- {name: get_current_organization, source_operation: getCurrentOrganization, scope: organization}
+- {name: list_functional_units, source_operation: getFunctionalUnits, scope: organization}
+- {name: create_functional_unit, source_operation: createFunctionalUnit, scope: organization}
+- {name: get_functional_unit, source_operation: getFunctionalUnit, scope: organization}
+- {name: list_sectors, source_operation: getSectors, scope: organization}
+- {name: list_industry_groups, source_operation: getIndustryGroups, scope: organization}
+- {name: list_industries, source_operation: getIndustries, scope: organization}
+- {name: list_sub_industries, source_operation: getSubIndustries, scope: organization}
+- {name: get_business_entity, source_operation: getBusinessEntity, scope: organization}
+- {name: update_business_entity, source_operation: updateBusinessEntity, scope: organization}
+- {name: delete_business_entity, source_operation: deleteBusinessEntity, scope: organization}
+- {name: get_business_entity_descendants, source_operation: getBusinessEntityDescendants, scope: organization}
+- {name: create_business_entity, source_operation: createBusinessEntity, scope: organization}
+- {name: list_business_entities, source_operation: getBusinessEntities, scope: organization}
+- {name: list_business_entity_types, source_operation: getBusinessEntityTypes, scope: organization}
+- {name: list_facility_types, source_operation: getFacilityTypes, scope: organization}
+- {name: list_process_types, source_operation: getProcessTypes, scope: organization}
+- {name: get_emissions_source, source_operation: getEmissionsSource, scope: organization}
+- {name: update_emissions_source, source_operation: updateEmissionsSource, scope: organization}
+- {name: delete_emissions_source, source_operation: deleteEmissionsSource, scope: organization}
+- {name: create_emissions_source, source_operation: createEmissionsSource, scope: organization}
+- {name: list_emissions_sources, source_operation: getEmissionsSources, scope: organization}
+- {name: get_emissions_source_type, source_operation: getEmissionsSourceType, scope: organization}
+- {name: list_emissions_source_types, source_operation: getEmissionsSourceTypes, scope: organization}
+- {name: get_emissions_model, source_operation: getEmissionsModel, scope: organization}
+- {name: list_emissions_models, source_operation: getEmissionsModels, scope: organization}
+- {name: get_monthly_detailed_emissions_summaries, source_operation: getMonthlyDetailedEmissionsSummaries, scope: carbon_accounting}
+- {name: get_monthly_emissions_source_emissions_summaries, source_operation: getMonthlyEmissionsSourceEmissionsSummaries, scope: carbon_accounting}
+- {name: get_monthly_business_entity_emissions_summaries, source_operation: getMonthlyBusinessEntityEmissionsSummaries, scope: carbon_accounting}
+- {name: close_activity_month, source_operation: closeActivityMonth, scope: carbon_accounting}
+- {name: open_activity_month, source_operation: openActivityMonth, scope: carbon_accounting}
+- {name: get_baseline_scenario, source_operation: getBaselineScenario, scope: baseline_forecasts}
+- {name: list_baseline_scenarios, source_operation: getBaselineScenarios, scope: baseline_forecasts}
+- {name: get_activity_projection, source_operation: getActivityProjection, scope: baseline_forecasts}
+- {name: list_activity_projections, source_operation: getActivityProjections, scope: baseline_forecasts}
+- {name: get_main_metric_projection, source_operation: getMainMetricProjection, scope: baseline_forecasts}
+- {name: list_main_metric_projections, source_operation: getMainMetricProjections, scope: baseline_forecasts}
+- {name: get_projections_summary_for_business_entity, source_operation: getProjectionsSummaryForBusinessEntity, scope: baseline_forecasts}

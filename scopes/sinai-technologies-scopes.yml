@@ -1,0 +1,60 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/sinai-technologies-openapi-original.yml
+docs: https://docs.sinai.com/reference/accessing-the-api
+notes: >-
+  Scopes are resource-URI style and apply to the Client Credentials flow; request
+  one or more as a space-separated `scope` parameter at the token endpoint. The
+  Authorization Code flow currently supports no scopes (access is governed by the
+  user's platform permissions). Docs enumerate an additional
+  `https://api.sinai.com/decarbonization_roadmap` scope alongside those in the
+  spec's flow map.
+schemes:
+- name: OAuth2ClientCredentialsProduction
+  source: openapi/sinai-technologies-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.sinai.com/oauth2/token
+- name: OAuth2AuthCodeProduction
+  source: openapi/sinai-technologies-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.sinai.com/oauth2/authorize
+    tokenUrl: https://auth.sinai.com/oauth2/token
+scopes:
+- scope: https://api.sinai.com/organization
+  description: Organization-level data and features
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/sinai-technologies-openapi-original.yml
+- scope: https://api.sinai.com/carbon_accounting
+  description: Read/write access to carbon accounting data
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/sinai-technologies-openapi-original.yml
+- scope: https://api.sinai.com/baseline_forecasts
+  description: Read/write access to baseline forecasts data
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/sinai-technologies-openapi-original.yml
+- scope: https://api.sinai.com/transition_plan
+  description: Transition plan modeling and access
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/sinai-technologies-openapi-original.yml
+- scope: https://api.sinai.com/reduction_projects
+  description: Emissions reduction project data
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/sinai-technologies-openapi-original.yml
+- scope: https://api.sinai.com/decarbonization_roadmap
+  description: Strategic decarbonization roadmap
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/sinai-technologies-openapi-original.yml

@@ -1,0 +1,2960 @@
+openapi: 3.1.0
+info:
+  title: SINAI API
+  description: The SINAI application API
+  version: 1.0.0
+  contact:
+    name: API Support
+    url: https://help.sinai.com/en/
+    email: support@sinai.com
+servers:
+  - url: https://api.sinai.com/
+    description: Production server
+paths:
+  /v1/organization/reporting_months:
+    get:
+      summary: Get reporting months for a given calendar or fiscal year
+      tags:
+        - Organization management
+      description: >
+        Use this endpoint to get a list of all the reporting months for a given
+        calendar or fiscal year. If you ask for calendar year 2024, you will be
+        given "2024-01", "2024-02", ..., "2024-12".
+      operationId: getReportingMonths
+      x-eov-operation-handler: organization/reportingMonths
+      parameters:
+        - name: fiscal_year
+          in: query
+          description: Get reporting months for a specific fiscal year, using the
+            organization's fiscal start month setting
+          required: false
+          schema:
+            $ref: "#/components/schemas/Year"
+        - name: calendar_year
+          in: query
+          description: Get reporting months for a specific calendar year
+          required: false
+          schema:
+            $ref: "#/components/schemas/Year"
+      responses:
+        "200":
+          description: Reporting months for a given calendar or fiscal year retrieved
+            successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Month"
+        "400":
+          $ref: "#/components/responses/UserInputError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/organization:
+    get:
+      summary: Retrieve the current organization
+      tags:
+        - Organization management
+      description: Use this endpoint to get the organization details.
+      operationId: getCurrentOrganization
+      x-eov-operation-handler: organization/organizations
+      responses:
+        "200":
+          description: Organization retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Organization"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/functional_units:
+    get:
+      summary: List functional units
+      tags:
+        - Organization management
+      description: >
+        Use this endpoint to get a list of all functional units. If not filter
+        is provided, only the functional units that are not industry-specific
+        will be returned.
+      operationId: getFunctionalUnits
+      x-eov-operation-handler: organization/functionalUnits
+      parameters:
+        - name: sub_industry_code
+          in: query
+          description: >
+            Include functional units for this sub-industry configured. This is
+            an additive filter.
+          required: false
+          schema:
+            $ref: "#/components/schemas/IndustryTaxonomySubIndustryCode"
+      responses:
+        "200":
+          description: Functional units retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FunctionalUnit"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+    post:
+      summary: Create a functional unit
+      tags:
+        - Organization management
+      description: Use this endpoint to create a new functional unit.
+      operationId: createFunctionalUnit
+      x-eov-operation-handler: organization/functionalUnits
+      requestBody:
+        description: The functional unit to create
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - defaultDisplayUnit
+              properties:
+                name:
+                  type: string
+                  description: The name of the functional unit
+                description:
+                  type: string
+                  description: The description of the functional unit
+                defaultDisplayUnit:
+                  $ref: "#/components/schemas/Unit"
+                  description: The default display unit for the functional unit
+                subIndustryCode:
+                  $ref: "#/components/schemas/NullableIndustryTaxonomySubIndustryCode"
+                  description: The sub-industry code of the functional unit
+                measurementType:
+                  $ref: "#/components/schemas/FunctionalUnitMeasurementType"
+                  description: The type of measurement of the functional unit
+      responses:
+        "201":
+          description: Functional unit created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FunctionalUnit"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/functional_units/{id}:
+    get:
+      summary: Retrieve a functional unit by its ID
+      tags:
+        - Organization management
+      description: Use this endpoint to get a specific functional unit by its ID.
+      operationId: getFunctionalUnit
+      x-eov-operation-handler: organization/functionalUnits
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the functional unit
+          required: true
+          schema:
+            $ref: "#/components/schemas/FunctionalUnitID"
+      responses:
+        "200":
+          description: Functional unit retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FunctionalUnit"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/industry_taxonomy/sectors:
+    get:
+      summary: List industry taxonomy sectors
+      tags:
+        - Organization management
+      description: Use this endpoint to get a list of industry taxonomy sectors.
+      operationId: getSectors
+      x-eov-operation-handler: organization/industryTaxonomy
+      responses:
+        "200":
+          description: Industry taxonomy sectors retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IndustryTaxonomySector"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/industry_taxonomy/industry_groups:
+    get:
+      summary: List industry taxonomy industry groups
+      tags:
+        - Organization management
+      description: Use this endpoint to get a list of industry taxonomy industry groups.
+      operationId: getIndustryGroups
+      x-eov-operation-handler: organization/industryTaxonomy
+      parameters:
+        - name: sector_code
+          in: query
+          description: filter industry groups by this sector code
+          required: false
+          schema:
+            $ref: "#/components/schemas/IndustryTaxonomySectorCode"
+      responses:
+        "200":
+          description: Industry taxonomy industry groups retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IndustryTaxonomyIndustryGroup"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/industry_taxonomy/industries:
+    get:
+      summary: List industry taxonomy industries
+      tags:
+        - Organization management
+      description: Use this endpoint to get a list of industry taxonomy industries.
+      operationId: getIndustries
+      x-eov-operation-handler: organization/industryTaxonomy
+      parameters:
+        - name: industry_group_code
+          in: query
+          description: filter industries by this industry group code
+          required: false
+          schema:
+            $ref: "#/components/schemas/IndustryTaxonomyIndustryGroupCode"
+      responses:
+        "200":
+          description: Industry taxonomy industries retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IndustryTaxonomyIndustry"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/industry_taxonomy/sub_industries:
+    get:
+      summary: List industry taxonomy sub-industries
+      tags:
+        - Organization management
+      description: Use this endpoint to get a list of industry taxonomy sub-industries.
+      operationId: getSubIndustries
+      x-eov-operation-handler: organization/industryTaxonomy
+      parameters:
+        - name: industry_code
+          in: query
+          description: filter sub-industries by this industry code
+          required: false
+          schema:
+            $ref: "#/components/schemas/IndustryTaxonomyIndustryCode"
+      responses:
+        "200":
+          description: Industry taxonomy sub-industries retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IndustryTaxonomySubIndustry"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/business_entities/{id}:
+    get:
+      summary: Retrieve a business entity by its ID
+      tags:
+        - Organization management
+      description: Use this endpoint to get a specific business entity by its ID.
+      operationId: getBusinessEntity
+      x-eov-operation-handler: organization/businessEntities
+      parameters:
+        - name: id
+          in: path
+          description: The unique identifier for the business entity
+          required: true
+          schema:
+            $ref: "#/components/schemas/BusinessEntityID"
+      responses:
+        "200":
+          description: Business entity retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BusinessEntity"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+    put:
+      summary: Update a business entity
+      tags:
+        - Organization management
+      description: This endpoint updates the details of a specified business entity in
+        the system.
+      operationId: updateBusinessEntity
+      x-eov-operation-handler: organization/businessEntities
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the business entity to be updated.
+          schema:
+            $ref: "#/components/schemas/BusinessEntityID"
+      requestBody:
+        description: The new business entity details to be updated.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  example: New business entity name
+                  description: The new name of the business entity.
+                description:
+                  type: string
+                  example: This is an updated description for the business entity.
+                  description: The new description of the business entity.
+      responses:
+        "200":
+          description: Business entity successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BusinessEntity"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+    delete:
+      summary: Delete a business entity
+      tags:
+        - Organization management
+      description: This endpoint deletes a specified business entity from the system.
+      operationId: deleteBusinessEntity
+      x-eov-operation-handler: organization/businessEntities
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the business entity to be deleted.
+          schema:
+            $ref: "#/components/schemas/BusinessEntityID"
+      responses:
+        "204":
+          description: Business entity successfully deleted
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/business_entities/{id}/descendants:
+    get:
+      summary: Retrieve all descendants of a business entity
+      tags:
+        - Organization management
+      description: >
+        Use this endpoint to get all the business entities that are descendants
+        of the entity specified by the ID. Descendants include children of a
+        business entities and also the children of those children.
+      operationId: getBusinessEntityDescendants
+      x-eov-operation-handler: organization/businessEntities
+      parameters:
+        - name: id
+          in: path
+          description: The unique identifier for the business entity
+          required: true
+          schema:
+            $ref: "#/components/schemas/BusinessEntityID"
+        - name: business_entity_type_id
+          in: query
+          description: filter entities by this type id
+          required: false
+          schema:
+            $ref: "#/components/schemas/BusinessEntityTypeID"
+        - name: business_entity_type_category
+          in: query
+          description: filter entities by this type category
+          required: false
+          schema:
+            $ref: "#/components/schemas/BusinessEntityTypeCategory"
+      responses:
+        "200":
+          description: Business entity retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BusinessEntity"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/business_entities:
+    post:
+      summary: Create a new business entity
+      tags:
+        - Organization management
+      description: This endpoint creates a new business entity.
+      operationId: createBusinessEntity
+      x-eov-operation-handler: organization/businessEntities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parentID:
+                  $ref: "#/components/schemas/BusinessEntityID"
+                  description: The ID of the parent business entity.
+                name:
+                  type: string
+                  example: New Business Entity
+                  description: The name of the new business entity.
+                description:
+                  type: string
+                  example: Description of the new business entity.
+                  description: The description of the new business entity.
+                countryCode:
+                  $ref: "#/components/schemas/CountryCode"
+                  description: The country code of the new business entity.
+                subIndustryCode:
+                  $ref: "#/components/schemas/IndustryTaxonomySubIndustryCode"
+                  description: The sub-industry code of the new business entity.
+                facilityTypeID:
+                  $ref: "#/components/schemas/NullableFacilityTypeID"
+                  description: The facility type of the new business entity.
+                processTypeID:
+                  $ref: "#/components/schemas/NullableProcessTypeID"
+                  description: The process type of the new business entity.
+                businessEntityTypeID:
+                  $ref: "#/components/schemas/BusinessEntityTypeID"
+                  description: The type of business entity to create.
+                defaultFunctionalUnitID:
+                  $ref: "#/components/schemas/FunctionalUnitID"
+                  description: The default functional unit for the new business entity.
+                customFunctionalUnitName:
+                  type: string
+                  description: >
+                    The name of the custom functional unit for the business
+                    entity. If you want to define a custom functional unit for
+                    the business entity, make sure to set this parameter.
+                defaultDisplayUnit:
+                  type: string
+                  description: >
+                    The default display unit for the functional unit of the
+                    business entity. If you want to define a custom functional
+                    unit for the business entity, make sure to set this
+                    parameter.
+                activeStartTimestamp:
+                  type: number
+                  description: The timestamp when the business entity becomes active, in
+                    milliseconds since epoch.
+                activeEndTimestamp:
+                  type: number
+                  description: The timestamp when the business entity becomes inactive, in
+                    milliseconds since epoch.
+              required:
+                - parentID
+                - name
+                - businessEntityTypeID
+      responses:
+        "201":
+          description: Business entity successfully created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BusinessEntity"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+    get:
+      summary: List business entities in an org
+      tags:
+        - Organization management
+      description: Use this endpoint to get a list of business entities that meet a
+        specific filtering criteria.
+      operationId: getBusinessEntities
+      x-eov-operation-handler: organization/businessEntities
+      parameters:
+        - name: business_entity_type_id
+          in: query
+          description: filter entities by this type id
+          required: false
+          schema:
+            $ref: "#/components/schemas/BusinessEntityTypeID"
+        - name: business_entity_type_category
+          in: query
+          description: filter entities by this type category
+          required: false
+          schema:
+            $ref: "#/components/schemas/BusinessEntityTypeCategory"
+      responses:
+        "200":
+          description: the list of business entities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BusinessEntity"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/business_entity_types:
+    get:
+      summary: List business entity types
+      tags:
+        - Organization management
+      description: Use this endpoint to get a list of business entity types.
+      operationId: getBusinessEntityTypes
+      x-eov-operation-handler: organization/businessEntityTypes
+      responses:
+        "200":
+          description: The list of business entity types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BusinessEntityType"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/facility_types:
+    get:
+      summary: List facility types
+      tags:
+        - Organization management
+      description: Use this endpoint to get a list of facility types.
+      operationId: getFacilityTypes
+      x-eov-operation-handler: organization/facilityTypes
+      parameters:
+        - name: sub_industry_code
+          in: query
+          description: >
+            Filter facility types by sub industry code. This is an additive
+            filter; if specified, facility types with a sub industry code that
+            matches the provided code will be returned in addition to facility
+            types that do not have a sub industry code.
+          required: false
+          schema:
+            $ref: "#/components/schemas/IndustryTaxonomySubIndustryCode"
+      responses:
+        "200":
+          description: The list of facility types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FacilityType"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/process_types:
+    get:
+      summary: List process types
+      tags:
+        - Organization management
+      description: Use this endpoint to get a list of process types.
+      operationId: getProcessTypes
+      x-eov-operation-handler: organization/processTypes
+      parameters:
+        - name: facility_type_id
+          in: query
+          description: Filter process types by facility type ID
+          required: false
+          schema:
+            $ref: "#/components/schemas/FacilityTypeID"
+      responses:
+        "200":
+          description: The list of process types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProcessType"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/emissions_sources/{id}:
+    get:
+      summary: Retrieve an emissions source by its ID
+      tags:
+        - Organization management
+      description: Use this endpoint to get a specific emissions source by its ID.
+      operationId: getEmissionsSource
+      x-eov-operation-handler: organization/emissionsSources
+      parameters:
+        - name: id
+          in: path
+          description: The unique identifier for the emissions source
+          required: true
+          schema:
+            $ref: "#/components/schemas/EmissionsSourceID"
+      responses:
+        "200":
+          description: Emissions source retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmissionsSource"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+    put:
+      summary: Update an emissions source
+      tags:
+        - Organization management
+      description: Updates an existing emissions source with new details.
+      operationId: updateEmissionsSource
+      x-eov-operation-handler: organization/emissionsSources
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the emissions source to be updated
+          schema:
+            $ref: "#/components/schemas/EmissionsSourceID"
+      requestBody:
+        description: The updated emissions source details
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - processID
+                - emissionsSourceTypeID
+                - emissionsModelID
+              properties:
+                processID:
+                  $ref: "#/components/schemas/BusinessEntityID"
+                  description: The id of the process business entity this emissions source belongs
+                    to
+                emissionsSourceTypeID:
+                  $ref: "#/components/schemas/EmissionsSourceTypeID"
+                  description: The type of emissions source this emissions source represents
+                emissionsModelID:
+                  $ref: "#/components/schemas/EmissionsModelID"
+                  description: The id of the emissions model used to compute the emissions
+                relatedSourceID:
+                  $ref: "#/components/schemas/EmissionsSourceID"
+                  description: ID of a related emissions source
+                scope:
+                  $ref: "#/components/schemas/EmissionsScope"
+                  description: The GHG protocol scope this source belongs to
+                status:
+                  $ref: "#/components/schemas/EmissionsSourceStatus"
+                  description: The status of this emissions source
+                description:
+                  type: string
+                  description: A description of what this emissions source represents
+                referenceSourceIDs:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/EmissionsSourceID"
+                  description: List of reference emissions source IDs
+      responses:
+        "200":
+          description: Emissions source successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmissionsSource"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+    delete:
+      summary: Delete an emissions source
+      tags:
+        - Organization management
+      description: Deletes an emissions source and all emissions activity data
+        associated with it.
+      operationId: deleteEmissionsSource
+      x-eov-operation-handler: organization/emissionsSources
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the emissions source to be deleted
+          schema:
+            $ref: "#/components/schemas/EmissionsSourceID"
+      responses:
+        "204":
+          description: Emissions source successfully deleted
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/emissions_sources:
+    post:
+      summary: Create a new emissions source
+      tags:
+        - Organization management
+      description: Creates a new emissions source under the specified business entity
+        process.
+      operationId: createEmissionsSource
+      x-eov-operation-handler: organization/emissionsSources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - processID
+                - emissionsSourceTypeID
+                - emissionsModelID
+              properties:
+                processID:
+                  $ref: "#/components/schemas/BusinessEntityID"
+                  description: The id of the process business entity this emissions source belongs
+                    to
+                emissionsSourceTypeID:
+                  $ref: "#/components/schemas/EmissionsSourceTypeID"
+                  description: The type of emissions source this emissions source represents.
+                emissionsModelID:
+                  $ref: "#/components/schemas/EmissionsModelID"
+                  description: The id of the emissions model used to compute the emissions of this
+                    emissions source
+                relatedSourceID:
+                  $ref: "#/components/schemas/EmissionsSourceID"
+                scope:
+                  $ref: "#/components/schemas/EmissionsScope"
+                status:
+                  $ref: "#/components/schemas/EmissionsSourceStatus"
+                description:
+                  type: string
+                  description: A description of what this emissions source represents
+                referenceSourceIDs:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/EmissionsSourceID"
+      responses:
+        "201":
+          description: The newly created emissions source
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmissionsSource"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+    get:
+      summary: List emissions sources in an org
+      tags:
+        - Organization management
+      description: >
+        Use this endpoint to get a list of emissions sources in the
+        organization.  If no filters are specified, all emissions sources in the
+        organization are returned. You can optionally filter the results by
+        process ID or business entity ID.
+      operationId: getEmissionsSources
+      x-eov-operation-handler: organization/emissionsSources
+      parameters:
+        - name: process_id
+          in: query
+          description: Filter emissions sources by process ID
+          required: false
+          schema:
+            $ref: "#/components/schemas/BusinessEntityID"
+        - name: business_entity_id
+          in: query
+          description: >
+            Filter emissions sources by business entity ID. This will return all
+            emissions sources that are descendants of the specified business
+            entity.
+          required: false
+          schema:
+            $ref: "#/components/schemas/BusinessEntityID"
+        - name: emissions_source_type_id
+          in: query
+          description: Filter emissions sources by source type ID
+          required: false
+          schema:
+            $ref: "#/components/schemas/EmissionsSourceTypeID"
+      responses:
+        "200":
+          description: The list of emissions sources
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmissionsSource"
+        "400":
+          $ref: "#/components/responses/UserInputError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/emissions_source_types/{id}:
+    get:
+      summary: Retrieve an emissions source type by its ID
+      tags:
+        - Organization management
+      description: Use this endpoint to get a specific emissions source type by its ID.
+      operationId: getEmissionsSourceType
+      x-eov-operation-handler: organization/emissionsSourceTypes
+      parameters:
+        - name: id
+          in: path
+          description: The unique identifier for the emissions source type
+          required: true
+          schema:
+            $ref: "#/components/schemas/EmissionsSourceTypeID"
+      responses:
+        "200":
+          description: Emissions source type retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmissionsSourceType"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/emissions_source_types:
+    get:
+      summary: List emissions source types
+      tags:
+        - Organization management
+      description: Use this endpoint to get a list of all emissions source types.
+      operationId: getEmissionsSourceTypes
+      x-eov-operation-handler: organization/emissionsSourceTypes
+      parameters:
+        - name: scope
+          in: query
+          description: Filter source types by GHG protocol scope
+          required: false
+          schema:
+            $ref: "#/components/schemas/EmissionsScope"
+      responses:
+        "200":
+          description: The list of emissions source types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmissionsSourceType"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/emissions_models/{id}:
+    get:
+      summary: Retrieve an emissions model by its ID
+      tags:
+        - Organization management
+      description: Use this endpoint to get a specific emissions model by its ID.
+      operationId: getEmissionsModel
+      x-eov-operation-handler: organization/emissionsModels
+      parameters:
+        - name: id
+          in: path
+          description: The unique identifier for the emissions model
+          required: true
+          schema:
+            $ref: "#/components/schemas/EmissionsModelID"
+      responses:
+        "200":
+          description: Emissions model retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmissionsModel"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/organization/emissions_models:
+    get:
+      summary: List emissions models
+      tags:
+        - Organization management
+      description: Use this endpoint to get a list of emissions models, optionally
+        filtered by emissions source type and protocol.
+      operationId: getEmissionsModels
+      x-eov-operation-handler: organization/emissionsModels
+      parameters:
+        - name: emissions_source_type_id
+          in: query
+          description: Filter models by emissions source type ID
+          required: false
+          schema:
+            $ref: "#/components/schemas/EmissionsSourceTypeID"
+        - name: protocol_id
+          in: query
+          description: Filter models by protocol ID
+          required: false
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: The list of emissions models
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmissionsModel"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/organization
+        - OAuth2AuthCodeProduction: []
+  /v1/carbon_accounting/summaries/monthly_detailed_emissions_summaries:
+    get:
+      summary: Retrieve monthly, activity-level detailed emissions summaries
+      tags:
+        - Carbon accounting
+      description: >
+        Use this endpoint to retrieve emissions summaries at month and activity
+        levels.
+      operationId: getMonthlyDetailedEmissionsSummaries
+      x-eov-operation-handler: carbonAccounting/monthlyDetailedEmissionsSummaries
+      parameters:
+        - name: fiscal_year
+          in: query
+          description: Filter by a specific fiscal year, using the organization's fiscal
+            start month setting
+          required: false
+          schema:
+            $ref: "#/components/schemas/Year"
+        - name: calendar_year
+          in: query
+          description: Filter by a specific calendar year
+          required: false
+          schema:
+            $ref: "#/components/schemas/Year"
+        - name: month
+          in: query
+          description: Filter by a specific month in YYYY-MM format
+          required: false
+          schema:
+            $ref: "#/components/schemas/Month"
+        - name: from_month
+          in: query
+          description: Filter starting at a specific month, inclusive. Can optionally use
+            with to_month.
+          required: false
+          schema:
+            $ref: "#/components/schemas/Month"
+        - name: to_month
+          in: query
+          description: Filter up to a specific month, inclusive. Can optionally use with
+            from_month.
+          required: false
+          schema:
+            $ref: "#/components/schemas/Month"
+        - name: process_ids
+          in: query
+          description: A list of process UUIDs to filter against, returning any summary
+            that matches any process in the list
+          required: false
+          schema:
+            $ref: "#/components/schemas/BusinessEntityIDs"
+        - name: emissions_source_ids
+          in: query
+          description: A list of emissions source UUIDs, returning any summary that
+            matches any emissions source in the list
+          required: false
+          schema:
+            $ref: "#/components/schemas/EmissionsSourceIDs"
+        - name: scopes
+          in: query
+          description: Filter source types by GHG protocol scopes
+          required: false
+          schema:
+            $ref: "#/components/schemas/EmissionsScopes"
+      responses:
+        "200":
+          description: Monthly detailed emissions summaries retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summaries:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/MonthlyDetailedEmissionsSummary"
+                  pagination:
+                    $ref: "#/components/schemas/PaginationResult"
+        "400":
+          $ref: "#/components/responses/UserInputError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/carbon_accounting
+        - OAuth2AuthCodeProduction: []
+  /v1/carbon_accounting/summaries/monthly_emissions_source_emissions_summaries:
+    get:
+      summary: Retrieve monthly emissions summaries by emissions source
+      tags:
+        - Carbon accounting
+      description: |
+        Use this endpoint to retrieve emissions summaries by emissions source
+      operationId: getMonthlyEmissionsSourceEmissionsSummaries
+      x-eov-operation-handler: carbonAccounting/monthlyEmissionsSourceEmissionsSummaries
+      parameters:
+        - name: fiscal_year
+          in: query
+          description: Filter by a specific fiscal year, using the organization's fiscal
+            start month setting
+          required: false
+          schema:
+            $ref: "#/components/schemas/Year"
+        - name: calendar_year
+          in: query
+          description: Filter by a specific calendar year
+          required: false
+          schema:
+            $ref: "#/components/schemas/Year"
+        - name: month
+          in: query
+          description: Filter by a specific month in YYYY-MM format
+          required: false
+          schema:
+            $ref: "#/components/schemas/Month"
+        - name: from_month
+          in: query
+          description: Filter starting at a specific month, inclusive. Can optionally use
+            with to_month.
+          required: false
+          schema:
+            $ref: "#/components/schemas/Month"
+        - name: to_month
+          in: query
+          description: Filter up to a specific month, inclusive. Can optionally use with
+            from_month.
+          required: false
+          schema:
+            $ref: "#/components/schemas/Month"
+        - name: business_entity_ids
+          in: query
+          description: A list of business entity UUIDs to filter against, returning
+            summaries for sources that are descendants of the given UUIDs
+          required: false
+          schema:
+            $ref: "#/components/schemas/BusinessEntityIDs"
+        - name: emissions_source_ids
+          in: query
+          description: A list of emissions source UUIDs, returning summaries for the given
+            sources only
+          required: false
+          schema:
+            $ref: "#/components/schemas/EmissionsSourceIDs"
+        - name: scopes
+          in: query
+          description: Filter source types by GHG protocol scopes
+          required: false
+          schema:
+            $ref: "#/components/schemas/EmissionsScopes"
+      responses:
+        "200":
+          description: Monthly emissions source summaries retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summaries:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/MonthlyEmissionsSourceEmissionsSummary"
+                  pagination:
+                    $ref: "#/components/schemas/PaginationResult"
+        "400":
+          $ref: "#/components/responses/UserInputError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/carbon_accounting
+        - OAuth2AuthCodeProduction: []
+  /v1/carbon_accounting/summaries/monthly_business_entity_emissions_summaries:
+    get:
+      summary: Retrieve monthly emissions summaries by business entity
+      tags:
+        - Carbon accounting
+      description: |
+        Use this endpoint to retrieve emissions summaries by emissions source
+      operationId: getMonthlyBusinessEntityEmissionsSummaries
+      x-eov-operation-handler: carbonAccounting/monthlyBusinessEntityEmissionsSummaries
+      parameters:
+        - name: fiscal_year
+          in: query
+          description: Filter by a specific fiscal year, using the organization's fiscal
+            start month setting
+          required: false
+          schema:
+            $ref: "#/components/schemas/Year"
+        - name: calendar_year
+          in: query
+          description: Filter by a specific calendar year
+          required: false
+          schema:
+            $ref: "#/components/schemas/Year"
+        - name: month
+          in: query
+          description: Filter by a specific month in YYYY-MM format
+          required: false
+          schema:
+            $ref: "#/components/schemas/Month"
+        - name: from_month
+          in: query
+          description: Filter starting at a specific month, inclusive. Can optionally use
+            with to_month.
+          required: false
+          schema:
+            $ref: "#/components/schemas/Month"
+        - name: to_month
+          in: query
+          description: Filter up to a specific month, inclusive. Can optionally use with
+            from_month.
+          required: false
+          schema:
+            $ref: "#/components/schemas/Month"
+        - name: business_entity_ids
+          in: query
+          description: A list of business entity UUIDs to filter against, returning
+            summaries for the specificed business entities
+          required: false
+          schema:
+            $ref: "#/components/schemas/BusinessEntityIDs"
+        - name: parent_business_entity_id
+          in: query
+          description: A business entity UUIDs to filter against, returning summaries for
+            business entities one level below the given parent
+          required: false
+          schema:
+            $ref: "#/components/schemas/BusinessEntityID"
+        - name: business_entity_type_id
+          in: query
+          description: A business entity type to filter against, returning summaries for
+            business entities of this type
+          required: false
+          schema:
+            $ref: "#/components/schemas/BusinessEntityTypeID"
+      responses:
+        "200":
+          description: Monthly emissions source summaries retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summaries:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/MonthlyBusinessEntityEmissionsSummary"
+                  pagination:
+                    $ref: "#/components/schemas/PaginationResult"
+        "400":
+          $ref: "#/components/responses/UserInputError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/carbon_accounting
+        - OAuth2AuthCodeProduction: []
+  /v1/carbon_accounting/activity_periods/close_activity_month:
+    post:
+      summary: Close an activity month for an emissions source
+      tags:
+        - Carbon accounting
+      description: Closes an activity month for a specific emissions source,
+        preventing further modifications to the period.
+      operationId: closeActivityMonth
+      x-eov-operation-handler: carbonAccounting/activityPeriods
+      parameters:
+        - name: emissions_source_id
+          in: query
+          description: The ID of the emissions source to close the activity month for
+          required: true
+          schema:
+            $ref: "#/components/schemas/EmissionsSourceID"
+        - name: month
+          in: query
+          description: The month to close in YYYY-MM format
+          required: true
+          schema:
+            $ref: "#/components/schemas/Month"
+      responses:
+        "204":
+          description: Activity month successfully closed
+        "400":
+          $ref: "#/components/responses/UserInputError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/carbon_accounting
+        - OAuth2AuthCodeProduction: []
+  /v1/carbon_accounting/activity_periods/open_activity_month:
+    post:
+      summary: Open an activity month for an emissions source
+      tags:
+        - Carbon accounting
+      description: Opens a previously closed activity month for a specific emissions
+        source, allowing modifications to the period.
+      operationId: openActivityMonth
+      x-eov-operation-handler: carbonAccounting/activityPeriods
+      parameters:
+        - name: emissions_source_id
+          in: query
+          description: The ID of the emissions source to open the activity month for
+          required: true
+          schema:
+            $ref: "#/components/schemas/EmissionsSourceID"
+        - name: month
+          in: query
+          description: The month to open in YYYY-MM format
+          required: true
+          schema:
+            $ref: "#/components/schemas/Month"
+      responses:
+        "204":
+          description: Activity month successfully opened
+        "400":
+          $ref: "#/components/responses/UserInputError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/carbon_accounting
+        - OAuth2AuthCodeProduction: []
+  /v1/baseline_forecasts/baseline_scenarios/{id}:
+    get:
+      summary: Get a baseline scenario by its ID
+      tags:
+        - Baseline forecasts
+      description: Retrieves a baseline scenario by its ID.
+      operationId: getBaselineScenario
+      x-eov-operation-handler: baselineForecasts/baselineScenarios
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the baseline scenario to retrieve
+          schema:
+            $ref: "#/components/schemas/BaselineScenarioID"
+      responses:
+        "200":
+          description: Baseline scenario retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaselineScenario"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/baseline_forecasts
+        - OAuth2AuthCodeProduction: []
+  /v1/baseline_forecasts/baseline_scenarios:
+    get:
+      summary: Get all baseline scenarios
+      tags:
+        - Baseline forecasts
+      description: Retrieves a list of all baseline scenarios.
+      operationId: getBaselineScenarios
+      x-eov-operation-handler: baselineForecasts/baselineScenarios
+      responses:
+        "200":
+          description: Baseline scenarios retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  defaultScenario:
+                    $ref: "#/components/schemas/BaselineScenario"
+                  alternateScenarios:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/BaselineScenario"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/baseline_forecasts
+        - OAuth2AuthCodeProduction: []
+  /v1/baseline_forecasts/activity_projections/{id}:
+    get:
+      summary: Get an activity projection by its ID
+      tags:
+        - Baseline forecasts
+      description: Retrieves an activity projection and its config by its ID.
+      operationId: getActivityProjection
+      x-eov-operation-handler: baselineForecasts/activityProjections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the activity projection to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Activity projection retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActivityDataProjection"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/baseline_forecasts
+        - OAuth2AuthCodeProduction: []
+  /v1/baseline_forecasts/activity_projections:
+    get:
+      summary: Get activity projections
+      tags:
+        - Baseline forecasts
+      description: >
+        Retrieves a list of activity projections filtered by baseline scenario
+        ID and optionally by business entity ID. If no business entity ID is
+        provided, the activity projections for the entire organization will be
+        returned. This endpoint supports pagination, since the number of
+        activity projections can be quite large.
+      operationId: getActivityProjections
+      x-eov-operation-handler: baselineForecasts/activityProjections
+      parameters:
+        - name: baseline_scenario_id
+          in: query
+          required: true
+          description: The ID of the baseline scenario to filter the activity projections by
+          schema:
+            $ref: "#/components/schemas/BaselineScenarioID"
+        - name: business_entity_id
+          in: query
+          required: false
+          description: The ID of the business entity to filter the activity projections by
+          schema:
+            $ref: "#/components/schemas/BusinessEntityID"
+        - name: offset
+          in: query
+          required: false
+          description: The offset of the activity projections to retrieve
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          description: The limit of the activity projections to retrieve
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Activity projections retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projections:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ActivityDataProjection"
+                  pagination:
+                    $ref: "#/components/schemas/PaginationResult"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/baseline_forecasts
+        - OAuth2AuthCodeProduction: []
+  /v1/baseline_forecasts/main_metric_projections/{id}:
+    get:
+      summary: Get a main metric projection by its ID
+      tags:
+        - Baseline forecasts
+      description: Retrieves a main metric projection and its config by its ID.
+      operationId: getMainMetricProjection
+      x-eov-operation-handler: baselineForecasts/mainMetricProjections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the main metric projection to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Main metric projection retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MainMetricProjection"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/baseline_forecasts
+        - OAuth2AuthCodeProduction: []
+  /v1/baseline_forecasts/main_metric_projections:
+    get:
+      summary: Get main metric projections
+      tags:
+        - Baseline forecasts
+      description: >
+        Retrieves a list of main metric projections filtered by baseline
+        scenario ID and optionally by business entity ID. If no business entity
+        ID is provided, the main metric projections for the entire organization
+        will be returned. This endpoint supports pagination, since the number of
+        main metric projections can be quite large.
+      operationId: getMainMetricProjections
+      x-eov-operation-handler: baselineForecasts/mainMetricProjections
+      parameters:
+        - name: baseline_scenario_id
+          in: query
+          required: true
+          description: The ID of the baseline scenario to filter the main metric
+            projections by
+          schema:
+            $ref: "#/components/schemas/BaselineScenarioID"
+        - name: business_entity_id
+          in: query
+          required: false
+          description: The ID of the business entity to filter the main metric projections
+            by
+          schema:
+            $ref: "#/components/schemas/BusinessEntityID"
+        - name: offset
+          in: query
+          required: false
+          description: The offset of the main metric projections to retrieve
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          description: The limit of the main metric projections to retrieve
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Main metric projections retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projections:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/MainMetricProjection"
+                  pagination:
+                    $ref: "#/components/schemas/PaginationResult"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/baseline_forecasts
+        - OAuth2AuthCodeProduction: []
+  /v1/baseline_forecasts/projections_summaries/business_entity_summary:
+    get:
+      summary: Get forecast summary for the organization or a specific business entity
+      tags:
+        - Baseline forecasts
+      description: Retrieves the historical and forecasted emissions and intensity
+        data for the entire organization or optionally filtered for a specific
+        business entity.
+      operationId: getProjectionsSummaryForBusinessEntity
+      x-eov-operation-handler: baselineForecasts/projectionsSummaries
+      parameters:
+        - name: business_entity_id
+          in: query
+          required: false
+          description: >
+            The unique identifier for a business entity to filter the summary.
+            If omitted, the summary for the entire organization is returned.
+          schema:
+            $ref: "#/components/schemas/BusinessEntityID"
+        - name: baseline_scenario_id
+          in: query
+          required: false
+          description: >
+            Return the summary for a specific baseline scenario. If omitted, the
+            default baseline scenario will be used.
+          schema:
+            $ref: "#/components/schemas/BaselineScenarioID"
+      responses:
+        "200":
+          description: Forecast summary retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BusinessEntityBaselineForecastSummary"
+        "400":
+          $ref: "#/components/responses/UserInputError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+      security:
+        - OAuth2ClientCredentialsProduction:
+            - https://api.sinai.com/baseline_forecasts
+        - OAuth2AuthCodeProduction: []
+components:
+  responses:
+    EndpointNotImplemented:
+      description: Endpoint not implemented yet. This functionality is not yet available.
+    UserInputError:
+      description: Your request is missing a parameter or has the wrong data type
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UserInputError"
+    UnauthorizedError:
+      description: You need to authenticate before accessing this resource
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UnauthorizedError"
+    ForbiddenError:
+      description: You are not authorized to access this object
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ForbiddenError"
+    NotFoundError:
+      description: Object not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NotFoundError"
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/InternalServerError"
+  schemas:
+    Month:
+      type: string
+      pattern: ^\d{4}-\d{2}$
+      example: 2025-03
+    Year:
+      type: string
+      pattern: ^\d{4}$
+      example: "2025"
+    ActivityType:
+      type: string
+    BusinessEntityTypeCategory:
+      type: string
+      enum:
+        - ORG_LEVEL
+        - MID_LEVEL
+        - FACILITY_LEVEL
+        - PROCESS_LEVEL
+    BusinessEntityTypeID:
+      type: string
+      format: uuid
+    BusinessEntityID:
+      type: string
+      format: uuid
+    NullableBusinessEntityID:
+      type: string
+      format: uuid
+      nullable: true
+    BusinessEntityIDs:
+      type: array
+      items:
+        $ref: "#/components/schemas/BusinessEntityID"
+      style: form
+      explode: true
+    Organization:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/OrganizationID"
+          description: The id of the organization
+        rootBusinessEntityID:
+          $ref: "#/components/schemas/BusinessEntityID"
+          description: The id of the root business entity
+        defaultFunctionalUnitID:
+          $ref: "#/components/schemas/FunctionalUnitID"
+          description: The id of the default functional unit
+        fiscalYearStartMonth:
+          type: number
+          description: The month of the fiscal year start
+    BusinessEntity:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/BusinessEntityID"
+          description: The unique identifier of the business entity
+        orgID:
+          $ref: "#/components/schemas/OrganizationID"
+          description: The ID of the organization this business entity belongs to
+        parentID:
+          $ref: "#/components/schemas/NullableBusinessEntityID"
+          description: The ID of the parent business entity
+        name:
+          type: string
+          example: Manufacturing plant
+          description: The name of the business entity
+        description:
+          type: string
+          example: The building where things are manufactured
+          description: A description of the business entity
+        countryCode:
+          $ref: "#/components/schemas/CountryCode"
+          description: The country code of the business entity
+        subIndustryCode:
+          $ref: "#/components/schemas/NullableIndustryTaxonomySubIndustryCode"
+          description: The industry code of the business entity
+        facilityTypeID:
+          $ref: "#/components/schemas/NullableFacilityTypeID"
+          description: The facility type of the business entity
+        processTypeID:
+          $ref: "#/components/schemas/NullableProcessTypeID"
+          description: The process type of the business entity
+        businessEntityTypeID:
+          $ref: "#/components/schemas/BusinessEntityTypeID"
+          description: The type of business entity
+        defaultFunctionalUnitID:
+          $ref: "#/components/schemas/FunctionalUnitID"
+          description: The default functional unit for the business entity
+        defaultDisplayUnit:
+          type: string
+          description: The default display unit for the functional unit of the business
+            entity
+        activeStartTimestamp:
+          type: number
+          description: The timestamp when the business entity becomes active, in
+            milliseconds since epoch
+        activeEndTimestamp:
+          type: number
+          description: The timestamp when the business entity becomes inactive, in
+            milliseconds since epoch
+      required:
+        - id
+        - name
+      additionalProperties: false
+    BusinessEntityType:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/BusinessEntityTypeID"
+          description: The unique identifier of the business entity type
+        name:
+          type: string
+          description: The name of the business entity type
+        description:
+          type: string
+          description: A description of the business entity type
+        typeCategory:
+          $ref: "#/components/schemas/BusinessEntityTypeCategory"
+          description: The category of the business entity type
+        allowedAtRoot:
+          type: boolean
+          description: Whether the business entity type is allowed at the root level
+        orgID:
+          $ref: "#/components/schemas/NullableOrganizationID"
+          description: The ID of the organization this business entity type belongs to
+      required:
+        - id
+        - name
+        - typeCategory
+    FacilityType:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/FacilityTypeID"
+          description: The unique identifier of the facility type
+        name:
+          type: string
+          description: The name of the facility type
+        description:
+          type: string
+          description: A description of the facility type
+          nullable: true
+        subIndustryCode:
+          $ref: "#/components/schemas/NullableIndustryTaxonomySubIndustryCode"
+          description: The industry code of the facility type
+        orgID:
+          $ref: "#/components/schemas/NullableOrganizationID"
+          description: The ID of the organization this facility type belongs to
+      required:
+        - id
+        - name
+        - subIndustryCode
+    ProcessType:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/ProcessTypeID"
+          description: The unique identifier of the process type
+        name:
+          type: string
+          description: The name of the process type
+        description:
+          type: string
+          description: A description of the process type
+          nullable: true
+        facilityTypeID:
+          $ref: "#/components/schemas/NullableFacilityTypeID"
+          description: The facility type of the process type
+        orgID:
+          $ref: "#/components/schemas/NullableOrganizationID"
+          description: The ID of the organization this process type belongs to, if any
+      required:
+        - id
+        - name
+        - facilityTypeID
+    EmissionsSourceTypeID:
+      type: string
+      format: uuid
+    EmissionsSourceType:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/EmissionsSourceTypeID"
+          description: The unique identifier of the emissions source type
+        name:
+          type: string
+          description: The name of the emissions source type
+        scope:
+          $ref: "#/components/schemas/EmissionsScope"
+          description: The GHG protocol scope this source type belongs to
+      required:
+        - id
+        - name
+        - scope
+      additionalProperties: false
+    Protocol:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the protocol
+        displayName:
+          type: string
+          description: The display name of the protocol
+      required:
+        - id
+        - displayName
+      additionalProperties: false
+    EmissionsModelID:
+      type: string
+      format: uuid
+    EmissionsScope:
+      type: number
+      enum:
+        - 1
+        - 2
+        - 21
+        - 22
+        - 3
+        - -1
+      description: The GHG protocol scope this source belongs to
+    EmissionsScopes:
+      type: array
+      items:
+        $ref: "#/components/schemas/EmissionsScope"
+      style: form
+      explode: true
+    EmissionsSourceStatus:
+      type: string
+      enum:
+        - ACTIVE
+        - INACTIVE
+      description: The status of this emissions source
+    EmissionsSource:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/EmissionsSourceID"
+          description: The unique identifier of the emissions source
+        processID:
+          $ref: "#/components/schemas/BusinessEntityID"
+          description: The id of the process business entity this source belongs to
+        emissionsSourceTypeID:
+          $ref: "#/components/schemas/EmissionsSourceTypeID"
+          description: The type of emissions source this is
+        emissionsModelID:
+          $ref: "#/components/schemas/EmissionsModelID"
+          description: The id of the emissions model used to compute the emissions
+        relatedSourceID:
+          $ref: "#/components/schemas/NullableEmissionsSourceID"
+          description: ID of a related emissions source, or null if there is no related
+            source
+        scope:
+          $ref: "#/components/schemas/EmissionsScope"
+          description: The GHG protocol scope this source belongs to
+        status:
+          $ref: "#/components/schemas/EmissionsSourceStatus"
+          description: The status of this emissions source
+        description:
+          type: string
+          description: A description of what this emissions source represents
+        referenceSourceIDs:
+          type: array
+          items:
+            $ref: "#/components/schemas/EmissionsSourceID"
+          description: List of reference emissions source IDs
+          nullable: true
+      required:
+        - id
+        - processID
+        - emissionsSourceTypeID
+        - emissionsModelID
+        - scope
+        - status
+      additionalProperties: false
+    EmissionsModel:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/EmissionsModelID"
+          description: The unique identifier of the emissions model
+        emissionsSourceTypeID:
+          $ref: "#/components/schemas/EmissionsSourceTypeID"
+          description: The type of emissions source this model is for
+        protocol:
+          $ref: "#/components/schemas/Protocol"
+          description: The protocol this model follows
+        displayName:
+          type: string
+          description: The display name of the emissions model
+        emissionsFactorsSources:
+          type: array
+          items:
+            type: string
+          description: List of emissions factors sources used by this model
+      required:
+        - id
+        - protocol
+        - displayName
+        - emissionsFactorsSources
+      additionalProperties: false
+    EmissionsSourceID:
+      type: string
+      format: uuid
+    NullableEmissionsSourceID:
+      type: string
+      format: uuid
+      nullable: true
+    EmissionsSourceIDs:
+      type: array
+      items:
+        $ref: "#/components/schemas/EmissionsSourceID"
+      style: form
+      explode: true
+    ActivityTypeID:
+      type: string
+      format: uuid
+    BaselineScenarioID:
+      type: string
+      format: uuid
+    OrganizationID:
+      type: string
+      format: uuid
+    NullableOrganizationID:
+      type: string
+      format: uuid
+      nullable: true
+    BaselineScenario:
+      description: >
+        A baseline scenario is the collection of main metric and activity data
+        projections for an organization. Each business entity process has a
+        specific main metric projection under a baseline scenario. Each activity
+        data type within each emissions source has a projection under a baseline
+        scenario. Together they make up a baseline scenario. All organizations
+        have a default baseline scenario that is created when the organization
+        is created. Additional baseline scenarios can be defined.
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/BaselineScenarioID"
+          description: The unique identifier of the baseline scenario
+        name:
+          type: string
+          description: The name of the baseline scenario
+        description:
+          type: string
+          nullable: true
+          description: A description of the baseline scenario
+        isDefault:
+          type: boolean
+          description: Whether this is the default baseline scenario
+        orgID:
+          $ref: "#/components/schemas/OrganizationID"
+          description: The ID of the organization this baseline scenario belongs to
+      required:
+        - name
+        - isDefault
+        - orgID
+      additionalProperties: false
+    MonthlyDetailedEmissionsSummary:
+      type: object
+      properties:
+        month:
+          $ref: "#/components/schemas/Month"
+          description: The month of this detailed emissions summary in YYYY-MM format
+        activityType:
+          $ref: "#/components/schemas/ActivityType"
+          description: The activity type for this emissions summary
+        activityTypeID:
+          $ref: "#/components/schemas/ActivityTypeID"
+          description: The unique identifier for the activity type
+        activityValue:
+          type: number
+          description: The total activity amount for this summary month, in the summary's
+            activity units
+        activityUnit:
+          type: string
+          description: The server unit associated with activityValue
+        scopeEmissions:
+          type: number
+          description: The total scope emissions, in kgCO2e
+        scope:
+          $ref: "#/components/schemas/EmissionsScope"
+          description: The GHG protocol scope of this emissions summary
+        energyConsumption:
+          type: number
+          description: The amount of energy consumed, in kWh
+        processID:
+          $ref: "#/components/schemas/BusinessEntityID"
+          description: The unique identifier for the process business entity this
+            emissions summary belongs to
+        processName:
+          type: string
+          description: The name of the process business entity this emissions summary
+            belongs to
+        facilityID:
+          $ref: "#/components/schemas/BusinessEntityID"
+          description: The ID of the facility this emissions summary belongs to
+        facilityName:
+          type: string
+          description: The name of the facility this emissions summary belongs to
+        emissionsSourceID:
+          $ref: "#/components/schemas/EmissionsSourceID"
+          description: The ID of the emissions source for this emissions summary
+        emissionsSourceName:
+          type: string
+          description: The name of the emissions source for this emissions summary
+        emissionsSourceTypeID:
+          $ref: "#/components/schemas/EmissionsSourceTypeID"
+          description: The ID of the emissions source type for the source for this
+            emissions summary
+        emissionsSourceTypeName:
+          type: string
+          description: The name of the emissions source type for the source for this
+            emissions summary
+        emissionsModelID:
+          $ref: "#/components/schemas/EmissionsModelID"
+          description: The ID of the emissions model for the source for this emissions
+            summary
+        emissionsModelName:
+          type: string
+          description: The name of the emissions model for the source for this emissions
+            summary
+      required:
+        - month
+        - activityType
+        - activityTypeID
+        - activityValue
+        - activityUnit
+        - scopeEmissions
+        - scope
+        - energyConsumption
+        - processID
+        - processName
+        - emissionsSourceID
+        - emissionsSourceName
+        - emissionsSourceTypeID
+        - emissionsSourceTypeName
+        - emissionsModelID
+        - emissionsModelName
+      additionalProperties: false
+    MonthlyEmissionsSourceEmissionsSummary:
+      type: object
+      properties:
+        month:
+          $ref: "#/components/schemas/Month"
+          description: The month of this detailed emissions summary in YYYY-MM format
+        scopeEmissions:
+          type: number
+          description: The total scope emissions, in kgCO2e
+        scope:
+          $ref: "#/components/schemas/EmissionsScope"
+          description: The GHG protocol scope of this emissions summary
+        energyConsumption:
+          type: number
+          description: The amount of energy consumed, in kWh
+        processID:
+          $ref: "#/components/schemas/BusinessEntityID"
+          description: The unique identifier for the process business entity this
+            emissions summary belongs to
+        processName:
+          type: string
+          description: The name of the process business entity this emissions summary
+            belongs to
+        emissionsSourceID:
+          $ref: "#/components/schemas/EmissionsSourceID"
+          description: The ID of the emissions source for this emissions summary
+        emissionsSourceName:
+          type: string
+          description: The name of the emissions source for this emissions summary
+        emissionsSourceTypeID:
+          $ref: "#/components/schemas/EmissionsSourceTypeID"
+          description: The ID of the emissions source type for the source for this
+            emissions summary
+        emissionsSourceTypeName:
+          type: string
+          description: The name of the emissions source type for the source for this
+            emissions summary
+        emissionsModelID:
+          $ref: "#/components/schemas/EmissionsModelID"
+          description: The ID of the emissions model for the source for this emissions
+            summary
+        emissionsModelName:
+          type: string
+          description: The name of the emissions model for the source for this emissions
+            summary
+      required:
+        - month
+        - scopeEmissions
+        - scope
+        - energyConsumption
+        - processID
+        - processName
+        - emissionsSourceID
+        - emissionsSourceName
+        - emissionsSourceTypeID
+        - emissionsSourceTypeName
+        - emissionsModelID
+        - emissionsModelName
+      additionalProperties: false
+    MonthlyBusinessEntityEmissionsSummary:
+      type: object
+      properties:
+        month:
+          $ref: "#/components/schemas/Month"
+          description: The month of this detailed emissions summary in YYYY-MM format
+        scopeEmissions:
+          type: number
+          description: The total scope emissions, in kgCO2e
+        scope:
+          $ref: "#/components/schemas/EmissionsScope"
+          description: The GHG protocol scope of this emissions summary
+        energyConsumption:
+          type: number
+          description: The amount of energy consumed, in kWh
+        businessEntityID:
+          $ref: "#/components/schemas/BusinessEntityID"
+          description: The unique identifier for the business entity this emissions
+            summary belongs to
+        businessEntityName:
+          type: string
+          description: The name of the business entity this emissions summary belongs to
+        businessEntityTypeID:
+          $ref: "#/components/schemas/BusinessEntityTypeID"
+          description: The type of business entity this emissions summary belongs to
+        businessEntityTypeName:
+          type: string
+          description: The name of the type of business entity this emissions summary
+            belongs to
+        emissionsModelID:
+          $ref: "#/components/schemas/EmissionsModelID"
+          description: The ID of the emissions model for the source for this emissions
+            summary
+        emissionsModelName:
+          type: string
+          description: The name of the emissions model for the source for this emissions
+            summary
+      required:
+        - month
+        - scopeEmissions
+        - scope
+        - energyConsumption
+        - processID
+        - processName
+        - emissionsSourceID
+        - emissionsSourceName
+        - emissionsSourceTypeID
+        - emissionsSourceTypeName
+        - emissionsModelID
+        - emissionsModelName
+      additionalProperties: false
+    BusinessEntityBaselineForecastSummary:
+      type: object
+      properties:
+        functionalUnitID:
+          type: string
+          format: uuid
+          description: The ID of the functional unit for the forecasts.
+          nullable: true
+        forecastStartYear:
+          type: integer
+          description: The starting year of the forecast data - any data points prior to
+            this year are historical.
+        mainMetricDisplayUnit:
+          type: string
+          description: The unit used for displaying the main metric.
+          nullable: true
+        data:
+          type: array
+          description: Array of historical and forecasted data points with emissions and
+            intensity.
+          items:
+            $ref: "#/components/schemas/ForecastSummaryDataPoint"
+      required:
+        - forecastStartYear
+        - data
+      additionalProperties: false
+    ForecastSummaryDataPoint:
+      type: object
+      properties:
+        year:
+          type: integer
+          description: The year for this data point.
+        value:
+          $ref: "#/components/schemas/ForecastSummaryDataPointValue"
+          description: The forecast values for the year.
+      required:
+        - year
+        - value
+      additionalProperties: false
+    ForecastSummaryDataPointValue:
+      type: object
+      properties:
+        mainMetric:
+          type: number
+          description: Value of the main metric for the year.
+          nullable: true
+        scope1Emissions:
+          type: number
+          description: Scope 1 emissions value for the year.
+          nullable: true
+        scope2Emissions:
+          type: number
+          description: Scope 2 emissions value for the year.
+          nullable: true
+        scope3Emissions:
+          type: number
+          description: Scope 3 emissions value for the year.
+          nullable: true
+        emissionsIntensity:
+          type: number
+          description: Calculated intensity value for the year.
+          nullable: true
+      additionalProperties: false
+    UserInputError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+          enum:
+            - 400
+        name:
+          type: string
+          example: Bad Request
+        type:
+          type: string
+          example: bad_request
+          enum:
+            - bad_request
+        message:
+          type: string
+          example: You are missing a parameter.
+        details:
+          type: string
+          example: You are missing the id parameter.
+    UnauthorizedError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 401
+          enum:
+            - 401
+        name:
+          type: string
+          example: Unauthorized
+        type:
+          type: string
+          example: unauthorized
+          enum:
+            - unauthorized
+        message:
+          type: string
+          example: Authentication is required to access this resource.
+        details:
+          type: string
+          example: Please provide valid credentials (e.g., API key, JWT token).
+    ForbiddenError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 403
+          enum:
+            - 403
+        name:
+          type: string
+          example: Forbidden
+        type:
+          type: string
+          example: forbidden
+          enum:
+            - forbidden
+        message:
+          type: string
+          example: You do not have permission to access this resource.
+        details:
+          type: string
+          example: You are authenticated but do not have sufficient permissions.
+    NotFoundError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 404
+          enum:
+            - 404
+        name:
+          type: string
+          example: Not Found
+        type:
+          type: string
+          example: not_found
+          enum:
+            - not_found
+        message:
+          type: string
+          example: Object not found
+        details:
+          type: string
+          example: The object with the specified ID does not exist in the database.
+    InternalServerError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 500
+          enum:
+            - 500
+        name:
+          type: string
+          example: Internal Server Error
+        type:
+          type: string
+          example: server_error
+          enum:
+            - server_error
+        message:
+          type: string
+          example: Internal server error
+        details:
+          type: string
+          example: An unexpected error occurred. Please try again later.
+    ActivityDataProjection:
+      type: object
+      properties:
+        config:
+          $ref: "#/components/schemas/ActivityDataProjectionConfig"
+        projection:
+          $ref: "#/components/schemas/ActivityDataProjectionData"
+      required:
+        - config
+        - projection
+    ActivityDataProjectionID:
+      type: string
+      format: uuid
+    ActivityDataProjectionConfig:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/ActivityDataProjectionID"
+        scenarioID:
+          $ref: "#/components/schemas/BaselineScenarioID"
+        processID:
+          $ref: "#/components/schemas/BusinessEntityID"
+        emissionsSourceID:
+          $ref: "#/components/schemas/EmissionsSourceID"
+        emissionsSourceTypeID:
+          $ref: "#/components/schemas/EmissionsSourceTypeID"
+        emissionsModelID:
+          $ref: "#/components/schemas/EmissionsModelID"
+        activityTypeID:
+          $ref: "#/components/schemas/ActivityTypeID"
+        activityType:
+          $ref: "#/components/schemas/ActivityType"
+        scope:
+          $ref: "#/components/schemas/EmissionsScope"
+        startYear:
+          $ref: "#/components/schemas/Year"
+        endYear:
+          $ref: "#/components/schemas/Year"
+        valueProjectionMethod:
+          $ref: "#/components/schemas/ActivityDataProjectionValueProjectionMethod"
+        emissionsProjectionMethod:
+          $ref: "#/components/schemas/ActivityDataProjectionEmissionsProjectionMethod"
+        emissionsFactorsOverrides:
+          type: array
+          items:
+            $ref: "#/components/schemas/EmissionsFactorOverride"
+        secondaryActivityValueOverrides:
+          type: array
+          items:
+            $ref: "#/components/schemas/SecondaryActivityValueOverride"
+      required:
+        - id
+        - scenarioID
+        - processID
+        - emissionsSourceID
+        - emissionsSourceTypeID
+        - emissionsModelID
+        - activityTypeID
+        - activityType
+        - scope
+        - startYear
+        - endYear
+        - valueProjectionMethod
+        - emissionsProjectionMethod
+        - emissionsFactorsOverrides
+        - secondaryActivityValueOverrides
+    ActivityDataProjectionData:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/ActivityDataProjectionID"
+        processID:
+          $ref: "#/components/schemas/BusinessEntityID"
+        emissionsSourceID:
+          $ref: "#/components/schemas/EmissionsSourceID"
+        emissionsSourceTypeID:
+          $ref: "#/components/schemas/EmissionsSourceTypeID"
+        emissionsModelID:
+          $ref: "#/components/schemas/EmissionsModelID"
+        activityTypeID:
+          $ref: "#/components/schemas/ActivityTypeID"
+        activityType:
+          $ref: "#/components/schemas/ActivityType"
+        scope:
+          $ref: "#/components/schemas/EmissionsScope"
+        startYear:
+          $ref: "#/components/schemas/Year"
+        endYear:
+          $ref: "#/components/schemas/Year"
+        serverUnit:
+          $ref: "#/components/schemas/Unit"
+        displayUnit:
+          $ref: "#/components/schemas/Unit"
+        emissionsUnit:
+          $ref: "#/components/schemas/Unit"
+        secondaryActivityValues:
+          type: array
+          items:
+            $ref: "#/components/schemas/YearData"
+        historicalActivityValues:
+          type: array
+          items:
+            $ref: "#/components/schemas/YearData"
+        projectedActivityValues:
+          type: array
+          items:
+            $ref: "#/components/schemas/YearData"
+        historicalScopeEmissions:
+          type: array
+          items:
+            $ref: "#/components/schemas/YearData"
+        projectedScopeEmissions:
+          type: array
+          items:
+            $ref: "#/components/schemas/YearData"
+        historicalBioCO2Emissions:
+          type: array
+          items:
+            $ref: "#/components/schemas/YearData"
+        projectedBioCO2Emissions:
+          type: array
+          items:
+            $ref: "#/components/schemas/YearData"
+      required:
+        - id
+        - processID
+        - emissionsSourceID
+        - emissionsSourceTypeID
+        - emissionsModelID
+        - activityTypeID
+        - activityType
+        - scope
+        - startYear
+        - endYear
+        - serverUnit
+        - displayUnit
+        - emissionsUnit
+        - secondaryActivityValues
+        - historicalActivityValues
+        - projectedActivityValues
+        - historicalScopeEmissions
+        - projectedScopeEmissions
+        - historicalBioCO2Emissions
+        - projectedBioCO2Emissions
+    YearData:
+      type: object
+      properties:
+        year:
+          $ref: "#/components/schemas/Year"
+        value:
+          type: number
+      required:
+        - year
+        - value
+    ActivityDataProjectionValueProjectionMethod:
+      type: object
+      description: >
+        Describes how a projection is configured. This is a discriminated union
+        of objects with a 'projectionMethod' property of type ProjectionMethod.
+      oneOf:
+        - $ref: "#/components/schemas/HistoricalAverageGrowthRateProjectionConfig"
+        - $ref: "#/components/schemas/HistoricalAverageValueProjectionConfig"
+        - $ref: "#/components/schemas/HistoricalFixedValueProjectionConfig"
+        - $ref: "#/components/schemas/CustomDataProjectionConfig"
+        - $ref: "#/components/schemas/CustomGrowthRateProjectionConfig"
+        - $ref: "#/components/schemas/CustomYearlyPercentageChangesConfig"
+    HistoricalAverageGrowthRateProjectionConfig:
+      type: object
+      properties:
+        projectionMethod:
+          type: string
+          enum:
+            - HISTORICAL_AVERAGE_GROWTH_RATE
+          example: HISTORICAL_AVERAGE_GROWTH_RATE
+        baseYear:
+          $ref: "#/components/schemas/Year"
+        historicalPeriodStart:
+          $ref: "#/components/schemas/Year"
+        historicalPeriodEnd:
+          $ref: "#/components/schemas/Year"
+      required:
+        - projectionMethod
+        - baseYear
+        - historicalPeriodStart
+        - historicalPeriodEnd
+    HistoricalAverageValueProjectionConfig:
+      type: object
+      properties:
+        projectionMethod:
+          type: string
+          enum:
+            - HISTORICAL_AVERAGE_VALUE
+          example: HISTORICAL_AVERAGE_VALUE
+        historicalPeriodStart:
+          $ref: "#/components/schemas/Year"
+        historicalPeriodEnd:
+          $ref: "#/components/schemas/Year"
+      required:
+        - projectionMethod
+        - historicalPeriodStart
+        - historicalPeriodEnd
+    HistoricalFixedValueProjectionConfig:
+      type: object
+      properties:
+        projectionMethod:
+          type: string
+          enum:
+            - HISTORICAL_FIXED_VALUE
+          example: HISTORICAL_FIXED_VALUE
+        baseYear:
+          $ref: "#/components/schemas/Year"
+      required:
+        - projectionMethod
+        - baseYear
+    CustomDataProjectionConfig:
+      type: object
+      properties:
+        projectionMethod:
+          type: string
+          enum:
+            - CUSTOM_DATA
+          example: CUSTOM_DATA
+        yearlyValues:
+          type: array
+          items:
+            $ref: "#/components/schemas/YearData"
+      required:
+        - projectionMethod
+        - yearlyValues
+    CustomGrowthRateProjectionConfig:
+      type: object
+      properties:
+        projectionMethod:
+          type: string
+          enum:
+            - CUSTOM_GROWTH_RATE
+          example: CUSTOM_GROWTH_RATE
+        baseYear:
+          $ref: "#/components/schemas/Year"
+        customGrowthRate:
+          type: number
+      required:
+        - projectionMethod
+        - baseYear
+        - customGrowthRate
+    CustomYearlyPercentageChangesConfig:
+      type: object
+      properties:
+        projectionMethod:
+          type: string
+          enum:
+            - CUSTOM_YEARLY_PERCENTAGE_CHANGES
+          example: CUSTOM_YEARLY_PERCENTAGE_CHANGES
+        baseYear:
+          $ref: "#/components/schemas/Year"
+        yearlyValues:
+          type: array
+          items:
+            $ref: "#/components/schemas/YearData"
+      required:
+        - projectionMethod
+        - baseYear
+        - yearlyValues
+    ActivityDataProjectionEmissionsProjectionMethod:
+      type: object
+      description: >
+        Describes how a projection is configured. This is a discriminated union
+        of objects with a 'projectionMethod' property of type ProjectionMethod.
+      oneOf:
+        - $ref: "#/components/schemas/HistoricalAverageGrowthRateProjectionConfig"
+        - $ref: "#/components/schemas/HistoricalAverageValueProjectionConfig"
+        - $ref: "#/components/schemas/HistoricalFixedValueProjectionConfig"
+        - $ref: "#/components/schemas/CustomDataProjectionConfig"
+        - $ref: "#/components/schemas/CustomGrowthRateProjectionConfig"
+        - $ref: "#/components/schemas/CustomYearlyPercentageChangesConfig"
+    EmissionsFactorOverride:
+      type: object
+      description: Map of emissions factor keys to override objects.
+      properties:
+        key:
+          type: string
+        value:
+          type: number
+        unit:
+          $ref: "#/components/schemas/Unit"
+      required:
+        - key
+        - value
+        - unit
+    SecondaryActivityValueOverride:
+      type: object
+      description: Map of secondary activity value keys to override objects.
+      properties:
+        displayName:
+          type: string
+        key:
+          type: string
+        value:
+          type: number
+        unit:
+          $ref: "#/components/schemas/Unit"
+      required:
+        - displayName
+        - key
+        - value
+        - unit
+    Unit:
+      type: string
+      description: A unit of measurement (e.g., kg, MWh, etc).
+      example: kg
+    ProjectionMethod:
+      type: string
+      description: The method used for projecting values or emissions.
+      enum:
+        - HISTORICAL_AVERAGE_GROWTH_RATE
+        - HISTORICAL_AVERAGE_VALUE
+        - HISTORICAL_FIXED_VALUE
+        - CUSTOM_DATA
+        - CUSTOM_GROWTH_RATE
+        - CUSTOM_YEARLY_PERCENTAGE_CHANGES
+    MainMetricProjection:
+      type: object
+      properties:
+        config:
+          $ref: "#/components/schemas/MainMetricProjectionConfig"
+        projection:
+          $ref: "#/components/schemas/MainMetricProjectionData"
+      required:
+        - config
+        - projection
+    MainMetricProjectionConfig:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/MainMetricProjectionID"
+        processID:
+          $ref: "#/components/schemas/BusinessEntityID"
+        baselineScenarioID:
+          $ref: "#/components/schemas/BaselineScenarioID"
+        startYear:
+          $ref: "#/components/schemas/Year"
+        endYear:
+          $ref: "#/components/schemas/Year"
+        projectionMethod:
+          $ref: "#/components/schemas/MainMetricProjectionProjectionMethod"
+      required:
+        - id
+        - processID
+        - startYear
+        - endYear
+        - projectionMethod
+        - baselineScenarioID
+    MainMetricProjectionProjectionMethod:
+      type: object
+      description: >
+        Describes how a projection is configured. This is a discriminated union
+        of objects with a 'projectionMethod' property of type ProjectionMethod.
+      oneOf:
+        - $ref: "#/components/schemas/HistoricalAverageGrowthRateProjectionConfig"
+        - $ref: "#/components/schemas/HistoricalAverageValueProjectionConfig"
+        - $ref: "#/components/schemas/HistoricalFixedValueProjectionConfig"
+        - $ref: "#/components/schemas/CustomDataProjectionConfig"
+        - $ref: "#/components/schemas/CustomGrowthRateProjectionConfig"
+        - $ref: "#/components/schemas/CustomYearlyPercentageChangesConfig"
+    MainMetricProjectionData:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/MainMetricProjectionID"
+        processID:
+          $ref: "#/components/schemas/BusinessEntityID"
+        startYear:
+          $ref: "#/components/schemas/Year"
+        endYear:
+          $ref: "#/components/schemas/Year"
+        valuesBaseYear:
+          $ref: "#/components/schemas/Year"
+        functionalUnit:
+          $ref: "#/components/schemas/FunctionalUnit"
+        displayUnit:
+          $ref: "#/components/schemas/Unit"
+        historicalValues:
+          type: array
+          items:
+            $ref: "#/components/schemas/YearData"
+        projectedValues:
+          type: array
+          items:
+            $ref: "#/components/schemas/YearData"
+      required:
+        - id
+        - processID
+        - startYear
+        - endYear
+        - valuesBaseYear
+        - functionalUnitID
+        - displayUnit
+        - historicalValues
+        - projectedValues
+    MainMetricProjectionID:
+      type: string
+      format: uuid
+    PaginationResult:
+      type: object
+      properties:
+        offset:
+          type: integer
+          description: The current offset in the pagination
+        limit:
+          type: integer
+          description: The maximum number of items per page
+        total:
+          type: integer
+          description: The total number of items available
+        hasMore:
+          type: boolean
+          description: Whether there are more items available after this page
+        nextOffset:
+          type: integer
+          description: The offset for the next page, if available
+          nullable: true
+        previousOffset:
+          type: integer
+          description: The offset for the previous page, if available
+          nullable: true
+      required:
+        - offset
+        - limit
+        - total
+        - hasMore
+      additionalProperties: false
+    FunctionalUnit:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/FunctionalUnitID"
+        name:
+          type: string
+          description: The name of the functional unit
+        description:
+          type: string
+          description: The description of the functional unit
+        defaultDisplayUnit:
+          $ref: "#/components/schemas/Unit"
+        supportedUnits:
+          type: array
+          items:
+            $ref: "#/components/schemas/Unit"
+        orgID:
+          $ref: "#/components/schemas/NullableOrganizationID"
+          description: The ID of the organization that owns the functional unit
+        subIndustryCode:
+          $ref: "#/components/schemas/NullableIndustryTaxonomySubIndustryCode"
+          description: The sub-industry code of the functional unit
+        measurementType:
+          $ref: "#/components/schemas/FunctionalUnitMeasurementType"
+          description: The type of measurement of the functional unit
+      required:
+        - id
+        - name
+        - supportedUnits
+        - defaultDisplayUnit
+        - subIndustryCode
+    FunctionalUnitMeasurementType:
+      type: string
+      description: >
+        The type of measurement of the functional unit. COUNTER is used for
+        attributes that are added across time periods (e.g., steel produced).
+        GAUGE is used for attributes that are not added across time periods
+        (e.g., number of employees).
+      enum:
+        - COUNTER
+        - GAUGE
+    FunctionalUnitID:
+      type: string
+      format: uuid
+    IndustryTaxonomySector:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/IndustryTaxonomySectorID"
+        name:
+          type: string
+        sectorCode:
+          $ref: "#/components/schemas/IndustryTaxonomySectorCode"
+      required:
+        - id
+        - name
+        - sectorCode
+    IndustryTaxonomySectorCode:
+      type: string
+      pattern: ^\d{2}$
+      description: The sector code of the business entity or functional unit,
+        formatted as two digits.
+    IndustryTaxonomySectorID:
+      type: string
+      format: uuid
+    IndustryTaxonomyIndustryGroup:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/IndustryTaxonomyIndustryGroupID"
+        name:
+          type: string
+        industryGroupCode:
+          $ref: "#/components/schemas/IndustryTaxonomyIndustryGroupCode"
+      required:
+        - id
+        - name
+        - industryGroupCode
+    IndustryTaxonomyIndustryGroupCode:
+      type: string
+      pattern: ^\d{4}$
+      description: The industry group code of the business entity or functional unit,
+        formatted as four digits.
+    IndustryTaxonomyIndustryGroupID:
+      type: string
+      format: uuid
+    IndustryTaxonomyIndustry:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/IndustryTaxonomyIndustryID"
+        name:
+          type: string
+        industryCode:
+          $ref: "#/components/schemas/IndustryTaxonomyIndustryCode"
+      required:
+        - id
+        - name
+        - industryCode
+    IndustryTaxonomyIndustryCode:
+      type: string
+      pattern: ^\d{6}$
+      description: The industry code of the business entity or functional unit,
+        formatted as six digits.
+    IndustryTaxonomyIndustryID:
+      type: string
+      format: uuid
+    IndustryTaxonomySubIndustry:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/IndustryTaxonomySubIndustryID"
+        name:
+          type: string
+        subIndustryCode:
+          $ref: "#/components/schemas/IndustryTaxonomySubIndustryCode"
+      required:
+        - id
+        - name
+        - subIndustryCode
+    IndustryTaxonomySubIndustryID:
+      type: string
+      format: uuid
+    IndustryTaxonomySubIndustryCode:
+      type: string
+      pattern: ^\d{8}$
+      description: The sub-industry code of the business entity or functional unit,
+        formatted as eight digits.
+    NullableIndustryTaxonomySubIndustryCode:
+      type: string
+      pattern: ^\d{8}$
+      description: The sub-industry code of the business entity or functional unit,
+        formatted as eight digits.
+      nullable: true
+    CountryCode:
+      type: string
+      description: The country code of the business entity.
+    FacilityTypeID:
+      type: string
+      format: uuid
+      description: The facility type of the business entity if it is a facility.
+    NullableFacilityTypeID:
+      type: string
+      format: uuid
+      description: The facility type of the business entity if it is a facility.
+      nullable: true
+    ProcessTypeID:
+      type: string
+      format: uuid
+      description: The process type of the business entity if it is a process.
+    NullableProcessTypeID:
+      type: string
+      format: uuid
+      description: The process type of the business entity if it is a process.
+      nullable: true
+  securitySchemes:
+    OAuth2ClientCredentialsProduction:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.sinai.com/oauth2/token
+          scopes:
+            https://api.sinai.com/organization: Grants access to organization functions
+            https://api.sinai.com/carbon_accounting: Grants read/write access to carbon accounting data
+            https://api.sinai.com/baseline_forecasts: Grants read/write access to baseline forecasts data
+            https://api.sinai.com/transition_plan: Grants read/write access to transition plan data
+            https://api.sinai.com/reduction_projects: Grants read/write access to reduction projects data
+            https://api.sinai.com/decarbonization_roadmap: Grants read/write access to decarbonization roadmap data
+    OAuth2AuthCodeProduction:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.sinai.com/oauth2/authorize
+          tokenUrl: https://auth.sinai.com/oauth2/token
+          scopes: {}
+security:
+  - OAuth2ClientCredentialsProduction:
+      - https://api.sinai.com/organization
+      - https://api.sinai.com/carbon_accounting
+      - https://api.sinai.com/baseline_forecasts
+      - https://api.sinai.com/transition_plan
+      - https://api.sinai.com/reduction_projects
+      - https://api.sinai.com/decarbonization_roadmap
+  - OAuth2AuthCodeProduction: []
+

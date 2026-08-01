@@ -1,0 +1,41 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/sinai-technologies-openapi-original.yml
+docs: https://docs.sinai.com/reference/accessing-the-api
+authentication:
+  style: oauth2-bearer
+  flows: [clientCredentials, authorizationCode]
+  token_endpoint: https://auth.sinai.com/oauth2/token
+  header: 'Authorization: Bearer <access_token>'
+  see: authentication/sinai-technologies-authentication.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  base_path: /v1
+  base_url: https://api.sinai.com/v1
+pagination:
+  style: limit-offset
+  params: [limit, offset]
+  notes: List endpoints (e.g. business entities, emissions sources, projections) accept limit and offset query parameters.
+idempotency:
+  supported: false
+  notes: No idempotency-key header or parameter is documented in the OpenAPI or the accessing-the-api guide.
+error_envelope:
+  style: http-status
+  problem_json: false
+  see: errors/sinai-technologies-problem-types.yml
+rate_limiting:
+  documented: false
+  notes: No rate-limit response headers or policy documented in the spec or developer docs.
+content_type:
+  request: application/json
+  token_request: application/x-www-form-urlencoded
+data_semantics:
+  ids: server-assigned string IDs on all core resources (id, orgID, parentID, processID, emissionsModelID, ...)
+  time: reporting is organized by reporting months and fiscal/calendar years; activity periods can be opened/closed per month
+cross_reference:
+  authentication: authentication/sinai-technologies-authentication.yml
+  scopes: scopes/sinai-technologies-scopes.yml
+  errors: errors/sinai-technologies-problem-types.yml
+  lifecycle: lifecycle/sinai-technologies-lifecycle.yml
+  data_model: data-model/sinai-technologies-data-model.yml

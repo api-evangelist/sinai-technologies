@@ -1,26 +1,152 @@
 aid: sinai-technologies
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/sinai-technologies.png
 name: Sinai Technologies
-description: Sinai Technologies is a company surfaced as a portfolio company of obvious-ventures and added
-  to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: >-
+  SINAI (Sinai Technologies, Inc.) is an AI-powered enterprise carbon management and
+  sustainability platform for measuring, reducing, and reporting greenhouse-gas emissions.
+  Its HTTP API uses OAuth 2.0 and exposes carbon accounting, the organization /
+  business-entity hierarchy, emissions sources and models, industry taxonomy, activity
+  periods, and baseline forecasts for decarbonization planning. SINAI supports audit-ready
+  reporting for frameworks including CSRD, CBAM, California SB 253/261, and Brazil CVM/SBCE.
 url: https://raw.githubusercontent.com/api-evangelist/sinai-technologies/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - obvious-ventures
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: active
+x-tier-reason: enriched-from-developer-portal
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Carbon Management
+- Carbon Accounting
+- Emissions
+- Sustainability
+- ESG
+- Decarbonization
+- Climate
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: sinai-technologies:sinai-technologies-baseline-forecasts-api
+  name: Sinai Technologies Baseline forecasts API
+  description: >-
+    The Baseline forecasts API from Sinai Technologies — 7 operation(s) for baseline forecasts.
+  humanURL: https://docs.sinai.com/
+  baseURL: https://api.sinai.com/v1
+  tags:
+  - Baseline forecasts
+  properties:
+  - type: OpenAPI
+    url: openapi/sinai-technologies-baseline-forecasts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sinai.com/
+  - type: APIReference
+    url: https://developers.sinai.com/
+  - type: Authentication
+    url: authentication/sinai-technologies-authentication.yml
+- aid: sinai-technologies:sinai-technologies-carbon-accounting-api
+  name: Sinai Technologies Carbon accounting API
+  description: >-
+    The Carbon accounting API from Sinai Technologies — 5 operation(s) for carbon accounting.
+  humanURL: https://docs.sinai.com/
+  baseURL: https://api.sinai.com/v1
+  tags:
+  - Carbon accounting
+  properties:
+  - type: OpenAPI
+    url: openapi/sinai-technologies-carbon-accounting-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sinai.com/
+  - type: APIReference
+    url: https://developers.sinai.com/
+  - type: Authentication
+    url: authentication/sinai-technologies-authentication.yml
+- aid: sinai-technologies:sinai-technologies-organization-management-api
+  name: Sinai Technologies Organization management API
+  description: >-
+    The Organization management API from Sinai Technologies — 20 operation(s) for organization management.
+  humanURL: https://docs.sinai.com/
+  baseURL: https://api.sinai.com/v1
+  tags:
+  - Organization management
+  properties:
+  - type: OpenAPI
+    url: openapi/sinai-technologies-organization-management-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sinai.com/
+  - type: APIReference
+    url: https://developers.sinai.com/
+  - type: Authentication
+    url: authentication/sinai-technologies-authentication.yml
 common:
+- type: DomainSecurity
+  url: security/sinai-technologies-domain-security.yml
+- type: Authentication
+  url: authentication/sinai-technologies-authentication.yml
+- type: OAuthScopes
+  url: scopes/sinai-technologies-scopes.yml
+- type: Conventions
+  url: conventions/sinai-technologies-conventions.yml
+- type: ErrorCatalog
+  url: errors/sinai-technologies-problem-types.yml
+- type: Conformance
+  url: conformance/sinai-technologies-conformance.yml
+- type: Compliance
+  url: https://www.sinai.com/resources/security-practices
+- type: TrustCenter
+  url: https://trust.sinai.com/
+- type: Lifecycle
+  url: lifecycle/sinai-technologies-lifecycle.yml
+- type: DataModel
+  url: data-model/sinai-technologies-data-model.yml
+- type: MCPServer
+  url: mcp/sinai-technologies-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Overlay
+  url: overlays/sinai-technologies-openapi-overlay.yaml
+- type: LLMsTxt
+  url: llms/sinai-technologies-llms.txt
+- type: DeveloperPortal
+  url: https://docs.sinai.com/
+- type: Documentation
+  url: https://docs.sinai.com/
+- type: APIReference
+  url: https://developers.sinai.com/
+- type: GettingStarted
+  url: https://docs.sinai.com/docs/getting-started
+- type: Support
+  url: https://help.sinai.com/en/
+- type: Blog
+  url: https://www.sinai.com/resources/blog
+- type: Login
+  url: https://app.sinai.com/
+- type: TermsOfService
+  url: https://www.iubenda.com/terms-and-conditions/57352437
+- type: PrivacyPolicy
+  url: https://www.iubenda.com/privacy-policy/57352437
 - type: Website
   url: https://sinaitechnologies.com
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 17
+  pass: local-v1

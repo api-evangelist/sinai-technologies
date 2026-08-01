@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/sinai-technologies-openapi-original.yml
+docs: https://docs.sinai.com/reference/accessing-the-api
+versioning:
+  scheme: uri-path
+  current: v1
+  base_url: https://api.sinai.com/v1
+  spec_version: 1.0.0
+  openapi: '3.1.0'
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No published deprecation/sunset policy found in the developer docs.
+sla:
+  url: null
+  uptime_target: null
+status_page:
+  url: null
+  notes: No public status page discovered (status.sinai.com did not resolve to a status service).
+deprecated_operations: []
+support:
+  email: support@sinai.com
+  help_center: https://help.sinai.com/en/

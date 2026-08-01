@@ -1,0 +1,38 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/sinai-technologies-openapi-original.yml
+docs: https://docs.sinai.com/reference/accessing-the-api
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+notes: >-
+  The SINAI HTTP API uses OAuth 2.0. Client Credentials is the machine-to-machine
+  (M2M) flow: POST application/x-www-form-urlencoded to the token endpoint with
+  grant_type=client_credentials, client_id, client_secret and an optional
+  space-separated scope list; the response is a Bearer access_token with
+  expires_in (3600s). Authorization Code is the delegated-user flow (authorize ->
+  code -> token) and returns a refresh_token; it currently supports no scopes,
+  authorizing instead against the user's configured access within the SINAI
+  platform. Tokens are sent as `Authorization: Bearer <token>`. The SINAI
+  web platform (not the API) additionally supports SSO via SAML 2.0.
+schemes:
+- name: OAuth2ClientCredentialsProduction
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.sinai.com/oauth2/token
+    scopes: 6
+  sources:
+  - openapi/sinai-technologies-openapi-original.yml
+- name: OAuth2AuthCodeProduction
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.sinai.com/oauth2/authorize
+    tokenUrl: https://auth.sinai.com/oauth2/token
+    scopes: 0
+  sources:
+  - openapi/sinai-technologies-openapi-original.yml

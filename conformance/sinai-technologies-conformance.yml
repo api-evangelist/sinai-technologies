@@ -1,0 +1,42 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/sinai-technologies-openapi-original.yml
+docs: https://www.sinai.com/resources/security-practices
+standards:
+- id: oauth2
+  conforms: true
+  evidence: OpenAPI securitySchemes declare oauth2 clientCredentials and authorizationCode flows (auth.sinai.com/oauth2).
+- id: oauth2-client-credentials
+  conforms: true
+  evidence: Documented M2M token flow at https://auth.sinai.com/oauth2/token.
+- id: oauth2-authorization-code
+  conforms: true
+  evidence: Documented delegated-user flow with refresh tokens.
+- id: openid-connect
+  conforms: false
+  evidence: No /.well-known/openid-configuration served (401); OAuth2 only, not full OIDC discovery.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Error responses are status-only; no application/problem+json media type declared.
+- id: rest-json
+  conforms: true
+  evidence: RESTful JSON resource endpoints under /v1 described by OpenAPI 3.1.0.
+- id: pagination-limit-offset
+  conforms: true
+  evidence: List endpoints expose limit and offset query parameters.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency-key mechanism documented.
+- id: soc2-type2
+  conforms: true
+  evidence: SINAI has completed a SOC 2 Type 2 audit (https://www.sinai.com/resources/security-practices).
+compliance:
+  programs:
+  - name: SOC 2 Type 2
+    status: completed
+    source: https://www.sinai.com/resources/security-practices
+  trust_center: https://trust.sinai.com/
+  note: >-
+    The ISO 27001 / SOC references on the security page for the underlying
+    hosting provider (AWS) are AWS certifications, not SINAI's own; only SINAI's
+    SOC 2 Type 2 is attributed to SINAI here.

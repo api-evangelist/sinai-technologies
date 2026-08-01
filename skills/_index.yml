@@ -1,0 +1,16 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/sinai-technologies-openapi-original.yml
+skills:
+- file: sinai-technologies-map-organization.md
+  name: Map an organization's carbon-accounting hierarchy
+  api: openapi/sinai-technologies-openapi-original.yml
+  operations: [getCurrentOrganization, getBusinessEntities, getBusinessEntityDescendants, createBusinessEntity]
+- file: sinai-technologies-manage-emissions-sources.md
+  name: Configure emissions sources and read monthly emissions
+  api: openapi/sinai-technologies-openapi-original.yml
+  operations: [getProcessTypes, createEmissionsSource, getEmissionsSources, getMonthlyBusinessEntityEmissionsSummaries, closeActivityMonth]
+- file: sinai-technologies-read-baseline-forecasts.md
+  name: Read baseline forecasts and decarbonization projections
+  api: openapi/sinai-technologies-openapi-original.yml
+  operations: [getBaselineScenarios, getActivityProjections, getMainMetricProjections, getProjectionsSummaryForBusinessEntity]
