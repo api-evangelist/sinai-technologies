@@ -1,0 +1,1393 @@
+{
+  "item": [
+    {
+      "id": "2d1f39a4-1d2b-4643-b85c-22c58d33f2f9",
+      "name": "Baseline forecasts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "479d63a1-7e8a-4253-b34b-8ee56ef9ff4a",
+          "name": "Get a baseline scenario by its ID",
+          "request": {
+            "name": "Get a baseline scenario by its ID",
+            "description": {
+              "content": "Retrieves a baseline scenario by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "baseline_forecasts",
+                "baseline_scenarios",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The ID of the baseline scenario to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8ef58e12-b29b-480e-857c-f6c7588c9a9e",
+              "name": "Baseline scenario retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "baseline_scenarios",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The ID of the baseline scenario to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"isDefault\": true,\n  \"orgID\": \"fae4097f-2a3e-2d01-1cd4-a4c0b75c72f1\",\n  \"id\": \"c0a8dd79-35e4-833a-a4a3-1ffee57f91e8\",\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42510779-a3d0-497b-99b4-8a41cad62a95",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "baseline_scenarios",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The ID of the baseline scenario to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d81a6cd-c881-4378-981f-058a8f2b645b",
+          "name": "Get all baseline scenarios",
+          "request": {
+            "name": "Get all baseline scenarios",
+            "description": {
+              "content": "Retrieves a list of all baseline scenarios.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "baseline_forecasts",
+                "baseline_scenarios"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "87b9f74b-f346-4870-b834-b318b2802524",
+              "name": "Baseline scenarios retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "baseline_scenarios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"defaultScenario\": {\n    \"name\": \"string\",\n    \"isDefault\": true,\n    \"orgID\": \"6307991f-6248-efc0-5089-844facf219b2\",\n    \"id\": \"a91af1fe-8b13-92eb-e5aa-5eeea9a978d7\",\n    \"description\": \"string\"\n  },\n  \"alternateScenarios\": [\n    {\n      \"name\": \"string\",\n      \"isDefault\": true,\n      \"orgID\": \"edebb8eb-4ecd-83d3-2406-59beaf81eac2\",\n      \"id\": \"2c3760d0-80d3-2754-66a2-5f397f1b5927\",\n      \"description\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"isDefault\": true,\n      \"orgID\": \"de6a57f3-dd61-940d-79f7-255cf3985f9c\",\n      \"id\": \"f2f76bf9-8f4d-8d20-bd6c-5e4b2a960946\",\n      \"description\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c9fcaa5-e9fe-4100-b81a-9a66462532b9",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "baseline_scenarios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c787b5ad-25c6-4f1b-96fc-f6eb9141d6ed",
+          "name": "Get an activity projection by its ID",
+          "request": {
+            "name": "Get an activity projection by its ID",
+            "description": {
+              "content": "Retrieves an activity projection and its config by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "baseline_forecasts",
+                "activity_projections",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the activity projection to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eba1d6b5-e507-4af2-a08b-b61510f57537",
+              "name": "Activity projection retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "activity_projections",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the activity projection to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"config\": {\n    \"id\": \"f778f1c0-bdca-f617-4fae-1ada8f801dfd\",\n    \"scenarioID\": \"74e19f50-bee8-dce1-fe7f-5074dcca1d27\",\n    \"processID\": \"490747d2-a164-4c3c-e25d-3a47c9104f74\",\n    \"emissionsSourceID\": \"5400c1aa-483a-7ede-cd12-75a29e8f0e4c\",\n    \"emissionsSourceTypeID\": \"7535ea88-586d-7be1-3796-780dceab55af\",\n    \"emissionsModelID\": \"f5b298a4-d089-4cf9-72a8-6be5f8de4ecf\",\n    \"activityTypeID\": \"4da6141b-df52-68ee-1546-98d31e10a6cd\",\n    \"activityType\": \"string\",\n    \"scope\": 3,\n    \"startYear\": \"2025\",\n    \"endYear\": \"2025\",\n    \"valueProjectionMethod\": {\n      \"projectionMethod\": \"HISTORICAL_AVERAGE_GROWTH_RATE\",\n      \"baseYear\": \"2025\",\n      \"historicalPeriodStart\": \"2025\",\n      \"historicalPeriodEnd\": \"2025\"\n    },\n    \"emissionsProjectionMethod\": {\n      \"projectionMethod\": \"HISTORICAL_AVERAGE_GROWTH_RATE\",\n      \"baseYear\": \"2025\",\n      \"historicalPeriodStart\": \"2025\",\n      \"historicalPeriodEnd\": \"2025\"\n    },\n    \"emissionsFactorsOverrides\": [\n      {\n        \"key\": \"string\",\n        \"value\": 7053.152023513892,\n        \"unit\": \"kg\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": 6900.592560758866,\n        \"unit\": \"kg\"\n      }\n    ],\n    \"secondaryActivityValueOverrides\": [\n      {\n        \"displayName\": \"string\",\n        \"key\": \"string\",\n        \"value\": 9319.175464107953,\n        \"unit\": \"kg\"\n      },\n      {\n        \"displayName\": \"string\",\n        \"key\": \"string\",\n        \"value\": 8364.70146300479,\n        \"unit\": \"kg\"\n      }\n    ]\n  },\n  \"projection\": {\n    \"id\": \"4bf24266-f564-7c45-861c-12088fd57bcb\",\n    \"processID\": \"776c0fdd-99a1-01a9-4be0-a0f005ad5366\",\n    \"emissionsSourceID\": \"4dca5c34-e432-278c-89f9-22dd8eb736e6\",\n    \"emissionsSourceTypeID\": \"d32ce728-d1a4-781e-22cc-0ed49cc65522\",\n    \"emissionsModelID\": \"c99ce23c-5305-916c-0dac-7750e05ebd36\",\n    \"activityTypeID\": \"16f02afb-ee97-785a-3152-9fda0df3f83a\",\n    \"activityType\": \"string\",\n    \"scope\": 22,\n    \"startYear\": \"2025\",\n    \"endYear\": \"2025\",\n    \"serverUnit\": \"kg\",\n    \"displayUnit\": \"kg\",\n    \"emissionsUnit\": \"kg\",\n    \"secondaryActivityValues\": [\n      {\n        \"year\": \"2025\",\n        \"value\": 5374.888116277228\n      },\n      {\n        \"year\": \"2025\",\n        \"value\": 4491.512659626063\n      }\n    ],\n    \"historicalActivityValues\": [\n      {\n        \"year\": \"2025\",\n        \"value\": 3034.203183292552\n      },\n      {\n        \"year\": \"2025\",\n        \"value\": 7281.7711832653085\n      }\n    ],\n    \"projectedActivityValues\": [\n      {\n        \"year\": \"2025\",\n        \"value\": 9650.684085314519\n      },\n      {\n        \"year\": \"2025\",\n        \"value\": 2490.8404724609923\n      }\n    ],\n    \"historicalScopeEmissions\": [\n      {\n        \"year\": \"2025\",\n        \"value\": 3832.320976294663\n      },\n      {\n        \"year\": \"2025\",\n        \"value\": 6008.951259445697\n      }\n    ],\n    \"projectedScopeEmissions\": [\n      {\n        \"year\": \"2025\",\n        \"value\": 5949.1577871863265\n      },\n      {\n        \"year\": \"2025\",\n        \"value\": 8819.145346437122\n      }\n    ],\n    \"historicalBioCO2Emissions\": [\n      {\n        \"year\": \"2025\",\n        \"value\": 1825.4958983073\n      },\n      {\n        \"year\": \"2025\",\n        \"value\": 7053.646360313242\n      }\n    ],\n    \"projectedBioCO2Emissions\": [\n      {\n        \"year\": \"2025\",\n        \"value\": 14.615858713231678\n      },\n      {\n        \"year\": \"2025\",\n        \"value\": 243.71522150863356\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26c0d3ab-0afa-4b9b-a159-78d4af1af67a",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "activity_projections",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the activity projection to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f2e49d8-9b20-4571-a520-fc2e832a8ad8",
+          "name": "Get activity projections",
+          "request": {
+            "name": "Get activity projections",
+            "description": {
+              "content": "Retrieves a list of activity projections filtered by baseline scenario ID and optionally by business entity ID. If no business entity ID is provided, the activity projections for the entire organization will be returned. This endpoint supports pagination, since the number of activity projections can be quite large.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "baseline_forecasts",
+                "activity_projections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "baseline_scenario_id",
+                  "value": "<uuid>",
+                  "description": "(Required) The ID of the baseline scenario to filter the activity projections by"
+                },
+                {
+                  "disabled": false,
+                  "key": "business_entity_id",
+                  "value": "<uuid>",
+                  "description": "The ID of the business entity to filter the activity projections by"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "The offset of the activity projections to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The limit of the activity projections to retrieve"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "28181745-4981-496e-88d3-9eed1811360b",
+              "name": "Activity projections retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "activity_projections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "baseline_scenario_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    },
+                    {
+                      "key": "business_entity_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"projections\": [\n    {\n      \"config\": {\n        \"id\": \"2767fe9c-ef4a-773a-f742-f13f97db9dd4\",\n        \"scenarioID\": \"47e80007-f77b-e7f2-88dd-4e03b921936f\",\n        \"processID\": \"f4a15518-3c25-7f60-0437-f092c1b29d40\",\n        \"emissionsSourceID\": \"87963d32-076e-8776-8cce-7a80dd0c6238\",\n        \"emissionsSourceTypeID\": \"811a09a0-3e26-036a-16e3-56f4b9631b22\",\n        \"emissionsModelID\": \"059ec1eb-4232-3ec3-8080-49ef1368bdd1\",\n        \"activityTypeID\": \"d481e420-b400-942d-0450-d00e20ffe178\",\n        \"activityType\": \"string\",\n        \"scope\": 22,\n        \"startYear\": \"2025\",\n        \"endYear\": \"2025\",\n        \"valueProjectionMethod\": {\n          \"projectionMethod\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"baseYear\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"historicalPeriodStart\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"historicalPeriodEnd\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"emissionsProjectionMethod\": {\n          \"projectionMethod\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"baseYear\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"historicalPeriodStart\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"historicalPeriodEnd\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"emissionsFactorsOverrides\": [\n          {\n            \"key\": \"string\",\n            \"value\": 3295.269763045269,\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": \"string\",\n            \"value\": 4392.25828196786,\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"secondaryActivityValueOverrides\": [\n          {\n            \"displayName\": \"string\",\n            \"key\": \"string\",\n            \"value\": 3389.8420298949995,\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"displayName\": \"string\",\n            \"key\": \"string\",\n            \"value\": 6162.681702199482,\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"projection\": {\n        \"id\": \"d4cbdabe-6f20-338e-a25a-45b6859482d5\",\n        \"processID\": \"645d88d8-5045-085a-eb70-11fa4aa67710\",\n        \"emissionsSourceID\": \"26e70fcc-2340-e3f5-ba54-d4f4374328d0\",\n        \"emissionsSourceTypeID\": \"fc2231e4-8f56-cb43-64a1-ea90d9739605\",\n        \"emissionsModelID\": \"3518012c-6c00-a026-0426-078e738ce4e3\",\n        \"activityTypeID\": \"e0bd079b-bec5-9c5c-b6ed-9f0be806eae5\",\n        \"activityType\": \"string\",\n        \"scope\": 22,\n        \"startYear\": \"2025\",\n        \"endYear\": \"2025\",\n        \"serverUnit\": \"kg\",\n        \"displayUnit\": \"kg\",\n        \"emissionsUnit\": \"kg\",\n        \"secondaryActivityValues\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 5375.093437732019\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 2515.4480331776076\n          }\n        ],\n        \"historicalActivityValues\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 2976.5882044929303\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 3532.278907958396\n          }\n        ],\n        \"projectedActivityValues\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 7598.087130510079\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 2238.841906602009\n          }\n        ],\n        \"historicalScopeEmissions\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 1786.1765982288703\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 2499.8025954426907\n          }\n        ],\n        \"projectedScopeEmissions\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 7159.681839953539\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 3546.833865659117\n          }\n        ],\n        \"historicalBioCO2Emissions\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 1871.8769169842476\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 7118.104442034615\n          }\n        ],\n        \"projectedBioCO2Emissions\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 7234.149411601752\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 2891.1451365957387\n          }\n        ]\n      }\n    },\n    {\n      \"config\": {\n        \"id\": \"5e7a3e60-a27d-b234-1ef3-c96b012d7f0e\",\n        \"scenarioID\": \"96e72b6f-cb90-4115-7b2f-6e1676ac7bf8\",\n        \"processID\": \"d5fd5b46-9fe8-76a0-72cc-53d3fbd86d6c\",\n        \"emissionsSourceID\": \"13c2662d-a860-f2ae-e812-2008f4371c69\",\n        \"emissionsSourceTypeID\": \"f033f170-6bb2-866a-6bbe-7a8b46864df8\",\n        \"emissionsModelID\": \"cd385910-ecbf-1a05-b2df-7acad0ed6b93\",\n        \"activityTypeID\": \"a53dbcc0-64b6-fe43-0d51-2fbc8d0396f3\",\n        \"activityType\": \"string\",\n        \"scope\": 1,\n        \"startYear\": \"2025\",\n        \"endYear\": \"2025\",\n        \"valueProjectionMethod\": {\n          \"projectionMethod\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"baseYear\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"historicalPeriodStart\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"historicalPeriodEnd\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"emissionsProjectionMethod\": {\n          \"projectionMethod\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"baseYear\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"historicalPeriodStart\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"historicalPeriodEnd\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"emissionsFactorsOverrides\": [\n          {\n            \"key\": \"string\",\n            \"value\": 3842.5700645412862,\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": \"string\",\n            \"value\": 6441.989630661739,\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"secondaryActivityValueOverrides\": [\n          {\n            \"displayName\": \"string\",\n            \"key\": \"string\",\n            \"value\": 5471.083612181653,\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"displayName\": \"string\",\n            \"key\": \"string\",\n            \"value\": 7506.448761617368,\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"projection\": {\n        \"id\": \"e5869562-ac44-1f9c-392b-5f96f05eb52f\",\n        \"processID\": \"dd7e2c24-7d31-1333-cfd3-786567109672\",\n        \"emissionsSourceID\": \"8c3e6071-6b71-3866-7ab9-47a40c77545e\",\n        \"emissionsSourceTypeID\": \"334776ad-3d32-6348-1490-1fe816928ddd\",\n        \"emissionsModelID\": \"938b978a-441a-042e-cf33-4486564e3be4\",\n        \"activityTypeID\": \"bacba559-eaf0-986d-af8b-e67306c645c0\",\n        \"activityType\": \"string\",\n        \"scope\": 22,\n        \"startYear\": \"2025\",\n        \"endYear\": \"2025\",\n        \"serverUnit\": \"kg\",\n        \"displayUnit\": \"kg\",\n        \"emissionsUnit\": \"kg\",\n        \"secondaryActivityValues\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 7221.523855659546\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 7234.843017034159\n          }\n        ],\n        \"historicalActivityValues\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 2115.9918422850797\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 78.14902742265039\n          }\n        ],\n        \"projectedActivityValues\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 3366.833198710266\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 7963.428851750958\n          }\n        ],\n        \"historicalScopeEmissions\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 6590.557692388666\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 5734.398755754946\n          }\n        ],\n        \"projectedScopeEmissions\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 640.1935679684012\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 6368.7020731146795\n          }\n        ],\n        \"historicalBioCO2Emissions\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 5188.708258834283\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 7307.067583953024\n          }\n        ],\n        \"projectedBioCO2Emissions\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 4643.824627583712\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 4384.582204737499\n          }\n        ]\n      }\n    }\n  ],\n  \"pagination\": {\n    \"offset\": 4658,\n    \"limit\": 8911,\n    \"total\": 5211,\n    \"hasMore\": true,\n    \"nextOffset\": 2571,\n    \"previousOffset\": 6638\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "318d3775-c030-4683-9d67-98f669481773",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "activity_projections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "baseline_scenario_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    },
+                    {
+                      "key": "business_entity_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e100319d-9eb7-4f00-bcf9-c3c3b772526c",
+          "name": "Get a main metric projection by its ID",
+          "request": {
+            "name": "Get a main metric projection by its ID",
+            "description": {
+              "content": "Retrieves a main metric projection and its config by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "baseline_forecasts",
+                "main_metric_projections",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the main metric projection to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "855a5827-8726-49f7-a96f-d6595addc6fc",
+              "name": "Main metric projection retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "main_metric_projections",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the main metric projection to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"config\": {\n    \"id\": \"1d3c2b80-1bdc-31e6-cc95-295997f91b93\",\n    \"processID\": \"244d7077-60d8-3e22-db64-9c6f64ad8131\",\n    \"startYear\": \"2025\",\n    \"endYear\": \"2025\",\n    \"projectionMethod\": {\n      \"projectionMethod\": \"HISTORICAL_AVERAGE_GROWTH_RATE\",\n      \"baseYear\": \"2025\",\n      \"historicalPeriodStart\": \"2025\",\n      \"historicalPeriodEnd\": \"2025\"\n    },\n    \"baselineScenarioID\": \"7551a327-acb1-9858-caf8-a23fd44cf7a3\"\n  },\n  \"projection\": {\n    \"id\": \"9af3b9d5-c9f3-1678-c655-3d3fb1818281\",\n    \"processID\": \"deb33350-4d10-72fe-dd9e-ae6671f08baa\",\n    \"startYear\": \"2025\",\n    \"endYear\": \"2025\",\n    \"valuesBaseYear\": \"2025\",\n    \"displayUnit\": \"kg\",\n    \"historicalValues\": [\n      {\n        \"year\": \"2025\",\n        \"value\": 2534.080256602296\n      },\n      {\n        \"year\": \"2025\",\n        \"value\": 5562.999231081801\n      }\n    ],\n    \"projectedValues\": [\n      {\n        \"year\": \"2025\",\n        \"value\": 8461.26747168907\n      },\n      {\n        \"year\": \"2025\",\n        \"value\": 4011.64035866031\n      }\n    ],\n    \"functionalUnit\": {\n      \"id\": \"521f6636-87b5-0db1-df99-f23b5be95321\",\n      \"name\": \"string\",\n      \"supportedUnits\": [\n        \"kg\",\n        \"kg\"\n      ],\n      \"defaultDisplayUnit\": \"kg\",\n      \"subIndustryCode\": \"84167327\",\n      \"description\": \"string\",\n      \"orgID\": \"6270c33f-eced-d39a-815b-7086408727e6\",\n      \"measurementType\": \"COUNTER\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e15f900e-5535-408d-9825-42d5e80f3b82",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "main_metric_projections",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the main metric projection to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27a9176f-2147-4bd4-bfc8-82a895ef3012",
+          "name": "Get main metric projections",
+          "request": {
+            "name": "Get main metric projections",
+            "description": {
+              "content": "Retrieves a list of main metric projections filtered by baseline scenario ID and optionally by business entity ID. If no business entity ID is provided, the main metric projections for the entire organization will be returned. This endpoint supports pagination, since the number of main metric projections can be quite large.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "baseline_forecasts",
+                "main_metric_projections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "baseline_scenario_id",
+                  "value": "<uuid>",
+                  "description": "(Required) The ID of the baseline scenario to filter the main metric projections by"
+                },
+                {
+                  "disabled": false,
+                  "key": "business_entity_id",
+                  "value": "<uuid>",
+                  "description": "The ID of the business entity to filter the main metric projections by"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "The offset of the main metric projections to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The limit of the main metric projections to retrieve"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fcfe9c4c-475f-479f-aca8-c9a17815f02b",
+              "name": "Main metric projections retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "main_metric_projections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "baseline_scenario_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    },
+                    {
+                      "key": "business_entity_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"projections\": [\n    {\n      \"config\": {\n        \"id\": \"e2e7dc3c-f438-dc91-581e-ebd046675bbe\",\n        \"processID\": \"372d0abc-7831-80d7-3af6-46c45558dffc\",\n        \"startYear\": \"2025\",\n        \"endYear\": \"2025\",\n        \"projectionMethod\": {\n          \"projectionMethod\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"baseYear\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"historicalPeriodStart\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"historicalPeriodEnd\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"baselineScenarioID\": \"96e68346-4fd3-b10a-4e8e-fb59e36a89b5\"\n      },\n      \"projection\": {\n        \"id\": \"9abeea3d-2d25-e1cf-e592-6e6541c53ac4\",\n        \"processID\": \"69adac7d-805c-1615-b0c6-7e56ae05bdde\",\n        \"startYear\": \"2025\",\n        \"endYear\": \"2025\",\n        \"valuesBaseYear\": \"2025\",\n        \"displayUnit\": \"kg\",\n        \"historicalValues\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 9454.379437952526\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 3321.5397863760286\n          }\n        ],\n        \"projectedValues\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 7793.281524855303\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 1945.573162231772\n          }\n        ],\n        \"functionalUnit\": {\n          \"id\": \"e8ae3274-5901-e538-5f4b-9989c5fd5b8f\",\n          \"name\": \"string\",\n          \"supportedUnits\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"defaultDisplayUnit\": \"kg\",\n          \"subIndustryCode\": \"08204021\",\n          \"description\": \"string\",\n          \"orgID\": \"b7a1d632-6662-6014-ca15-314078118c4e\",\n          \"measurementType\": \"COUNTER\"\n        }\n      }\n    },\n    {\n      \"config\": {\n        \"id\": \"1ceca5d1-8863-8716-08a1-46bbe4827a9c\",\n        \"processID\": \"12af8d13-dd7a-386c-8741-190dcba9f7c8\",\n        \"startYear\": \"2025\",\n        \"endYear\": \"2025\",\n        \"projectionMethod\": {\n          \"projectionMethod\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"baseYear\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"historicalPeriodStart\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"historicalPeriodEnd\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"baselineScenarioID\": \"0590d0c0-5c45-bec6-e9c3-da842ff7e4a6\"\n      },\n      \"projection\": {\n        \"id\": \"847ab412-d0cd-649e-c6cf-2fea94cf4e1b\",\n        \"processID\": \"19a0b731-010f-e0cc-7196-208a9a6833d1\",\n        \"startYear\": \"2025\",\n        \"endYear\": \"2025\",\n        \"valuesBaseYear\": \"2025\",\n        \"displayUnit\": \"kg\",\n        \"historicalValues\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 7750.36648980276\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 7936.636368912623\n          }\n        ],\n        \"projectedValues\": [\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 981.6823702469635\n          },\n          {\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 228.15317283075177\n          }\n        ],\n        \"functionalUnit\": {\n          \"id\": \"838c9ba1-fb4c-ee8c-3232-aa0e768ec16d\",\n          \"name\": \"string\",\n          \"supportedUnits\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"defaultDisplayUnit\": \"kg\",\n          \"subIndustryCode\": \"21042408\",\n          \"description\": \"string\",\n          \"orgID\": \"4f4a660b-9bac-20dd-0ade-604ac2e576e9\",\n          \"measurementType\": \"COUNTER\"\n        }\n      }\n    }\n  ],\n  \"pagination\": {\n    \"offset\": 6864,\n    \"limit\": 4641,\n    \"total\": 1597,\n    \"hasMore\": true,\n    \"nextOffset\": 1906,\n    \"previousOffset\": 7684\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "555ac3b2-9f44-4b9e-9260-33c7bf31d313",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "main_metric_projections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "baseline_scenario_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    },
+                    {
+                      "key": "business_entity_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03c1f579-ae9f-46a0-925a-753ab63224d5",
+          "name": "Get forecast summary for the organization or a specific business entity",
+          "request": {
+            "name": "Get forecast summary for the organization or a specific business entity",
+            "description": {
+              "content": "Retrieves the historical and forecasted emissions and intensity data for the entire organization or optionally filtered for a specific business entity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "baseline_forecasts",
+                "projections_summaries",
+                "business_entity_summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "business_entity_id",
+                  "value": "<uuid>",
+                  "description": "The unique identifier for a business entity to filter the summary. If omitted, the summary for the entire organization is returned.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "baseline_scenario_id",
+                  "value": "<uuid>",
+                  "description": "Return the summary for a specific baseline scenario. If omitted, the default baseline scenario will be used.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "76295119-397c-45fa-8776-44dce193e60b",
+              "name": "Forecast summary retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "projections_summaries",
+                    "business_entity_summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_entity_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    },
+                    {
+                      "key": "baseline_scenario_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"forecastStartYear\": 1941,\n  \"data\": [\n    {\n      \"year\": 5546,\n      \"value\": {\n        \"mainMetric\": 2700.425514688678,\n        \"scope1Emissions\": 4482.096585999989,\n        \"scope2Emissions\": 4548.549315751802,\n        \"scope3Emissions\": 4074.8751715578,\n        \"emissionsIntensity\": 2958.3336369967806\n      }\n    },\n    {\n      \"year\": 8760,\n      \"value\": {\n        \"mainMetric\": 2194.8167423529385,\n        \"scope1Emissions\": 4544.721384528757,\n        \"scope2Emissions\": 6844.149542364665,\n        \"scope3Emissions\": 7658.195770829339,\n        \"emissionsIntensity\": 632.7102224358493\n      }\n    }\n  ],\n  \"functionalUnitID\": \"0fd2b53f-fefc-0037-dd81-5851043a90b5\",\n  \"mainMetricDisplayUnit\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4334988f-3598-42ae-be3c-ea4b19083642",
+              "name": "Your request is missing a parameter or has the wrong data type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "projections_summaries",
+                    "business_entity_summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_entity_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    },
+                    {
+                      "key": "baseline_scenario_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"name\": \"Bad Request\",\n  \"type\": \"bad_request\",\n  \"message\": \"You are missing a parameter.\",\n  \"details\": \"You are missing the id parameter.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa06aa1a-c77f-488f-9995-aa069dde961d",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "projections_summaries",
+                    "business_entity_summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_entity_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    },
+                    {
+                      "key": "baseline_scenario_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8748a954-91b4-4bd1-9e42-30fa4ca9092b",
+              "name": "Object not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "baseline_forecasts",
+                    "projections_summaries",
+                    "business_entity_summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_entity_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    },
+                    {
+                      "key": "baseline_scenario_id",
+                      "value": "2e469cdc-4e7f-79a0-6cc5-8a2c43f7e624"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"name\": \"Not Found\",\n  \"type\": \"not_found\",\n  \"message\": \"Object not found\",\n  \"details\": \"The object with the specified ID does not exist in the database.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sinai.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.sinai.com/oauth2/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d9718410-d106-4646-adc0-e2d1ed6eb536",
+    "name": "SINAI Baseline forecasts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The SINAI application API\n\nContact Support:\n Name: API Support\n Email: support@sinai.com",
+      "type": "text/plain"
+    }
+  }
+}

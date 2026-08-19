@@ -1,0 +1,1651 @@
+{
+  "item": [
+    {
+      "id": "7c21dc35-e501-4953-921a-d71f7dd902ea",
+      "name": "Carbon accounting",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "420ab3dd-a0fd-4969-a8c0-3d78e8bb6aa7",
+          "name": "Retrieve monthly, activity-level detailed emissions summaries",
+          "request": {
+            "name": "Retrieve monthly, activity-level detailed emissions summaries",
+            "description": {
+              "content": "Use this endpoint to retrieve emissions summaries at month and activity levels.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "carbon_accounting",
+                "summaries",
+                "monthly_detailed_emissions_summaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fiscal_year",
+                  "value": "<string>",
+                  "description": "Filter by a specific fiscal year, using the organization's fiscal start month setting"
+                },
+                {
+                  "disabled": false,
+                  "key": "calendar_year",
+                  "value": "<string>",
+                  "description": "Filter by a specific calendar year"
+                },
+                {
+                  "disabled": false,
+                  "key": "month",
+                  "value": "<string>",
+                  "description": "Filter by a specific month in YYYY-MM format"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_month",
+                  "value": "<string>",
+                  "description": "Filter starting at a specific month, inclusive. Can optionally use with to_month."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_month",
+                  "value": "<string>",
+                  "description": "Filter up to a specific month, inclusive. Can optionally use with from_month."
+                },
+                {
+                  "disabled": false,
+                  "key": "process_ids",
+                  "value": "<uuid>",
+                  "description": "A list of process UUIDs to filter against, returning any summary that matches any process in the list"
+                },
+                {
+                  "disabled": false,
+                  "key": "process_ids",
+                  "value": "<uuid>",
+                  "description": "A list of process UUIDs to filter against, returning any summary that matches any process in the list"
+                },
+                {
+                  "disabled": false,
+                  "key": "emissions_source_ids",
+                  "value": "<uuid>",
+                  "description": "A list of emissions source UUIDs, returning any summary that matches any emissions source in the list"
+                },
+                {
+                  "disabled": false,
+                  "key": "emissions_source_ids",
+                  "value": "<uuid>",
+                  "description": "A list of emissions source UUIDs, returning any summary that matches any emissions source in the list"
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<number>",
+                  "description": "Filter source types by GHG protocol scopes"
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<number>",
+                  "description": "Filter source types by GHG protocol scopes"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8313c274-cefd-4446-b04a-474df9429311",
+              "name": "Monthly detailed emissions summaries retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "summaries",
+                    "monthly_detailed_emissions_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fiscal_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "calendar_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "from_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "to_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "process_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "process_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "emissions_source_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "emissions_source_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "21"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"summaries\": [\n    {\n      \"month\": \"2025-03\",\n      \"activityType\": \"string\",\n      \"activityTypeID\": \"b0f07caa-ad82-fec8-f512-613390101153\",\n      \"activityValue\": 8548.193135254416,\n      \"activityUnit\": \"string\",\n      \"scopeEmissions\": 1682.809245328134,\n      \"scope\": 2,\n      \"energyConsumption\": 9069.086197945113,\n      \"processID\": \"5bba9bb9-6af5-95e0-c792-2c31e8d9f259\",\n      \"processName\": \"string\",\n      \"emissionsSourceID\": \"677a5538-1ae4-ca5f-3e42-3e5ffe198940\",\n      \"emissionsSourceName\": \"string\",\n      \"emissionsSourceTypeID\": \"4d1c48f0-d607-4cc0-53c3-10f79f50f95a\",\n      \"emissionsSourceTypeName\": \"string\",\n      \"emissionsModelID\": \"8ee1be7e-8bd0-b554-685e-6217c8dfbdbc\",\n      \"emissionsModelName\": \"string\",\n      \"facilityID\": \"a5ff41cf-3212-5a1a-f19c-db3b531152b6\",\n      \"facilityName\": \"string\"\n    },\n    {\n      \"month\": \"2025-03\",\n      \"activityType\": \"string\",\n      \"activityTypeID\": \"70c853fc-056d-6cb8-aa8b-57a0ab4d1fa7\",\n      \"activityValue\": 4479.658948148304,\n      \"activityUnit\": \"string\",\n      \"scopeEmissions\": 6911.324962518597,\n      \"scope\": 2,\n      \"energyConsumption\": 6317.196885329458,\n      \"processID\": \"ea95d8c1-55a4-85f2-3c57-b05ce81b08ed\",\n      \"processName\": \"string\",\n      \"emissionsSourceID\": \"d433b7bf-86e5-2619-0dbe-7a0d39e4ba73\",\n      \"emissionsSourceName\": \"string\",\n      \"emissionsSourceTypeID\": \"6c26bdb7-3641-747f-63f0-4367a392a594\",\n      \"emissionsSourceTypeName\": \"string\",\n      \"emissionsModelID\": \"ac55ea74-1aeb-7735-6594-53334260184a\",\n      \"emissionsModelName\": \"string\",\n      \"facilityID\": \"7528eb6f-ca54-2ff4-f8e1-25306002e218\",\n      \"facilityName\": \"string\"\n    }\n  ],\n  \"pagination\": {\n    \"offset\": 4054,\n    \"limit\": 2477,\n    \"total\": 6369,\n    \"hasMore\": false,\n    \"nextOffset\": 1076,\n    \"previousOffset\": 8896\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b94f02c3-ac55-4925-9cae-675269491bb5",
+              "name": "Your request is missing a parameter or has the wrong data type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "summaries",
+                    "monthly_detailed_emissions_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fiscal_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "calendar_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "from_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "to_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "process_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "process_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "emissions_source_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "emissions_source_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "21"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"name\": \"Bad Request\",\n  \"type\": \"bad_request\",\n  \"message\": \"You are missing a parameter.\",\n  \"details\": \"You are missing the id parameter.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4648ae01-dddf-4549-a252-69bfa1a095fb",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "summaries",
+                    "monthly_detailed_emissions_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fiscal_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "calendar_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "from_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "to_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "process_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "process_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "emissions_source_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "emissions_source_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "21"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed2ab2d8-030a-40b4-8861-bdbb17ca0c91",
+          "name": "Retrieve monthly emissions summaries by emissions source",
+          "request": {
+            "name": "Retrieve monthly emissions summaries by emissions source",
+            "description": {
+              "content": "Use this endpoint to retrieve emissions summaries by emissions source\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "carbon_accounting",
+                "summaries",
+                "monthly_emissions_source_emissions_summaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fiscal_year",
+                  "value": "<string>",
+                  "description": "Filter by a specific fiscal year, using the organization's fiscal start month setting"
+                },
+                {
+                  "disabled": false,
+                  "key": "calendar_year",
+                  "value": "<string>",
+                  "description": "Filter by a specific calendar year"
+                },
+                {
+                  "disabled": false,
+                  "key": "month",
+                  "value": "<string>",
+                  "description": "Filter by a specific month in YYYY-MM format"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_month",
+                  "value": "<string>",
+                  "description": "Filter starting at a specific month, inclusive. Can optionally use with to_month."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_month",
+                  "value": "<string>",
+                  "description": "Filter up to a specific month, inclusive. Can optionally use with from_month."
+                },
+                {
+                  "disabled": false,
+                  "key": "business_entity_ids",
+                  "value": "<uuid>",
+                  "description": "A list of business entity UUIDs to filter against, returning summaries for sources that are descendants of the given UUIDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "business_entity_ids",
+                  "value": "<uuid>",
+                  "description": "A list of business entity UUIDs to filter against, returning summaries for sources that are descendants of the given UUIDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "emissions_source_ids",
+                  "value": "<uuid>",
+                  "description": "A list of emissions source UUIDs, returning summaries for the given sources only"
+                },
+                {
+                  "disabled": false,
+                  "key": "emissions_source_ids",
+                  "value": "<uuid>",
+                  "description": "A list of emissions source UUIDs, returning summaries for the given sources only"
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<number>",
+                  "description": "Filter source types by GHG protocol scopes"
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<number>",
+                  "description": "Filter source types by GHG protocol scopes"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8acef015-5095-4f9f-a836-8653c039e707",
+              "name": "Monthly emissions source summaries retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "summaries",
+                    "monthly_emissions_source_emissions_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fiscal_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "calendar_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "from_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "to_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "business_entity_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "business_entity_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "emissions_source_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "emissions_source_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "21"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"summaries\": [\n    {\n      \"month\": \"2025-03\",\n      \"scopeEmissions\": 2329.973719503685,\n      \"scope\": 1,\n      \"energyConsumption\": 6076.440604060554,\n      \"processID\": \"7d1cea52-6df1-b762-aa3c-4fa12b386036\",\n      \"processName\": \"string\",\n      \"emissionsSourceID\": \"70fa3234-faf0-1c96-55f8-b89f15813bd1\",\n      \"emissionsSourceName\": \"string\",\n      \"emissionsSourceTypeID\": \"5f8d0494-6bbd-3de7-0417-22964c383e9f\",\n      \"emissionsSourceTypeName\": \"string\",\n      \"emissionsModelID\": \"ae7af453-809e-1063-9725-20c00bcfff21\",\n      \"emissionsModelName\": \"string\"\n    },\n    {\n      \"month\": \"2025-03\",\n      \"scopeEmissions\": 8593.859059768813,\n      \"scope\": 2,\n      \"energyConsumption\": 5935.121215625544,\n      \"processID\": \"047407fa-8ca6-3736-bcae-f6649c9cd6bd\",\n      \"processName\": \"string\",\n      \"emissionsSourceID\": \"42a1562b-79b3-ce71-c92f-e85b5a4bb24a\",\n      \"emissionsSourceName\": \"string\",\n      \"emissionsSourceTypeID\": \"a57a532f-4a69-4894-40a0-167075552c20\",\n      \"emissionsSourceTypeName\": \"string\",\n      \"emissionsModelID\": \"9c7fedf3-daea-7021-e06a-f7b926c15be4\",\n      \"emissionsModelName\": \"string\"\n    }\n  ],\n  \"pagination\": {\n    \"offset\": 1537,\n    \"limit\": 3636,\n    \"total\": 2628,\n    \"hasMore\": true,\n    \"nextOffset\": 8083,\n    \"previousOffset\": 7500\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a44403d9-1100-4ba3-92ae-12952a38be45",
+              "name": "Your request is missing a parameter or has the wrong data type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "summaries",
+                    "monthly_emissions_source_emissions_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fiscal_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "calendar_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "from_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "to_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "business_entity_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "business_entity_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "emissions_source_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "emissions_source_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "21"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"name\": \"Bad Request\",\n  \"type\": \"bad_request\",\n  \"message\": \"You are missing a parameter.\",\n  \"details\": \"You are missing the id parameter.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c2b40b8-5b43-474a-8374-3092945e827e",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "summaries",
+                    "monthly_emissions_source_emissions_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fiscal_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "calendar_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "from_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "to_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "business_entity_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "business_entity_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "emissions_source_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "emissions_source_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "21"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "43644f10-904b-4e63-a9e0-702f9f9a31b6",
+          "name": "Retrieve monthly emissions summaries by business entity",
+          "request": {
+            "name": "Retrieve monthly emissions summaries by business entity",
+            "description": {
+              "content": "Use this endpoint to retrieve emissions summaries by emissions source\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "carbon_accounting",
+                "summaries",
+                "monthly_business_entity_emissions_summaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fiscal_year",
+                  "value": "<string>",
+                  "description": "Filter by a specific fiscal year, using the organization's fiscal start month setting"
+                },
+                {
+                  "disabled": false,
+                  "key": "calendar_year",
+                  "value": "<string>",
+                  "description": "Filter by a specific calendar year"
+                },
+                {
+                  "disabled": false,
+                  "key": "month",
+                  "value": "<string>",
+                  "description": "Filter by a specific month in YYYY-MM format"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_month",
+                  "value": "<string>",
+                  "description": "Filter starting at a specific month, inclusive. Can optionally use with to_month."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_month",
+                  "value": "<string>",
+                  "description": "Filter up to a specific month, inclusive. Can optionally use with from_month."
+                },
+                {
+                  "disabled": false,
+                  "key": "business_entity_ids",
+                  "value": "<uuid>",
+                  "description": "A list of business entity UUIDs to filter against, returning summaries for the specificed business entities"
+                },
+                {
+                  "disabled": false,
+                  "key": "business_entity_ids",
+                  "value": "<uuid>",
+                  "description": "A list of business entity UUIDs to filter against, returning summaries for the specificed business entities"
+                },
+                {
+                  "disabled": false,
+                  "key": "parent_business_entity_id",
+                  "value": "<uuid>",
+                  "description": "A business entity UUIDs to filter against, returning summaries for business entities one level below the given parent"
+                },
+                {
+                  "disabled": false,
+                  "key": "business_entity_type_id",
+                  "value": "<uuid>",
+                  "description": "A business entity type to filter against, returning summaries for business entities of this type"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eaf20219-511e-4c6f-a621-e064d7307839",
+              "name": "Monthly emissions source summaries retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "summaries",
+                    "monthly_business_entity_emissions_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fiscal_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "calendar_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "from_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "to_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "business_entity_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "business_entity_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "parent_business_entity_id",
+                      "value": "8221d660-f16c-25f5-3611-0b95373cf2e0"
+                    },
+                    {
+                      "key": "business_entity_type_id",
+                      "value": "8221d660-f16c-25f5-3611-0b95373cf2e0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"summaries\": [\n    {\n      \"month\": \"2025-03\",\n      \"scopeEmissions\": 4718.98751856169,\n      \"scope\": 1,\n      \"energyConsumption\": 4487.127492446679,\n      \"emissionsModelID\": \"6f6e269d-705e-803e-3c3e-594f3564b6d1\",\n      \"emissionsModelName\": \"string\",\n      \"businessEntityID\": \"8be9945e-2557-43dc-2e9f-620c810468cb\",\n      \"businessEntityName\": \"string\",\n      \"businessEntityTypeID\": \"4147cb57-57f9-b5aa-7d79-4895b4d275e7\",\n      \"businessEntityTypeName\": \"string\"\n    },\n    {\n      \"month\": \"2025-03\",\n      \"scopeEmissions\": 1448.6163117455442,\n      \"scope\": 2,\n      \"energyConsumption\": 372.65752253318965,\n      \"emissionsModelID\": \"1f1dae08-b285-c35d-c9e1-cf9a64d5c888\",\n      \"emissionsModelName\": \"string\",\n      \"businessEntityID\": \"e595d1b4-ba32-7c49-53b4-9d8065e20630\",\n      \"businessEntityName\": \"string\",\n      \"businessEntityTypeID\": \"1a53ad3f-9cbd-869e-0e44-f5e743589a0a\",\n      \"businessEntityTypeName\": \"string\"\n    }\n  ],\n  \"pagination\": {\n    \"offset\": 1402,\n    \"limit\": 1894,\n    \"total\": 9164,\n    \"hasMore\": false,\n    \"nextOffset\": 1796,\n    \"previousOffset\": 1566\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01810656-5141-4d79-a524-f57169db3f39",
+              "name": "Your request is missing a parameter or has the wrong data type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "summaries",
+                    "monthly_business_entity_emissions_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fiscal_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "calendar_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "from_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "to_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "business_entity_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "business_entity_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "parent_business_entity_id",
+                      "value": "8221d660-f16c-25f5-3611-0b95373cf2e0"
+                    },
+                    {
+                      "key": "business_entity_type_id",
+                      "value": "8221d660-f16c-25f5-3611-0b95373cf2e0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"name\": \"Bad Request\",\n  \"type\": \"bad_request\",\n  \"message\": \"You are missing a parameter.\",\n  \"details\": \"You are missing the id parameter.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a75ae572-5e96-4e04-b522-af9bfb1d40c0",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "summaries",
+                    "monthly_business_entity_emissions_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fiscal_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "calendar_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "from_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "to_month",
+                      "value": "2025-03"
+                    },
+                    {
+                      "key": "business_entity_ids",
+                      "value": "d22e4ffe-806d-2b9e-73e0-d9ec1290615b"
+                    },
+                    {
+                      "key": "business_entity_ids",
+                      "value": "eb84e938-82dc-17ff-0f3e-394260396714"
+                    },
+                    {
+                      "key": "parent_business_entity_id",
+                      "value": "8221d660-f16c-25f5-3611-0b95373cf2e0"
+                    },
+                    {
+                      "key": "business_entity_type_id",
+                      "value": "8221d660-f16c-25f5-3611-0b95373cf2e0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f574d4be-a8d9-47e3-b29a-5dc127cd9df3",
+          "name": "Close an activity month for an emissions source",
+          "request": {
+            "name": "Close an activity month for an emissions source",
+            "description": {
+              "content": "Closes an activity month for a specific emissions source, preventing further modifications to the period.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "carbon_accounting",
+                "activity_periods",
+                "close_activity_month"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "emissions_source_id",
+                  "value": "<uuid>",
+                  "description": "(Required) The ID of the emissions source to close the activity month for"
+                },
+                {
+                  "disabled": false,
+                  "key": "month",
+                  "value": "<string>",
+                  "description": "(Required) The month to close in YYYY-MM format"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c9660e31-1719-4f71-a27c-7d64a095d108",
+              "name": "Activity month successfully closed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "activity_periods",
+                    "close_activity_month"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "emissions_source_id",
+                      "value": "8221d660-f16c-25f5-3611-0b95373cf2e0"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3eb2d188-9f69-47c4-915d-7624e7bf936d",
+              "name": "Your request is missing a parameter or has the wrong data type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "activity_periods",
+                    "close_activity_month"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "emissions_source_id",
+                      "value": "8221d660-f16c-25f5-3611-0b95373cf2e0"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"name\": \"Bad Request\",\n  \"type\": \"bad_request\",\n  \"message\": \"You are missing a parameter.\",\n  \"details\": \"You are missing the id parameter.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73b4728a-4cb3-4ff5-b003-3e99c58d43f4",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "activity_periods",
+                    "close_activity_month"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "emissions_source_id",
+                      "value": "8221d660-f16c-25f5-3611-0b95373cf2e0"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9d61ccd-d42d-4ea2-bb66-be7d79d1321b",
+          "name": "Open an activity month for an emissions source",
+          "request": {
+            "name": "Open an activity month for an emissions source",
+            "description": {
+              "content": "Opens a previously closed activity month for a specific emissions source, allowing modifications to the period.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "carbon_accounting",
+                "activity_periods",
+                "open_activity_month"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "emissions_source_id",
+                  "value": "<uuid>",
+                  "description": "(Required) The ID of the emissions source to open the activity month for"
+                },
+                {
+                  "disabled": false,
+                  "key": "month",
+                  "value": "<string>",
+                  "description": "(Required) The month to open in YYYY-MM format"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3134ff60-d831-4d0d-bfb1-1d475f8c1b80",
+              "name": "Activity month successfully opened",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "activity_periods",
+                    "open_activity_month"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "emissions_source_id",
+                      "value": "8221d660-f16c-25f5-3611-0b95373cf2e0"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6d02a532-c5be-4f50-858f-89b84dde4ac7",
+              "name": "Your request is missing a parameter or has the wrong data type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "activity_periods",
+                    "open_activity_month"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "emissions_source_id",
+                      "value": "8221d660-f16c-25f5-3611-0b95373cf2e0"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"name\": \"Bad Request\",\n  \"type\": \"bad_request\",\n  \"message\": \"You are missing a parameter.\",\n  \"details\": \"You are missing the id parameter.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dccd1a95-fc89-4899-9d33-ff3534eb42b6",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "carbon_accounting",
+                    "activity_periods",
+                    "open_activity_month"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "emissions_source_id",
+                      "value": "8221d660-f16c-25f5-3611-0b95373cf2e0"
+                    },
+                    {
+                      "key": "month",
+                      "value": "2025-03"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sinai.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.sinai.com/oauth2/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4e96a748-1bce-43b9-98dc-d3a75e61a1d8",
+    "name": "SINAI Baseline forecasts Carbon accounting API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The SINAI application API\n\nContact Support:\n Name: API Support\n Email: support@sinai.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,799 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SINAI Baseline forecasts Organization management API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organization management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get reporting months for a given calendar or fiscal year",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/reporting_months",
+            "params": [
+              {
+                "name": "fiscal_year",
+                "value": "",
+                "type": "query",
+                "description": "Get reporting months for a specific fiscal year, using the organization's fiscal start month setting"
+              },
+              {
+                "name": "calendar_year",
+                "value": "",
+                "type": "query",
+                "description": "Get reporting months for a specific calendar year"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a list of all the reporting months for a given calendar or fiscal year. If you ask for calendar year 2024, you will be given \"2024-01\", \"2024-02\", ..., \"2024-12\".\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve the current organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/organization",
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get the organization details."
+        },
+        {
+          "info": {
+            "name": "List functional units",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/functional_units",
+            "params": [
+              {
+                "name": "sub_industry_code",
+                "value": "",
+                "type": "query",
+                "description": "Include functional units for this sub-industry configured. This is an additive filter.\n"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a list of all functional units. If not filter is provided, only the functional units that are not industry-specific will be returned.\n"
+        },
+        {
+          "info": {
+            "name": "Create a functional unit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sinai.com/v1/organization/functional_units",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to create a new functional unit."
+        },
+        {
+          "info": {
+            "name": "Retrieve a functional unit by its ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/functional_units/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the functional unit"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a specific functional unit by its ID."
+        },
+        {
+          "info": {
+            "name": "List industry taxonomy sectors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/industry_taxonomy/sectors",
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a list of industry taxonomy sectors."
+        },
+        {
+          "info": {
+            "name": "List industry taxonomy industry groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/industry_taxonomy/industry_groups",
+            "params": [
+              {
+                "name": "sector_code",
+                "value": "",
+                "type": "query",
+                "description": "filter industry groups by this sector code"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a list of industry taxonomy industry groups."
+        },
+        {
+          "info": {
+            "name": "List industry taxonomy industries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/industry_taxonomy/industries",
+            "params": [
+              {
+                "name": "industry_group_code",
+                "value": "",
+                "type": "query",
+                "description": "filter industries by this industry group code"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a list of industry taxonomy industries."
+        },
+        {
+          "info": {
+            "name": "List industry taxonomy sub-industries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/industry_taxonomy/sub_industries",
+            "params": [
+              {
+                "name": "industry_code",
+                "value": "",
+                "type": "query",
+                "description": "filter sub-industries by this industry code"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a list of industry taxonomy sub-industries."
+        },
+        {
+          "info": {
+            "name": "Retrieve a business entity by its ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/business_entities/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the business entity"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a specific business entity by its ID."
+        },
+        {
+          "info": {
+            "name": "Update a business entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.sinai.com/v1/organization/business_entities/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the business entity to be updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint updates the details of a specified business entity in the system."
+        },
+        {
+          "info": {
+            "name": "Delete a business entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sinai.com/v1/organization/business_entities/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the business entity to be deleted."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint deletes a specified business entity from the system."
+        },
+        {
+          "info": {
+            "name": "Retrieve all descendants of a business entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/business_entities/:id/descendants",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the business entity"
+              },
+              {
+                "name": "business_entity_type_id",
+                "value": "",
+                "type": "query",
+                "description": "filter entities by this type id"
+              },
+              {
+                "name": "business_entity_type_category",
+                "value": "",
+                "type": "query",
+                "description": "filter entities by this type category"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get all the business entities that are descendants of the entity specified by the ID. Descendants include children of a business entities and also the children of those children.\n"
+        },
+        {
+          "info": {
+            "name": "List business entities in an org",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/business_entities",
+            "params": [
+              {
+                "name": "business_entity_type_id",
+                "value": "",
+                "type": "query",
+                "description": "filter entities by this type id"
+              },
+              {
+                "name": "business_entity_type_category",
+                "value": "",
+                "type": "query",
+                "description": "filter entities by this type category"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a list of business entities that meet a specific filtering criteria."
+        },
+        {
+          "info": {
+            "name": "Create a new business entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sinai.com/v1/organization/business_entities",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint creates a new business entity."
+        },
+        {
+          "info": {
+            "name": "List business entity types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/business_entity_types",
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a list of business entity types."
+        },
+        {
+          "info": {
+            "name": "List facility types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/facility_types",
+            "params": [
+              {
+                "name": "sub_industry_code",
+                "value": "",
+                "type": "query",
+                "description": "Filter facility types by sub industry code. This is an additive filter; if specified, facility types with a sub industry code that matches the provided code will be returned in addition to facility types that do not have a sub industry code.\n"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a list of facility types."
+        },
+        {
+          "info": {
+            "name": "List process types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/process_types",
+            "params": [
+              {
+                "name": "facility_type_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter process types by facility type ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a list of process types."
+        },
+        {
+          "info": {
+            "name": "Retrieve an emissions source by its ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/emissions_sources/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the emissions source"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a specific emissions source by its ID."
+        },
+        {
+          "info": {
+            "name": "Update an emissions source",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.sinai.com/v1/organization/emissions_sources/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the emissions source to be updated"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates an existing emissions source with new details."
+        },
+        {
+          "info": {
+            "name": "Delete an emissions source",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sinai.com/v1/organization/emissions_sources/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the emissions source to be deleted"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Deletes an emissions source and all emissions activity data associated with it."
+        },
+        {
+          "info": {
+            "name": "List emissions sources in an org",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/emissions_sources",
+            "params": [
+              {
+                "name": "process_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter emissions sources by process ID"
+              },
+              {
+                "name": "business_entity_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter emissions sources by business entity ID. This will return all emissions sources that are descendants of the specified business entity.\n"
+              },
+              {
+                "name": "emissions_source_type_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter emissions sources by source type ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a list of emissions sources in the organization.  If no filters are specified, all emissions sources in the organization are returned. You can optionally filter the results by process ID or business entity ID.\n"
+        },
+        {
+          "info": {
+            "name": "Create a new emissions source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sinai.com/v1/organization/emissions_sources",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a new emissions source under the specified business entity process."
+        },
+        {
+          "info": {
+            "name": "Retrieve an emissions source type by its ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/emissions_source_types/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the emissions source type"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a specific emissions source type by its ID."
+        },
+        {
+          "info": {
+            "name": "List emissions source types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/emissions_source_types",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Filter source types by GHG protocol scope"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a list of all emissions source types."
+        },
+        {
+          "info": {
+            "name": "Retrieve an emissions model by its ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/emissions_models/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the emissions model"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a specific emissions model by its ID."
+        },
+        {
+          "info": {
+            "name": "List emissions models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/organization/emissions_models",
+            "params": [
+              {
+                "name": "emissions_source_type_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter models by emissions source type ID"
+              },
+              {
+                "name": "protocol_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter models by protocol ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to get a list of emissions models, optionally filtered by emissions source type and protocol."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,307 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SINAI Baseline forecasts Carbon accounting API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Carbon accounting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve monthly, activity-level detailed emissions summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/carbon_accounting/summaries/monthly_detailed_emissions_summaries",
+            "params": [
+              {
+                "name": "fiscal_year",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a specific fiscal year, using the organization's fiscal start month setting"
+              },
+              {
+                "name": "calendar_year",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a specific calendar year"
+              },
+              {
+                "name": "month",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a specific month in YYYY-MM format"
+              },
+              {
+                "name": "from_month",
+                "value": "",
+                "type": "query",
+                "description": "Filter starting at a specific month, inclusive. Can optionally use with to_month."
+              },
+              {
+                "name": "to_month",
+                "value": "",
+                "type": "query",
+                "description": "Filter up to a specific month, inclusive. Can optionally use with from_month."
+              },
+              {
+                "name": "process_ids",
+                "value": "",
+                "type": "query",
+                "description": "A list of process UUIDs to filter against, returning any summary that matches any process in the list"
+              },
+              {
+                "name": "emissions_source_ids",
+                "value": "",
+                "type": "query",
+                "description": "A list of emissions source UUIDs, returning any summary that matches any emissions source in the list"
+              },
+              {
+                "name": "scopes",
+                "value": "",
+                "type": "query",
+                "description": "Filter source types by GHG protocol scopes"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to retrieve emissions summaries at month and activity levels.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve monthly emissions summaries by emissions source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/carbon_accounting/summaries/monthly_emissions_source_emissions_summaries",
+            "params": [
+              {
+                "name": "fiscal_year",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a specific fiscal year, using the organization's fiscal start month setting"
+              },
+              {
+                "name": "calendar_year",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a specific calendar year"
+              },
+              {
+                "name": "month",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a specific month in YYYY-MM format"
+              },
+              {
+                "name": "from_month",
+                "value": "",
+                "type": "query",
+                "description": "Filter starting at a specific month, inclusive. Can optionally use with to_month."
+              },
+              {
+                "name": "to_month",
+                "value": "",
+                "type": "query",
+                "description": "Filter up to a specific month, inclusive. Can optionally use with from_month."
+              },
+              {
+                "name": "business_entity_ids",
+                "value": "",
+                "type": "query",
+                "description": "A list of business entity UUIDs to filter against, returning summaries for sources that are descendants of the given UUIDs"
+              },
+              {
+                "name": "emissions_source_ids",
+                "value": "",
+                "type": "query",
+                "description": "A list of emissions source UUIDs, returning summaries for the given sources only"
+              },
+              {
+                "name": "scopes",
+                "value": "",
+                "type": "query",
+                "description": "Filter source types by GHG protocol scopes"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to retrieve emissions summaries by emissions source\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve monthly emissions summaries by business entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/carbon_accounting/summaries/monthly_business_entity_emissions_summaries",
+            "params": [
+              {
+                "name": "fiscal_year",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a specific fiscal year, using the organization's fiscal start month setting"
+              },
+              {
+                "name": "calendar_year",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a specific calendar year"
+              },
+              {
+                "name": "month",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a specific month in YYYY-MM format"
+              },
+              {
+                "name": "from_month",
+                "value": "",
+                "type": "query",
+                "description": "Filter starting at a specific month, inclusive. Can optionally use with to_month."
+              },
+              {
+                "name": "to_month",
+                "value": "",
+                "type": "query",
+                "description": "Filter up to a specific month, inclusive. Can optionally use with from_month."
+              },
+              {
+                "name": "business_entity_ids",
+                "value": "",
+                "type": "query",
+                "description": "A list of business entity UUIDs to filter against, returning summaries for the specificed business entities"
+              },
+              {
+                "name": "parent_business_entity_id",
+                "value": "",
+                "type": "query",
+                "description": "A business entity UUIDs to filter against, returning summaries for business entities one level below the given parent"
+              },
+              {
+                "name": "business_entity_type_id",
+                "value": "",
+                "type": "query",
+                "description": "A business entity type to filter against, returning summaries for business entities of this type"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this endpoint to retrieve emissions summaries by emissions source\n"
+        },
+        {
+          "info": {
+            "name": "Close an activity month for an emissions source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sinai.com/v1/carbon_accounting/activity_periods/close_activity_month",
+            "params": [
+              {
+                "name": "emissions_source_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the emissions source to close the activity month for"
+              },
+              {
+                "name": "month",
+                "value": "",
+                "type": "query",
+                "description": "The month to close in YYYY-MM format"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Closes an activity month for a specific emissions source, preventing further modifications to the period."
+        },
+        {
+          "info": {
+            "name": "Open an activity month for an emissions source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sinai.com/v1/carbon_accounting/activity_periods/open_activity_month",
+            "params": [
+              {
+                "name": "emissions_source_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the emissions source to open the activity month for"
+              },
+              {
+                "name": "month",
+                "value": "",
+                "type": "query",
+                "description": "The month to open in YYYY-MM format"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Opens a previously closed activity month for a specific emissions source, allowing modifications to the period."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

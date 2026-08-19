@@ -1,0 +1,259 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SINAI Baseline forecasts API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Baseline forecasts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a baseline scenario by its ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/baseline_forecasts/baseline_scenarios/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the baseline scenario to retrieve"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves a baseline scenario by its ID."
+        },
+        {
+          "info": {
+            "name": "Get all baseline scenarios",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/baseline_forecasts/baseline_scenarios",
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves a list of all baseline scenarios."
+        },
+        {
+          "info": {
+            "name": "Get an activity projection by its ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/baseline_forecasts/activity_projections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the activity projection to retrieve"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves an activity projection and its config by its ID."
+        },
+        {
+          "info": {
+            "name": "Get activity projections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/baseline_forecasts/activity_projections",
+            "params": [
+              {
+                "name": "baseline_scenario_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the baseline scenario to filter the activity projections by"
+              },
+              {
+                "name": "business_entity_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the business entity to filter the activity projections by"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset of the activity projections to retrieve"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The limit of the activity projections to retrieve"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves a list of activity projections filtered by baseline scenario ID and optionally by business entity ID. If no business entity ID is provided, the activity projections for the entire organization will be returned. This endpoint supports pagination, since the number of activity projections can be quite large.\n"
+        },
+        {
+          "info": {
+            "name": "Get a main metric projection by its ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/baseline_forecasts/main_metric_projections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the main metric projection to retrieve"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves a main metric projection and its config by its ID."
+        },
+        {
+          "info": {
+            "name": "Get main metric projections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/baseline_forecasts/main_metric_projections",
+            "params": [
+              {
+                "name": "baseline_scenario_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the baseline scenario to filter the main metric projections by"
+              },
+              {
+                "name": "business_entity_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the business entity to filter the main metric projections by"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset of the main metric projections to retrieve"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The limit of the main metric projections to retrieve"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves a list of main metric projections filtered by baseline scenario ID and optionally by business entity ID. If no business entity ID is provided, the main metric projections for the entire organization will be returned. This endpoint supports pagination, since the number of main metric projections can be quite large.\n"
+        },
+        {
+          "info": {
+            "name": "Get forecast summary for the organization or a specific business entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sinai.com/v1/baseline_forecasts/projections_summaries/business_entity_summary",
+            "params": [
+              {
+                "name": "business_entity_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier for a business entity to filter the summary. If omitted, the summary for the entire organization is returned.\n"
+              },
+              {
+                "name": "baseline_scenario_id",
+                "value": "",
+                "type": "query",
+                "description": "Return the summary for a specific baseline scenario. If omitted, the default baseline scenario will be used.\n"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sinai.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves the historical and forecasted emissions and intensity data for the entire organization or optionally filtered for a specific business entity."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

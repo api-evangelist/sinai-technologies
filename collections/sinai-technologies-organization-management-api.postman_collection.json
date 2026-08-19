@@ -1,0 +1,4677 @@
+{
+  "item": [
+    {
+      "id": "7d87531c-5308-4abe-91a1-e755f1904e3d",
+      "name": "Organization management",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "47ece520-303e-4b73-8c7f-c890be4f9569",
+          "name": "Get reporting months for a given calendar or fiscal year",
+          "request": {
+            "name": "Get reporting months for a given calendar or fiscal year",
+            "description": {
+              "content": "Use this endpoint to get a list of all the reporting months for a given calendar or fiscal year. If you ask for calendar year 2024, you will be given \"2024-01\", \"2024-02\", ..., \"2024-12\".\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "reporting_months"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fiscal_year",
+                  "value": "<string>",
+                  "description": "Get reporting months for a specific fiscal year, using the organization's fiscal start month setting"
+                },
+                {
+                  "disabled": false,
+                  "key": "calendar_year",
+                  "value": "<string>",
+                  "description": "Get reporting months for a specific calendar year"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4acaf9ca-f76b-41ba-b737-541c17ea39a6",
+              "name": "Reporting months for a given calendar or fiscal year retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "reporting_months"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fiscal_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "calendar_year",
+                      "value": "2025"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"2025-03\",\n  \"2025-03\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca940cf3-aa9a-4885-be40-d6f819798a3b",
+              "name": "Your request is missing a parameter or has the wrong data type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "reporting_months"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fiscal_year",
+                      "value": "2025"
+                    },
+                    {
+                      "key": "calendar_year",
+                      "value": "2025"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"name\": \"Bad Request\",\n  \"type\": \"bad_request\",\n  \"message\": \"You are missing a parameter.\",\n  \"details\": \"You are missing the id parameter.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3607d0a3-fb9c-4355-9ef0-d01839cd6a58",
+          "name": "Retrieve the current organization",
+          "request": {
+            "name": "Retrieve the current organization",
+            "description": {
+              "content": "Use this endpoint to get the organization details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "organization"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "079bb5b7-f1d8-4f59-92df-7d3e235ebb9e",
+              "name": "Organization retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "organization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"5d5f9d33-a39c-d329-3cbe-124e6685fb4c\",\n  \"rootBusinessEntityID\": \"f79133be-46e5-dd95-3b23-fc9aaec6307b\",\n  \"defaultFunctionalUnitID\": \"47b4d45d-37d5-a7dc-a40f-3123ef30faf7\",\n  \"fiscalYearStartMonth\": 23.86647234751793\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f146ef2-97ad-4f7b-849c-e291d14d5dbf",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "organization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3e1c99b-b587-4602-8ff9-1f8505e8743d",
+          "name": "List functional units",
+          "request": {
+            "name": "List functional units",
+            "description": {
+              "content": "Use this endpoint to get a list of all functional units. If not filter is provided, only the functional units that are not industry-specific will be returned.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "functional_units"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sub_industry_code",
+                  "value": "<string>",
+                  "description": "Include functional units for this sub-industry configured. This is an additive filter.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "93b4f4b2-5f69-4771-b9d3-76c67ad5ac46",
+              "name": "Functional units retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "functional_units"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_industry_code",
+                      "value": "22054477"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"8bab49aa-a725-c546-f3de-5e3f695acfa4\",\n    \"name\": \"string\",\n    \"supportedUnits\": [\n      \"kg\",\n      \"kg\"\n    ],\n    \"defaultDisplayUnit\": \"kg\",\n    \"subIndustryCode\": \"04713631\",\n    \"description\": \"string\",\n    \"orgID\": \"06682f95-fd78-4b56-0718-26a5191554da\",\n    \"measurementType\": \"GAUGE\"\n  },\n  {\n    \"id\": \"251c01e5-f8a4-a946-3877-68d709f844cf\",\n    \"name\": \"string\",\n    \"supportedUnits\": [\n      \"kg\",\n      \"kg\"\n    ],\n    \"defaultDisplayUnit\": \"kg\",\n    \"subIndustryCode\": \"76331064\",\n    \"description\": \"string\",\n    \"orgID\": \"6ba27ddf-44c1-d478-314c-b0f65420de32\",\n    \"measurementType\": \"COUNTER\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d64bae27-bc6d-4994-9b4f-9aa4481c73d7",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "functional_units"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_industry_code",
+                      "value": "22054477"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37314a2c-2540-4023-b1fa-69f8464c2e9e",
+          "name": "Create a functional unit",
+          "request": {
+            "name": "Create a functional unit",
+            "description": {
+              "content": "Use this endpoint to create a new functional unit.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "functional_units"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"defaultDisplayUnit\": \"<string>\",\n  \"description\": \"<string>\",\n  \"subIndustryCode\": \"<string>\",\n  \"measurementType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5d09bbce-fe2c-4439-a703-59b4a42057ea",
+              "name": "Functional unit created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "functional_units"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"defaultDisplayUnit\": \"kg\",\n  \"description\": \"<string>\",\n  \"subIndustryCode\": \"39479054\",\n  \"measurementType\": \"COUNTER\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"fe9c1a2c-2d92-2c4d-431a-2fe45ec283ab\",\n  \"name\": \"string\",\n  \"supportedUnits\": [\n    \"kg\",\n    \"kg\"\n  ],\n  \"defaultDisplayUnit\": \"kg\",\n  \"subIndustryCode\": \"44096801\",\n  \"description\": \"string\",\n  \"orgID\": \"58c9055d-f700-d072-096d-8dba777c6c73\",\n  \"measurementType\": \"COUNTER\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9d8b3b7-7e59-41eb-a4ac-ec9e133e90aa",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "functional_units"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"defaultDisplayUnit\": \"kg\",\n  \"description\": \"<string>\",\n  \"subIndustryCode\": \"39479054\",\n  \"measurementType\": \"COUNTER\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b3b7d3f-1f40-4f31-a60c-449744064f2c",
+          "name": "Retrieve a functional unit by its ID",
+          "request": {
+            "name": "Retrieve a functional unit by its ID",
+            "description": {
+              "content": "Use this endpoint to get a specific functional unit by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "functional_units",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The ID of the functional unit"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "34bd1de1-0123-4f00-9934-a72ea9efef9e",
+              "name": "Functional unit retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "functional_units",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The ID of the functional unit"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"fe9c1a2c-2d92-2c4d-431a-2fe45ec283ab\",\n  \"name\": \"string\",\n  \"supportedUnits\": [\n    \"kg\",\n    \"kg\"\n  ],\n  \"defaultDisplayUnit\": \"kg\",\n  \"subIndustryCode\": \"44096801\",\n  \"description\": \"string\",\n  \"orgID\": \"58c9055d-f700-d072-096d-8dba777c6c73\",\n  \"measurementType\": \"COUNTER\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "922a40c6-f674-4fbb-bd39-c44c9d8399d7",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "functional_units",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The ID of the functional unit"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fdd40793-6a7e-4980-ba90-84d11f2b0180",
+              "name": "Object not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "functional_units",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The ID of the functional unit"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"name\": \"Not Found\",\n  \"type\": \"not_found\",\n  \"message\": \"Object not found\",\n  \"details\": \"The object with the specified ID does not exist in the database.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3a64f30-a627-4ab3-814f-d1b1d5b058bc",
+          "name": "List industry taxonomy sectors",
+          "request": {
+            "name": "List industry taxonomy sectors",
+            "description": {
+              "content": "Use this endpoint to get a list of industry taxonomy sectors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "industry_taxonomy",
+                "sectors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fe122cb5-6be0-4842-b106-b3127657f66b",
+              "name": "Industry taxonomy sectors retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "industry_taxonomy",
+                    "sectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"c5fa4d8b-9b1c-c2c4-0b73-623899a30060\",\n    \"name\": \"string\",\n    \"sectorCode\": \"08\"\n  },\n  {\n    \"id\": \"e0cca1bf-2850-0d70-0aa6-c7fe669ab7f8\",\n    \"name\": \"string\",\n    \"sectorCode\": \"73\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1b01f7b-4d20-4586-9de9-8aef41ec70e0",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "industry_taxonomy",
+                    "sectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21150109-0f7d-4005-94eb-dcf61c6d3f84",
+          "name": "List industry taxonomy industry groups",
+          "request": {
+            "name": "List industry taxonomy industry groups",
+            "description": {
+              "content": "Use this endpoint to get a list of industry taxonomy industry groups.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "industry_taxonomy",
+                "industry_groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sector_code",
+                  "value": "<string>",
+                  "description": "filter industry groups by this sector code"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "31a87b10-00df-4935-9d70-91b4a892a108",
+              "name": "Industry taxonomy industry groups retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "industry_taxonomy",
+                    "industry_groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sector_code",
+                      "value": "05"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"75201c65-2d62-8ea3-4498-c72807ad7a78\",\n    \"name\": \"string\",\n    \"industryGroupCode\": \"9932\"\n  },\n  {\n    \"id\": \"aa4c87af-ee67-c829-a9b1-41c9d7586f20\",\n    \"name\": \"string\",\n    \"industryGroupCode\": \"5958\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ade2b02f-fbdc-492d-99bf-0a253d8fdccf",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "industry_taxonomy",
+                    "industry_groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sector_code",
+                      "value": "05"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d8936a2-2e5e-4e06-9053-57a2dc203ee6",
+          "name": "List industry taxonomy industries",
+          "request": {
+            "name": "List industry taxonomy industries",
+            "description": {
+              "content": "Use this endpoint to get a list of industry taxonomy industries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "industry_taxonomy",
+                "industries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "industry_group_code",
+                  "value": "<string>",
+                  "description": "filter industries by this industry group code"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d6c99112-dbfe-431a-8faf-5086d27f5c54",
+              "name": "Industry taxonomy industries retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "industry_taxonomy",
+                    "industries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "industry_group_code",
+                      "value": "1923"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"771de9b2-7fb1-9db3-99f1-b4ead34eb598\",\n    \"name\": \"string\",\n    \"industryCode\": \"162683\"\n  },\n  {\n    \"id\": \"ba578742-d325-e24d-9c18-7016deda20bf\",\n    \"name\": \"string\",\n    \"industryCode\": \"746697\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "930e3864-7a7f-46c2-acf5-0b681c9e97c0",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "industry_taxonomy",
+                    "industries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "industry_group_code",
+                      "value": "1923"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8275f96d-d27a-4eaa-8a0c-7a44a942bfbc",
+          "name": "List industry taxonomy sub-industries",
+          "request": {
+            "name": "List industry taxonomy sub-industries",
+            "description": {
+              "content": "Use this endpoint to get a list of industry taxonomy sub-industries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "industry_taxonomy",
+                "sub_industries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "industry_code",
+                  "value": "<string>",
+                  "description": "filter sub-industries by this industry code"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5362e344-7812-41cc-b671-4eb1a2ed5eea",
+              "name": "Industry taxonomy sub-industries retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "industry_taxonomy",
+                    "sub_industries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "industry_code",
+                      "value": "007790"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"2f1c8b5a-c210-67fd-4754-7e5b6213457e\",\n    \"name\": \"string\",\n    \"subIndustryCode\": \"44954516\"\n  },\n  {\n    \"id\": \"a0e7fe25-8e8e-e61e-9926-ffdf08eb5dc6\",\n    \"name\": \"string\",\n    \"subIndustryCode\": \"00131406\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfd953a0-70e0-47f9-aacf-f24ae5a2a4d4",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "industry_taxonomy",
+                    "sub_industries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "industry_code",
+                      "value": "007790"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b613d46-816d-49ec-b2f1-a28716d08554",
+          "name": "Retrieve a business entity by its ID",
+          "request": {
+            "name": "Retrieve a business entity by its ID",
+            "description": {
+              "content": "Use this endpoint to get a specific business entity by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "business_entities",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier for the business entity"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ca0ccd96-be49-41e7-9526-369bbd2f420d",
+              "name": "Business entity retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entities",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the business entity"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"61027952-820a-c9e0-124f-6b9829ec92d0\",\n  \"name\": \"Manufacturing plant\",\n  \"orgID\": \"1a7021e8-1206-df28-85be-7b463300e412\",\n  \"parentID\": \"ee8e97d3-228a-e3fe-91ba-0b13293201d2\",\n  \"description\": \"The building where things are manufactured\",\n  \"countryCode\": \"string\",\n  \"subIndustryCode\": \"74176912\",\n  \"facilityTypeID\": \"27e9d5e3-35a6-8c9b-b588-19a014f51239\",\n  \"processTypeID\": \"679a21ac-8ce4-94f7-725f-265b87add111\",\n  \"businessEntityTypeID\": \"92bdf69f-4df4-ef6a-cf40-3e9c56795206\",\n  \"defaultFunctionalUnitID\": \"1956912a-86ac-cd44-d696-13242ba6eb09\",\n  \"defaultDisplayUnit\": \"string\",\n  \"activeStartTimestamp\": 5326.976885696297,\n  \"activeEndTimestamp\": 1107.889161932194\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad069f46-aae8-49cf-a336-b75c501e8c2f",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entities",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the business entity"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "320af47f-4a69-43e7-9119-e5a2b60d9832",
+              "name": "Object not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entities",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the business entity"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"name\": \"Not Found\",\n  \"type\": \"not_found\",\n  \"message\": \"Object not found\",\n  \"details\": \"The object with the specified ID does not exist in the database.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37245cd1-8e1e-4675-8512-bf2390720b8a",
+          "name": "Update a business entity",
+          "request": {
+            "name": "Update a business entity",
+            "description": {
+              "content": "This endpoint updates the details of a specified business entity in the system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "business_entities",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the business entity to be updated."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b21fd509-afaf-491c-9212-d27afad7cd7d",
+              "name": "Business entity successfully updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entities",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the business entity to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New business entity name\",\n  \"description\": \"This is an updated description for the business entity.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"61027952-820a-c9e0-124f-6b9829ec92d0\",\n  \"name\": \"Manufacturing plant\",\n  \"orgID\": \"1a7021e8-1206-df28-85be-7b463300e412\",\n  \"parentID\": \"ee8e97d3-228a-e3fe-91ba-0b13293201d2\",\n  \"description\": \"The building where things are manufactured\",\n  \"countryCode\": \"string\",\n  \"subIndustryCode\": \"74176912\",\n  \"facilityTypeID\": \"27e9d5e3-35a6-8c9b-b588-19a014f51239\",\n  \"processTypeID\": \"679a21ac-8ce4-94f7-725f-265b87add111\",\n  \"businessEntityTypeID\": \"92bdf69f-4df4-ef6a-cf40-3e9c56795206\",\n  \"defaultFunctionalUnitID\": \"1956912a-86ac-cd44-d696-13242ba6eb09\",\n  \"defaultDisplayUnit\": \"string\",\n  \"activeStartTimestamp\": 5326.976885696297,\n  \"activeEndTimestamp\": 1107.889161932194\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97873d22-01a8-4c6b-a5aa-ed63a0605527",
+          "name": "Delete a business entity",
+          "request": {
+            "name": "Delete a business entity",
+            "description": {
+              "content": "This endpoint deletes a specified business entity from the system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "business_entities",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the business entity to be deleted."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4db02b1c-7ac8-4076-ae88-cf64194bfa7f",
+              "name": "Business entity successfully deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entities",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the business entity to be deleted."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a70e13a8-ffc3-4dd4-8a09-5f97f0b973cd",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entities",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the business entity to be deleted."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4db5c96a-e50c-4207-8b91-85318c6ba965",
+          "name": "Retrieve all descendants of a business entity",
+          "request": {
+            "name": "Retrieve all descendants of a business entity",
+            "description": {
+              "content": "Use this endpoint to get all the business entities that are descendants of the entity specified by the ID. Descendants include children of a business entities and also the children of those children.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "business_entities",
+                ":id",
+                "descendants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "business_entity_type_id",
+                  "value": "<uuid>",
+                  "description": "filter entities by this type id"
+                },
+                {
+                  "disabled": false,
+                  "key": "business_entity_type_category",
+                  "value": "<string>",
+                  "description": "filter entities by this type category"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier for the business entity"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "049ee035-666f-4629-be3a-202b081c8cd6",
+              "name": "Business entity retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entities",
+                    ":id",
+                    "descendants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_entity_type_id",
+                      "value": "48146074-23ee-8883-0699-127a2606e37e"
+                    },
+                    {
+                      "key": "business_entity_type_category",
+                      "value": "MID_LEVEL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the business entity"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"9f4872c5-b021-0fef-5d0f-cfb251d72c42\",\n    \"name\": \"Manufacturing plant\",\n    \"orgID\": \"5fd8ad48-2c4c-56a5-8d9e-81c8d32a5eea\",\n    \"parentID\": \"015c0314-1730-b5ca-4608-068038252421\",\n    \"description\": \"The building where things are manufactured\",\n    \"countryCode\": \"string\",\n    \"subIndustryCode\": \"38534888\",\n    \"facilityTypeID\": \"8bde2a1f-989c-cb6e-813a-850622effbb2\",\n    \"processTypeID\": \"ac965fb2-50b4-d4ec-6126-1af748fbdb08\",\n    \"businessEntityTypeID\": \"14b07e64-640b-b37d-81a1-3a61fcd7abd1\",\n    \"defaultFunctionalUnitID\": \"713ab76e-a409-5e5c-b768-83949fc71286\",\n    \"defaultDisplayUnit\": \"string\",\n    \"activeStartTimestamp\": 7707.605079274064,\n    \"activeEndTimestamp\": 5814.767412958448\n  },\n  {\n    \"id\": \"b510af7b-fed3-de0e-b9eb-e7fb52c47c9a\",\n    \"name\": \"Manufacturing plant\",\n    \"orgID\": \"7ad260d3-6d9b-e723-ae78-90b0813e3fe7\",\n    \"parentID\": \"0ea5478d-b5db-a926-af07-c81c553d6dc8\",\n    \"description\": \"The building where things are manufactured\",\n    \"countryCode\": \"string\",\n    \"subIndustryCode\": \"83972398\",\n    \"facilityTypeID\": \"67f4e85f-ff35-41a7-364a-8dba784b3d74\",\n    \"processTypeID\": \"a438d8d6-9f90-1255-3c6f-3404134c0b7b\",\n    \"businessEntityTypeID\": \"122978b6-68cf-3568-2b20-33119f04f65c\",\n    \"defaultFunctionalUnitID\": \"d42c7bd5-2af7-93bf-d037-6a914d593b05\",\n    \"defaultDisplayUnit\": \"string\",\n    \"activeStartTimestamp\": 8235.399896036928,\n    \"activeEndTimestamp\": 974.2725379707684\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efdd8358-9c0b-4033-9b0b-c72afa25213d",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entities",
+                    ":id",
+                    "descendants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_entity_type_id",
+                      "value": "48146074-23ee-8883-0699-127a2606e37e"
+                    },
+                    {
+                      "key": "business_entity_type_category",
+                      "value": "MID_LEVEL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the business entity"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de719efb-5827-4e14-b928-5d14c8f8d197",
+              "name": "Object not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entities",
+                    ":id",
+                    "descendants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_entity_type_id",
+                      "value": "48146074-23ee-8883-0699-127a2606e37e"
+                    },
+                    {
+                      "key": "business_entity_type_category",
+                      "value": "MID_LEVEL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the business entity"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"name\": \"Not Found\",\n  \"type\": \"not_found\",\n  \"message\": \"Object not found\",\n  \"details\": \"The object with the specified ID does not exist in the database.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3bedc06e-7091-48d0-9525-7fd8b68c8ddb",
+          "name": "Create a new business entity",
+          "request": {
+            "name": "Create a new business entity",
+            "description": {
+              "content": "This endpoint creates a new business entity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "business_entities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parentID\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"businessEntityTypeID\": \"<uuid>\",\n  \"description\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"subIndustryCode\": \"<string>\",\n  \"facilityTypeID\": \"<uuid>\",\n  \"processTypeID\": \"<uuid>\",\n  \"defaultFunctionalUnitID\": \"<uuid>\",\n  \"customFunctionalUnitName\": \"<string>\",\n  \"defaultDisplayUnit\": \"<string>\",\n  \"activeStartTimestamp\": \"<number>\",\n  \"activeEndTimestamp\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "417300d0-3738-47f3-be2f-5ef4a404d762",
+              "name": "Business entity successfully created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parentID\": \"99f1e0b6-a467-6cb9-fcc7-246268043f56\",\n  \"name\": \"New Business Entity\",\n  \"businessEntityTypeID\": \"bd02eec7-419f-a01e-3cf4-082ccbd6fa7a\",\n  \"description\": \"Description of the new business entity.\",\n  \"countryCode\": \"string\",\n  \"subIndustryCode\": \"88560142\",\n  \"facilityTypeID\": \"9e7ca584-85b7-9b5b-a7b0-5c3574dc6f30\",\n  \"processTypeID\": \"b7ec69a6-373e-f3b8-f994-bf520a4ace4b\",\n  \"defaultFunctionalUnitID\": \"1d9b4be2-05ba-17aa-5244-35fb596f7d4a\",\n  \"customFunctionalUnitName\": \"<string>\",\n  \"defaultDisplayUnit\": \"<string>\",\n  \"activeStartTimestamp\": \"<number>\",\n  \"activeEndTimestamp\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"61027952-820a-c9e0-124f-6b9829ec92d0\",\n  \"name\": \"Manufacturing plant\",\n  \"orgID\": \"1a7021e8-1206-df28-85be-7b463300e412\",\n  \"parentID\": \"ee8e97d3-228a-e3fe-91ba-0b13293201d2\",\n  \"description\": \"The building where things are manufactured\",\n  \"countryCode\": \"string\",\n  \"subIndustryCode\": \"74176912\",\n  \"facilityTypeID\": \"27e9d5e3-35a6-8c9b-b588-19a014f51239\",\n  \"processTypeID\": \"679a21ac-8ce4-94f7-725f-265b87add111\",\n  \"businessEntityTypeID\": \"92bdf69f-4df4-ef6a-cf40-3e9c56795206\",\n  \"defaultFunctionalUnitID\": \"1956912a-86ac-cd44-d696-13242ba6eb09\",\n  \"defaultDisplayUnit\": \"string\",\n  \"activeStartTimestamp\": 5326.976885696297,\n  \"activeEndTimestamp\": 1107.889161932194\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd4e62b1-5b39-412a-ad60-4c700131ecef",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parentID\": \"99f1e0b6-a467-6cb9-fcc7-246268043f56\",\n  \"name\": \"New Business Entity\",\n  \"businessEntityTypeID\": \"bd02eec7-419f-a01e-3cf4-082ccbd6fa7a\",\n  \"description\": \"Description of the new business entity.\",\n  \"countryCode\": \"string\",\n  \"subIndustryCode\": \"88560142\",\n  \"facilityTypeID\": \"9e7ca584-85b7-9b5b-a7b0-5c3574dc6f30\",\n  \"processTypeID\": \"b7ec69a6-373e-f3b8-f994-bf520a4ace4b\",\n  \"defaultFunctionalUnitID\": \"1d9b4be2-05ba-17aa-5244-35fb596f7d4a\",\n  \"customFunctionalUnitName\": \"<string>\",\n  \"defaultDisplayUnit\": \"<string>\",\n  \"activeStartTimestamp\": \"<number>\",\n  \"activeEndTimestamp\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3325a86-d1f0-4124-9386-551744b76eb2",
+          "name": "List business entities in an org",
+          "request": {
+            "name": "List business entities in an org",
+            "description": {
+              "content": "Use this endpoint to get a list of business entities that meet a specific filtering criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "business_entities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "business_entity_type_id",
+                  "value": "<uuid>",
+                  "description": "filter entities by this type id"
+                },
+                {
+                  "disabled": false,
+                  "key": "business_entity_type_category",
+                  "value": "<string>",
+                  "description": "filter entities by this type category"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "04c16cc9-ae25-4467-a9e2-3c25435004b0",
+              "name": "the list of business entities",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_entity_type_id",
+                      "value": "48146074-23ee-8883-0699-127a2606e37e"
+                    },
+                    {
+                      "key": "business_entity_type_category",
+                      "value": "MID_LEVEL"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"9f4872c5-b021-0fef-5d0f-cfb251d72c42\",\n    \"name\": \"Manufacturing plant\",\n    \"orgID\": \"5fd8ad48-2c4c-56a5-8d9e-81c8d32a5eea\",\n    \"parentID\": \"015c0314-1730-b5ca-4608-068038252421\",\n    \"description\": \"The building where things are manufactured\",\n    \"countryCode\": \"string\",\n    \"subIndustryCode\": \"38534888\",\n    \"facilityTypeID\": \"8bde2a1f-989c-cb6e-813a-850622effbb2\",\n    \"processTypeID\": \"ac965fb2-50b4-d4ec-6126-1af748fbdb08\",\n    \"businessEntityTypeID\": \"14b07e64-640b-b37d-81a1-3a61fcd7abd1\",\n    \"defaultFunctionalUnitID\": \"713ab76e-a409-5e5c-b768-83949fc71286\",\n    \"defaultDisplayUnit\": \"string\",\n    \"activeStartTimestamp\": 7707.605079274064,\n    \"activeEndTimestamp\": 5814.767412958448\n  },\n  {\n    \"id\": \"b510af7b-fed3-de0e-b9eb-e7fb52c47c9a\",\n    \"name\": \"Manufacturing plant\",\n    \"orgID\": \"7ad260d3-6d9b-e723-ae78-90b0813e3fe7\",\n    \"parentID\": \"0ea5478d-b5db-a926-af07-c81c553d6dc8\",\n    \"description\": \"The building where things are manufactured\",\n    \"countryCode\": \"string\",\n    \"subIndustryCode\": \"83972398\",\n    \"facilityTypeID\": \"67f4e85f-ff35-41a7-364a-8dba784b3d74\",\n    \"processTypeID\": \"a438d8d6-9f90-1255-3c6f-3404134c0b7b\",\n    \"businessEntityTypeID\": \"122978b6-68cf-3568-2b20-33119f04f65c\",\n    \"defaultFunctionalUnitID\": \"d42c7bd5-2af7-93bf-d037-6a914d593b05\",\n    \"defaultDisplayUnit\": \"string\",\n    \"activeStartTimestamp\": 8235.399896036928,\n    \"activeEndTimestamp\": 974.2725379707684\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65df6234-4958-477e-8b1a-3191a36aee6b",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_entity_type_id",
+                      "value": "48146074-23ee-8883-0699-127a2606e37e"
+                    },
+                    {
+                      "key": "business_entity_type_category",
+                      "value": "MID_LEVEL"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab66d4bd-737f-450c-99c7-24ee2e1e9ce2",
+          "name": "List business entity types",
+          "request": {
+            "name": "List business entity types",
+            "description": {
+              "content": "Use this endpoint to get a list of business entity types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "business_entity_types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0e40eebc-32ed-4f4a-8aa7-9e68f02e5545",
+              "name": "The list of business entity types",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entity_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"1be584ad-f137-b196-6c72-770f4abe2b9d\",\n    \"name\": \"string\",\n    \"typeCategory\": \"MID_LEVEL\",\n    \"description\": \"string\",\n    \"allowedAtRoot\": false,\n    \"orgID\": \"c9a1cbdd-db26-1a04-d73d-b622710cbafd\"\n  },\n  {\n    \"id\": \"53ba9b8e-cbc3-a15b-e685-bc8b29ca25eb\",\n    \"name\": \"string\",\n    \"typeCategory\": \"ORG_LEVEL\",\n    \"description\": \"string\",\n    \"allowedAtRoot\": false,\n    \"orgID\": \"3569dbdf-1988-ce15-343c-c637113d2ab0\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43c95295-824b-4660-aca7-6c6e347175fd",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "business_entity_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ec8cdec1-f24f-4dbb-b14e-5b580ea24eff",
+          "name": "List facility types",
+          "request": {
+            "name": "List facility types",
+            "description": {
+              "content": "Use this endpoint to get a list of facility types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "facility_types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sub_industry_code",
+                  "value": "<string>",
+                  "description": "Filter facility types by sub industry code. This is an additive filter; if specified, facility types with a sub industry code that matches the provided code will be returned in addition to facility types that do not have a sub industry code.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e42f85ef-96ab-4b06-924a-9eb9e9df2a25",
+              "name": "The list of facility types",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "facility_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_industry_code",
+                      "value": "22054477"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"3ec2d191-f60b-4ab7-2d16-89a923b5b4e5\",\n    \"name\": \"string\",\n    \"subIndustryCode\": \"88538647\",\n    \"description\": \"string\",\n    \"orgID\": \"7b142f2f-f14e-7224-7e92-fa89c7218690\"\n  },\n  {\n    \"id\": \"056d2cec-2cd1-8289-9ac2-4c85b570742d\",\n    \"name\": \"string\",\n    \"subIndustryCode\": \"72494001\",\n    \"description\": \"string\",\n    \"orgID\": \"3127d6df-29a6-e4ce-c6aa-a6686e8b06a5\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f0134fd-38a0-4d91-81aa-57afd7acc07f",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "facility_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_industry_code",
+                      "value": "22054477"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69e4c5ca-2afd-4ae5-974b-a93758a30c35",
+          "name": "List process types",
+          "request": {
+            "name": "List process types",
+            "description": {
+              "content": "Use this endpoint to get a list of process types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "process_types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "facility_type_id",
+                  "value": "<uuid>",
+                  "description": "Filter process types by facility type ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ee6f629a-a3fd-4dab-8d54-5f61042143db",
+              "name": "The list of process types",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "process_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "facility_type_id",
+                      "value": "374459ba-27bf-b2f1-cbeb-d254bf6b6130"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"2ff24044-dd8f-4ba3-5c2f-af98a6f708d9\",\n    \"name\": \"string\",\n    \"facilityTypeID\": \"48ddbd26-98ea-858b-c65a-5a91bfec1803\",\n    \"description\": \"string\",\n    \"orgID\": \"e52db4e9-9b81-ea13-0351-df709d4247db\"\n  },\n  {\n    \"id\": \"93d71b5d-ba64-f644-2ae8-f2336c7d5626\",\n    \"name\": \"string\",\n    \"facilityTypeID\": \"0fee4790-15e3-7e29-114a-ca90bc83f4fc\",\n    \"description\": \"string\",\n    \"orgID\": \"30fa9cf0-7049-50fe-56c1-94d8076d4593\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96ae3d50-a87a-413f-a30a-b3004eda0457",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "process_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "facility_type_id",
+                      "value": "374459ba-27bf-b2f1-cbeb-d254bf6b6130"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2484505-cc49-46ea-b883-86e3dde81616",
+          "name": "Retrieve an emissions source by its ID",
+          "request": {
+            "name": "Retrieve an emissions source by its ID",
+            "description": {
+              "content": "Use this endpoint to get a specific emissions source by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "emissions_sources",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier for the emissions source"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c9bafc62-b5ba-425a-b804-0631e91855b5",
+              "name": "Emissions source retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_sources",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the emissions source"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"2d8b5aa9-afaa-66d5-907d-4bf543c90328\",\n  \"processID\": \"83ddeaec-3f3c-67f1-e0a2-411bfc3c1ead\",\n  \"emissionsSourceTypeID\": \"9ba9fdce-429f-acc4-005c-0a2bef1df104\",\n  \"emissionsModelID\": \"9fb3a7ff-303e-0a98-5059-4ee5d999c7ac\",\n  \"scope\": 2,\n  \"status\": \"ACTIVE\",\n  \"relatedSourceID\": \"7f9d04e9-cca4-4dce-7da7-e89ccb13698e\",\n  \"description\": \"string\",\n  \"referenceSourceIDs\": [\n    \"8897e08f-42e7-9825-155c-f5cabbf0d776\",\n    \"e7ae304f-576f-4170-7a04-3ccaebcbc50a\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "300e952b-4b29-4736-84f3-d4056c9e5225",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_sources",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the emissions source"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77b35d5b-d4bf-4ba4-8800-accf5b3424f0",
+              "name": "Object not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_sources",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the emissions source"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"name\": \"Not Found\",\n  \"type\": \"not_found\",\n  \"message\": \"Object not found\",\n  \"details\": \"The object with the specified ID does not exist in the database.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "edba69c6-7671-4d18-9809-e978a9f18d5a",
+          "name": "Update an emissions source",
+          "request": {
+            "name": "Update an emissions source",
+            "description": {
+              "content": "Updates an existing emissions source with new details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "emissions_sources",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the emissions source to be updated"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"processID\": \"<uuid>\",\n  \"emissionsSourceTypeID\": \"<uuid>\",\n  \"emissionsModelID\": \"<uuid>\",\n  \"relatedSourceID\": \"<uuid>\",\n  \"scope\": \"<number>\",\n  \"status\": \"<string>\",\n  \"description\": \"<string>\",\n  \"referenceSourceIDs\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2f3c7435-3e49-4d37-b31c-b94c886864b9",
+              "name": "Emissions source successfully updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_sources",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the emissions source to be updated"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"processID\": \"e21b27ee-283e-d69c-68b4-9c2e0f8fff1e\",\n  \"emissionsSourceTypeID\": \"a06a62a8-4c52-e237-8a71-e0f5f7102f04\",\n  \"emissionsModelID\": \"dc390867-d9a1-3c40-fcc0-1027767ddd27\",\n  \"relatedSourceID\": \"253b5459-58ea-7b8c-f0c6-4f60274ef0a0\",\n  \"scope\": 22,\n  \"status\": \"ACTIVE\",\n  \"description\": \"<string>\",\n  \"referenceSourceIDs\": [\n    \"3476480e-5116-6e4f-6bae-b0208881f9e2\",\n    \"3a138683-61f5-cc6d-879d-3123016ff8f6\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"2d8b5aa9-afaa-66d5-907d-4bf543c90328\",\n  \"processID\": \"83ddeaec-3f3c-67f1-e0a2-411bfc3c1ead\",\n  \"emissionsSourceTypeID\": \"9ba9fdce-429f-acc4-005c-0a2bef1df104\",\n  \"emissionsModelID\": \"9fb3a7ff-303e-0a98-5059-4ee5d999c7ac\",\n  \"scope\": 2,\n  \"status\": \"ACTIVE\",\n  \"relatedSourceID\": \"7f9d04e9-cca4-4dce-7da7-e89ccb13698e\",\n  \"description\": \"string\",\n  \"referenceSourceIDs\": [\n    \"8897e08f-42e7-9825-155c-f5cabbf0d776\",\n    \"e7ae304f-576f-4170-7a04-3ccaebcbc50a\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ac52021-bb1a-4549-ba24-e3f89c13aee9",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_sources",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the emissions source to be updated"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"processID\": \"e21b27ee-283e-d69c-68b4-9c2e0f8fff1e\",\n  \"emissionsSourceTypeID\": \"a06a62a8-4c52-e237-8a71-e0f5f7102f04\",\n  \"emissionsModelID\": \"dc390867-d9a1-3c40-fcc0-1027767ddd27\",\n  \"relatedSourceID\": \"253b5459-58ea-7b8c-f0c6-4f60274ef0a0\",\n  \"scope\": 22,\n  \"status\": \"ACTIVE\",\n  \"description\": \"<string>\",\n  \"referenceSourceIDs\": [\n    \"3476480e-5116-6e4f-6bae-b0208881f9e2\",\n    \"3a138683-61f5-cc6d-879d-3123016ff8f6\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b656c25-003d-4f04-bdbd-b922671978cf",
+          "name": "Delete an emissions source",
+          "request": {
+            "name": "Delete an emissions source",
+            "description": {
+              "content": "Deletes an emissions source and all emissions activity data associated with it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "emissions_sources",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the emissions source to be deleted"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4f0d4322-ac69-49aa-a9c0-bb35a66e9d50",
+              "name": "Emissions source successfully deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_sources",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the emissions source to be deleted"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "00ef0ac4-d44f-4043-b7c1-07a350e70b8a",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_sources",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the emissions source to be deleted"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b52ef44f-584f-4864-a175-79864a8f84cf",
+          "name": "Create a new emissions source",
+          "request": {
+            "name": "Create a new emissions source",
+            "description": {
+              "content": "Creates a new emissions source under the specified business entity process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "emissions_sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"processID\": \"<uuid>\",\n  \"emissionsSourceTypeID\": \"<uuid>\",\n  \"emissionsModelID\": \"<uuid>\",\n  \"relatedSourceID\": \"<uuid>\",\n  \"scope\": \"<number>\",\n  \"status\": \"<string>\",\n  \"description\": \"<string>\",\n  \"referenceSourceIDs\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ae71363c-ef2b-4c48-8df3-ba7c9c4627ed",
+              "name": "The newly created emissions source",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"processID\": \"d41c448d-26d6-339b-8c19-2e24ef81f7a2\",\n  \"emissionsSourceTypeID\": \"7c2fcc7d-9983-eaab-b94c-24ca02531eaa\",\n  \"emissionsModelID\": \"30120fdd-f783-d310-7aac-c7cc369428e5\",\n  \"relatedSourceID\": \"d186147e-e854-9bde-a9e1-a100c7d0a20b\",\n  \"scope\": 22,\n  \"status\": \"ACTIVE\",\n  \"description\": \"<string>\",\n  \"referenceSourceIDs\": [\n    \"0ea3c446-a66f-5370-1ab5-4f335c8ec1de\",\n    \"f04c6cc5-390a-931b-5156-e4645060fc09\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"2d8b5aa9-afaa-66d5-907d-4bf543c90328\",\n  \"processID\": \"83ddeaec-3f3c-67f1-e0a2-411bfc3c1ead\",\n  \"emissionsSourceTypeID\": \"9ba9fdce-429f-acc4-005c-0a2bef1df104\",\n  \"emissionsModelID\": \"9fb3a7ff-303e-0a98-5059-4ee5d999c7ac\",\n  \"scope\": 2,\n  \"status\": \"ACTIVE\",\n  \"relatedSourceID\": \"7f9d04e9-cca4-4dce-7da7-e89ccb13698e\",\n  \"description\": \"string\",\n  \"referenceSourceIDs\": [\n    \"8897e08f-42e7-9825-155c-f5cabbf0d776\",\n    \"e7ae304f-576f-4170-7a04-3ccaebcbc50a\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b3bc877-5285-4642-bf05-184f7a02ebb7",
+          "name": "List emissions sources in an org",
+          "request": {
+            "name": "List emissions sources in an org",
+            "description": {
+              "content": "Use this endpoint to get a list of emissions sources in the organization.  If no filters are specified, all emissions sources in the organization are returned. You can optionally filter the results by process ID or business entity ID.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "emissions_sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "process_id",
+                  "value": "<uuid>",
+                  "description": "Filter emissions sources by process ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "business_entity_id",
+                  "value": "<uuid>",
+                  "description": "Filter emissions sources by business entity ID. This will return all emissions sources that are descendants of the specified business entity.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "emissions_source_type_id",
+                  "value": "<uuid>",
+                  "description": "Filter emissions sources by source type ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d805123e-50a6-421f-9b82-d4eb36cd4192",
+              "name": "The list of emissions sources",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "process_id",
+                      "value": "48146074-23ee-8883-0699-127a2606e37e"
+                    },
+                    {
+                      "key": "business_entity_id",
+                      "value": "48146074-23ee-8883-0699-127a2606e37e"
+                    },
+                    {
+                      "key": "emissions_source_type_id",
+                      "value": "48146074-23ee-8883-0699-127a2606e37e"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"83af906c-6bc3-e5ef-18ab-007d0d3673df\",\n    \"processID\": \"305db67b-4816-1a81-9ac3-ee6b54b57e2e\",\n    \"emissionsSourceTypeID\": \"757cc182-cecb-724a-b09f-551943654ed2\",\n    \"emissionsModelID\": \"b21b9592-e300-3f74-7343-86a2e7c7ec74\",\n    \"scope\": 2,\n    \"status\": \"INACTIVE\",\n    \"relatedSourceID\": \"06cff91d-f0f7-0a9d-43a9-076b62cd66d7\",\n    \"description\": \"string\",\n    \"referenceSourceIDs\": [\n      \"5315ada7-9ed7-66ef-03a6-6d2cae3ef80d\",\n      \"370e2720-bb27-7c3f-44ec-dba140bec5c5\"\n    ]\n  },\n  {\n    \"id\": \"5f6d1abe-bf4c-6305-e434-bedf040b4052\",\n    \"processID\": \"7b7ffadd-790f-aa18-16d4-2088f9c7fe35\",\n    \"emissionsSourceTypeID\": \"c3f26f15-7682-8441-43ad-9f9b22f13209\",\n    \"emissionsModelID\": \"e3bd1e9f-dfec-efdd-df79-85ecb7a179f2\",\n    \"scope\": 1,\n    \"status\": \"ACTIVE\",\n    \"relatedSourceID\": \"8cc81029-0792-a7b1-0cc9-7fe108b6cf44\",\n    \"description\": \"string\",\n    \"referenceSourceIDs\": [\n      \"3a9d0183-2aae-0b8a-676a-73a891851a9d\",\n      \"f1bd83da-1ebd-2e0a-dbe3-f7cba2a8cabc\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "518904fd-9764-469b-9a60-3b65aaedc1e0",
+              "name": "Your request is missing a parameter or has the wrong data type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "process_id",
+                      "value": "48146074-23ee-8883-0699-127a2606e37e"
+                    },
+                    {
+                      "key": "business_entity_id",
+                      "value": "48146074-23ee-8883-0699-127a2606e37e"
+                    },
+                    {
+                      "key": "emissions_source_type_id",
+                      "value": "48146074-23ee-8883-0699-127a2606e37e"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"name\": \"Bad Request\",\n  \"type\": \"bad_request\",\n  \"message\": \"You are missing a parameter.\",\n  \"details\": \"You are missing the id parameter.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7430162b-2f40-44aa-aae4-e0a777ce8477",
+          "name": "Retrieve an emissions source type by its ID",
+          "request": {
+            "name": "Retrieve an emissions source type by its ID",
+            "description": {
+              "content": "Use this endpoint to get a specific emissions source type by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "emissions_source_types",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier for the emissions source type"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "55c5f067-862d-4ed2-b9dc-ed11ade35147",
+              "name": "Emissions source type retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_source_types",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the emissions source type"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"119694aa-625e-25e6-3dfc-5e170813aaa9\",\n  \"name\": \"string\",\n  \"scope\": 3\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b687f178-1ac1-45c8-9868-46f89eed6c49",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_source_types",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the emissions source type"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "861463fc-c3bd-4abe-b168-675021463ddc",
+          "name": "List emissions source types",
+          "request": {
+            "name": "List emissions source types",
+            "description": {
+              "content": "Use this endpoint to get a list of all emissions source types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "emissions_source_types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "<number>",
+                  "description": "Filter source types by GHG protocol scope"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4ff2c859-b148-455f-8bd7-3d9ab23a2540",
+              "name": "The list of emissions source types",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_source_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "3"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"50e8f135-707d-c236-7398-2df56e200c59\",\n    \"name\": \"string\",\n    \"scope\": 22\n  },\n  {\n    \"id\": \"56dba25f-402c-2c5b-e30d-2c0fbc5f7276\",\n    \"name\": \"string\",\n    \"scope\": 1\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80886afd-2698-4e92-9f9a-3f3f710adb7a",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_source_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "3"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e2e01c5f-99b1-49a0-ab1b-383f53740990",
+          "name": "Retrieve an emissions model by its ID",
+          "request": {
+            "name": "Retrieve an emissions model by its ID",
+            "description": {
+              "content": "Use this endpoint to get a specific emissions model by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "emissions_models",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier for the emissions model"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6079822f-0088-4916-b388-2e43f9edf842",
+              "name": "Emissions model retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_models",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the emissions model"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a57955bd-e62e-c4be-c2d2-05c79bea0050\",\n  \"protocol\": {\n    \"id\": \"255c59e4-cb7f-5a43-bd1d-1e06617f921d\",\n    \"displayName\": \"string\"\n  },\n  \"displayName\": \"string\",\n  \"emissionsFactorsSources\": [\n    \"string\",\n    \"string\"\n  ],\n  \"emissionsSourceTypeID\": \"4346530c-55da-b0dc-55bd-8689a0286f15\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb4959f4-581c-4d1e-b988-29dbd3b7e28e",
+          "name": "List emissions models",
+          "request": {
+            "name": "List emissions models",
+            "description": {
+              "content": "Use this endpoint to get a list of emissions models, optionally filtered by emissions source type and protocol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "emissions_models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "emissions_source_type_id",
+                  "value": "<uuid>",
+                  "description": "Filter models by emissions source type ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "protocol_id",
+                  "value": "<uuid>",
+                  "description": "Filter models by protocol ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sinai.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "55bffedf-5633-4c2e-9103-ce8e173fb8b9",
+              "name": "The list of emissions models",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "emissions_source_type_id",
+                      "value": "48146074-23ee-8883-0699-127a2606e37e"
+                    },
+                    {
+                      "key": "protocol_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"953c9b47-c03f-0c3c-7fa1-82c091b4dedb\",\n    \"protocol\": {\n      \"id\": \"2189c2de-982f-509b-41e8-dce451081aa3\",\n      \"displayName\": \"string\"\n    },\n    \"displayName\": \"string\",\n    \"emissionsFactorsSources\": [\n      \"string\",\n      \"string\"\n    ],\n    \"emissionsSourceTypeID\": \"b4ac5f96-7b73-79ea-80b6-0dba907889aa\"\n  },\n  {\n    \"id\": \"63c1c3ce-fc2a-be38-1db3-d37728636d97\",\n    \"protocol\": {\n      \"id\": \"aabed503-871e-ccc4-7030-82b807987dcd\",\n      \"displayName\": \"string\"\n    },\n    \"displayName\": \"string\",\n    \"emissionsFactorsSources\": [\n      \"string\",\n      \"string\"\n    ],\n    \"emissionsSourceTypeID\": \"f431c4c8-30a1-715e-16f0-8eef91af5a20\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8a8d99b-d93f-485c-8dc2-e32eb560499e",
+              "name": "You are not authorized to access this object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "emissions_models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "emissions_source_type_id",
+                      "value": "48146074-23ee-8883-0699-127a2606e37e"
+                    },
+                    {
+                      "key": "protocol_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"name\": \"Forbidden\",\n  \"type\": \"forbidden\",\n  \"message\": \"You do not have permission to access this resource.\",\n  \"details\": \"You are authenticated but do not have sufficient permissions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sinai.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "https://api.sinai.com/organization https://api.sinai.com/carbon_accounting https://api.sinai.com/baseline_forecasts https://api.sinai.com/transition_plan https://api.sinai.com/reduction_projects https://api.sinai.com/decarbonization_roadmap"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.sinai.com/oauth2/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5453f960-761b-4b22-b793-a945487675c6",
+    "name": "SINAI Baseline forecasts Organization management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The SINAI application API\n\nContact Support:\n Name: API Support\n Email: support@sinai.com",
+      "type": "text/plain"
+    }
+  }
+}
