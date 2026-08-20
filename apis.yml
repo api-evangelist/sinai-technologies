@@ -69,6 +69,8 @@ apis:
   humanURL: https://docs.sinai.com/
   baseURL: https://api.sinai.com/v1
   tags:
+  - Carbon Accounting
+  tags_raw:
   - Carbon accounting
   properties:
   - type: OpenAPI
@@ -86,6 +88,8 @@ apis:
   humanURL: https://docs.sinai.com/
   baseURL: https://api.sinai.com/v1
   tags:
+  - Organization Management
+  tags_raw:
   - Organization management
   properties:
   - type: OpenAPI
