@@ -81,7 +81,7 @@ apis:
   humanURL: https://docs.sinai.com/
   baseURL: https://api.sinai.com/v1
   tags:
-  - Carbon accounting
+  - Carbon Accounting
   tags_raw:
   - Carbon accounting
   properties:
@@ -100,7 +100,7 @@ apis:
   humanURL: https://docs.sinai.com/
   baseURL: https://api.sinai.com/v1
   tags:
-  - Organization management
+  - Organization Management
   tags_raw:
   - Organization management
   properties:
