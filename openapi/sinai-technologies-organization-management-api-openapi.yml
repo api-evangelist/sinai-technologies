@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: SINAI Baseline forecasts Organization management API
+  title: SINAI Organization management API
   description: The SINAI application API
   version: 1.0.0
   contact:
@@ -20,16 +20,14 @@ security:
   - https://api.sinai.com/decarbonization_roadmap
 - OAuth2AuthCodeProduction: []
 tags:
-- name: Organization management
+- name: Organization Management
 paths:
   /v1/organization/reporting_months:
     get:
       summary: Get reporting months for a given calendar or fiscal year
       tags:
-      - Organization management
-      description: 'Use this endpoint to get a list of all the reporting months for a given calendar or fiscal year. If you ask for calendar year 2024, you will be given "2024-01", "2024-02", ..., "2024-12".
-
-        '
+      - Organization Management
+      description: Use this endpoint to get a list of all the reporting months for a given calendar or fiscal year. If you ask for calendar year 2024, you will be given "2024-01", "2024-02", ..., "2024-12".
       operationId: getReportingMonths
       x-eov-operation-handler: organization/reportingMonths
       parameters:
@@ -64,7 +62,7 @@ paths:
     get:
       summary: Retrieve the current organization
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get the organization details.
       operationId: getCurrentOrganization
       x-eov-operation-handler: organization/organizations
@@ -85,10 +83,8 @@ paths:
     get:
       summary: List functional units
       tags:
-      - Organization management
-      description: 'Use this endpoint to get a list of all functional units. If not filter is provided, only the functional units that are not industry-specific will be returned.
-
-        '
+      - Organization Management
+      description: Use this endpoint to get a list of all functional units. If not filter is provided, only the functional units that are not industry-specific will be returned.
       operationId: getFunctionalUnits
       x-eov-operation-handler: organization/functionalUnits
       parameters:
@@ -118,7 +114,7 @@ paths:
     post:
       summary: Create a functional unit
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to create a new functional unit.
       operationId: createFunctionalUnit
       x-eov-operation-handler: organization/functionalUnits
@@ -164,7 +160,7 @@ paths:
     get:
       summary: Retrieve a functional unit by its ID
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a specific functional unit by its ID.
       operationId: getFunctionalUnit
       x-eov-operation-handler: organization/functionalUnits
@@ -194,7 +190,7 @@ paths:
     get:
       summary: List industry taxonomy sectors
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a list of industry taxonomy sectors.
       operationId: getSectors
       x-eov-operation-handler: organization/industryTaxonomy
@@ -217,7 +213,7 @@ paths:
     get:
       summary: List industry taxonomy industry groups
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a list of industry taxonomy industry groups.
       operationId: getIndustryGroups
       x-eov-operation-handler: organization/industryTaxonomy
@@ -247,7 +243,7 @@ paths:
     get:
       summary: List industry taxonomy industries
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a list of industry taxonomy industries.
       operationId: getIndustries
       x-eov-operation-handler: organization/industryTaxonomy
@@ -277,7 +273,7 @@ paths:
     get:
       summary: List industry taxonomy sub-industries
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a list of industry taxonomy sub-industries.
       operationId: getSubIndustries
       x-eov-operation-handler: organization/industryTaxonomy
@@ -307,7 +303,7 @@ paths:
     get:
       summary: Retrieve a business entity by its ID
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a specific business entity by its ID.
       operationId: getBusinessEntity
       x-eov-operation-handler: organization/businessEntities
@@ -336,7 +332,7 @@ paths:
     put:
       summary: Update a business entity
       tags:
-      - Organization management
+      - Organization Management
       description: This endpoint updates the details of a specified business entity in the system.
       operationId: updateBusinessEntity
       x-eov-operation-handler: organization/businessEntities
@@ -378,7 +374,7 @@ paths:
     delete:
       summary: Delete a business entity
       tags:
-      - Organization management
+      - Organization Management
       description: This endpoint deletes a specified business entity from the system.
       operationId: deleteBusinessEntity
       x-eov-operation-handler: organization/businessEntities
@@ -402,10 +398,8 @@ paths:
     get:
       summary: Retrieve all descendants of a business entity
       tags:
-      - Organization management
-      description: 'Use this endpoint to get all the business entities that are descendants of the entity specified by the ID. Descendants include children of a business entities and also the children of those children.
-
-        '
+      - Organization Management
+      description: Use this endpoint to get all the business entities that are descendants of the entity specified by the ID. Descendants include children of a business entities and also the children of those children.
       operationId: getBusinessEntityDescendants
       x-eov-operation-handler: organization/businessEntities
       parameters:
@@ -448,7 +442,7 @@ paths:
     post:
       summary: Create a new business entity
       tags:
-      - Organization management
+      - Organization Management
       description: This endpoint creates a new business entity.
       operationId: createBusinessEntity
       x-eov-operation-handler: organization/businessEntities
@@ -523,7 +517,7 @@ paths:
     get:
       summary: List business entities in an org
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a list of business entities that meet a specific filtering criteria.
       operationId: getBusinessEntities
       x-eov-operation-handler: organization/businessEntities
@@ -559,7 +553,7 @@ paths:
     get:
       summary: List business entity types
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a list of business entity types.
       operationId: getBusinessEntityTypes
       x-eov-operation-handler: organization/businessEntityTypes
@@ -582,7 +576,7 @@ paths:
     get:
       summary: List facility types
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a list of facility types.
       operationId: getFacilityTypes
       x-eov-operation-handler: organization/facilityTypes
@@ -614,7 +608,7 @@ paths:
     get:
       summary: List process types
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a list of process types.
       operationId: getProcessTypes
       x-eov-operation-handler: organization/processTypes
@@ -644,7 +638,7 @@ paths:
     get:
       summary: Retrieve an emissions source by its ID
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a specific emissions source by its ID.
       operationId: getEmissionsSource
       x-eov-operation-handler: organization/emissionsSources
@@ -673,7 +667,7 @@ paths:
     put:
       summary: Update an emissions source
       tags:
-      - Organization management
+      - Organization Management
       description: Updates an existing emissions source with new details.
       operationId: updateEmissionsSource
       x-eov-operation-handler: organization/emissionsSources
@@ -737,7 +731,7 @@ paths:
     delete:
       summary: Delete an emissions source
       tags:
-      - Organization management
+      - Organization Management
       description: Deletes an emissions source and all emissions activity data associated with it.
       operationId: deleteEmissionsSource
       x-eov-operation-handler: organization/emissionsSources
@@ -761,7 +755,7 @@ paths:
     post:
       summary: Create a new emissions source
       tags:
-      - Organization management
+      - Organization Management
       description: Creates a new emissions source under the specified business entity process.
       operationId: createEmissionsSource
       x-eov-operation-handler: organization/emissionsSources
@@ -811,10 +805,8 @@ paths:
     get:
       summary: List emissions sources in an org
       tags:
-      - Organization management
-      description: 'Use this endpoint to get a list of emissions sources in the organization.  If no filters are specified, all emissions sources in the organization are returned. You can optionally filter the results by process ID or business entity ID.
-
-        '
+      - Organization Management
+      description: Use this endpoint to get a list of emissions sources in the organization. If no filters are specified, all emissions sources in the organization are returned. You can optionally filter the results by process ID or business entity ID.
       operationId: getEmissionsSources
       x-eov-operation-handler: organization/emissionsSources
       parameters:
@@ -857,7 +849,7 @@ paths:
     get:
       summary: Retrieve an emissions source type by its ID
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a specific emissions source type by its ID.
       operationId: getEmissionsSourceType
       x-eov-operation-handler: organization/emissionsSourceTypes
@@ -885,7 +877,7 @@ paths:
     get:
       summary: List emissions source types
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a list of all emissions source types.
       operationId: getEmissionsSourceTypes
       x-eov-operation-handler: organization/emissionsSourceTypes
@@ -915,7 +907,7 @@ paths:
     get:
       summary: Retrieve an emissions model by its ID
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a specific emissions model by its ID.
       operationId: getEmissionsModel
       x-eov-operation-handler: organization/emissionsModels
@@ -941,7 +933,7 @@ paths:
     get:
       summary: List emissions models
       tags:
-      - Organization management
+      - Organization Management
       description: Use this endpoint to get a list of emissions models, optionally filtered by emissions source type and protocol.
       operationId: getEmissionsModels
       x-eov-operation-handler: organization/emissionsModels
@@ -976,6 +968,38 @@ paths:
       - OAuth2AuthCodeProduction: []
 components:
   schemas:
+    NullableEmissionsSourceID:
+      type: string
+      format: uuid
+      nullable: true
+    ProcessTypeID:
+      type: string
+      format: uuid
+      description: The process type of the business entity if it is a process.
+    CountryCode:
+      type: string
+      description: The country code of the business entity.
+    IndustryTaxonomyIndustryGroupCode:
+      type: string
+      pattern: ^\d{4}$
+      description: The industry group code of the business entity or functional unit, formatted as four digits.
+    IndustryTaxonomyIndustryID:
+      type: string
+      format: uuid
+    EmissionsSourceTypeID:
+      type: string
+      format: uuid
+    FacilityTypeID:
+      type: string
+      format: uuid
+      description: The facility type of the business entity if it is a facility.
+    IndustryTaxonomyIndustryCode:
+      type: string
+      pattern: ^\d{6}$
+      description: The industry code of the business entity or functional unit, formatted as six digits.
+    FunctionalUnitID:
+      type: string
+      format: uuid
     BusinessEntityType:
       type: object
       properties:
@@ -1001,64 +1025,6 @@ components:
       - id
       - name
       - typeCategory
-    UserInputError:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-          enum:
-          - 400
-        name:
-          type: string
-          example: Bad Request
-        type:
-          type: string
-          example: bad_request
-          enum:
-          - bad_request
-        message:
-          type: string
-          example: You are missing a parameter.
-        details:
-          type: string
-          example: You are missing the id parameter.
-    NullableOrganizationID:
-      type: string
-      format: uuid
-      nullable: true
-    EmissionsSourceType:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/EmissionsSourceTypeID'
-          description: The unique identifier of the emissions source type
-        name:
-          type: string
-          description: The name of the emissions source type
-        scope:
-          $ref: '#/components/schemas/EmissionsScope'
-          description: The GHG protocol scope this source type belongs to
-      required:
-      - id
-      - name
-      - scope
-      additionalProperties: false
-    Organization:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/OrganizationID'
-          description: The id of the organization
-        rootBusinessEntityID:
-          $ref: '#/components/schemas/BusinessEntityID'
-          description: The id of the root business entity
-        defaultFunctionalUnitID:
-          $ref: '#/components/schemas/FunctionalUnitID'
-          description: The id of the default functional unit
-        fiscalYearStartMonth:
-          type: number
-          description: The month of the fiscal year start
     EmissionsScope:
       type: number
       enum:
@@ -1069,101 +1035,7 @@ components:
       - 3
       - -1
       description: The GHG protocol scope this source belongs to
-    NullableBusinessEntityID:
-      type: string
-      format: uuid
-      nullable: true
-    IndustryTaxonomyIndustryGroupCode:
-      type: string
-      pattern: ^\d{4}$
-      description: The industry group code of the business entity or functional unit, formatted as four digits.
-    CountryCode:
-      type: string
-      description: The country code of the business entity.
-    EmissionsSourceTypeID:
-      type: string
-      format: uuid
-    IndustryTaxonomyIndustryGroupID:
-      type: string
-      format: uuid
-    FunctionalUnitID:
-      type: string
-      format: uuid
-    NullableFacilityTypeID:
-      type: string
-      format: uuid
-      description: The facility type of the business entity if it is a facility.
-      nullable: true
-    Unit:
-      type: string
-      description: A unit of measurement (e.g., kg, MWh, etc).
-      example: kg
-    IndustryTaxonomySubIndustry:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/IndustryTaxonomySubIndustryID'
-        name:
-          type: string
-        subIndustryCode:
-          $ref: '#/components/schemas/IndustryTaxonomySubIndustryCode'
-      required:
-      - id
-      - name
-      - subIndustryCode
-    Year:
-      type: string
-      pattern: ^\d{4}$
-      example: '2025'
-    ProcessType:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/ProcessTypeID'
-          description: The unique identifier of the process type
-        name:
-          type: string
-          description: The name of the process type
-        description:
-          type: string
-          description: A description of the process type
-          nullable: true
-        facilityTypeID:
-          $ref: '#/components/schemas/NullableFacilityTypeID'
-          description: The facility type of the process type
-        orgID:
-          $ref: '#/components/schemas/NullableOrganizationID'
-          description: The ID of the organization this process type belongs to, if any
-      required:
-      - id
-      - name
-      - facilityTypeID
-    IndustryTaxonomySectorID:
-      type: string
-      format: uuid
-    NotFoundError:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 404
-          enum:
-          - 404
-        name:
-          type: string
-          example: Not Found
-        type:
-          type: string
-          example: not_found
-          enum:
-          - not_found
-        message:
-          type: string
-          example: Object not found
-        details:
-          type: string
-          example: The object with the specified ID does not exist in the database.
-    OrganizationID:
+    BusinessEntityTypeID:
       type: string
       format: uuid
     EmissionsSourceID:
@@ -1220,9 +1092,88 @@ components:
       - id
       - name
       additionalProperties: false
-    IndustryTaxonomySubIndustryID:
+    UserInputError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+          enum:
+          - 400
+        name:
+          type: string
+          example: Bad Request
+        type:
+          type: string
+          example: bad_request
+          enum:
+          - bad_request
+        message:
+          type: string
+          example: You are missing a parameter.
+        details:
+          type: string
+          example: You are missing the id parameter.
+    IndustryTaxonomySector:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/IndustryTaxonomySectorID'
+        name:
+          type: string
+        sectorCode:
+          $ref: '#/components/schemas/IndustryTaxonomySectorCode'
+      required:
+      - id
+      - name
+      - sectorCode
+    NullableIndustryTaxonomySubIndustryCode:
+      type: string
+      pattern: ^\d{8}$
+      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
+      nullable: true
+    Month:
+      type: string
+      pattern: ^\d{4}-\d{2}$
+      example: 2025-03
+    NullableBusinessEntityID:
       type: string
       format: uuid
+      nullable: true
+    EmissionsSourceStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+      description: The status of this emissions source
+    IndustryTaxonomyIndustry:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/IndustryTaxonomyIndustryID'
+        name:
+          type: string
+        industryCode:
+          $ref: '#/components/schemas/IndustryTaxonomyIndustryCode'
+      required:
+      - id
+      - name
+      - industryCode
+    BusinessEntityTypeCategory:
+      type: string
+      enum:
+      - ORG_LEVEL
+      - MID_LEVEL
+      - FACILITY_LEVEL
+      - PROCESS_LEVEL
+    FunctionalUnitMeasurementType:
+      type: string
+      description: 'The type of measurement of the functional unit. COUNTER is used for attributes that are added across time periods (e.g., steel produced). GAUGE is used for attributes that are not added across time periods (e.g., number of employees).
+
+        '
+      enum:
+      - COUNTER
+      - GAUGE
     ForbiddenError:
       type: object
       properties:
@@ -1245,53 +1196,107 @@ components:
         details:
           type: string
           example: You are authenticated but do not have sufficient permissions.
-    EmissionsModelID:
+    Unit:
+      type: string
+      description: A unit of measurement (e.g., kg, MWh, etc).
+      example: kg
+    OrganizationID:
       type: string
       format: uuid
+    NotFoundError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 404
+          enum:
+          - 404
+        name:
+          type: string
+          example: Not Found
+        type:
+          type: string
+          example: not_found
+          enum:
+          - not_found
+        message:
+          type: string
+          example: Object not found
+        details:
+          type: string
+          example: The object with the specified ID does not exist in the database.
+    ProcessType:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ProcessTypeID'
+          description: The unique identifier of the process type
+        name:
+          type: string
+          description: The name of the process type
+        description:
+          type: string
+          description: A description of the process type
+          nullable: true
+        facilityTypeID:
+          $ref: '#/components/schemas/NullableFacilityTypeID'
+          description: The facility type of the process type
+        orgID:
+          $ref: '#/components/schemas/NullableOrganizationID'
+          description: The ID of the organization this process type belongs to, if any
+      required:
+      - id
+      - name
+      - facilityTypeID
     IndustryTaxonomySectorCode:
       type: string
       pattern: ^\d{2}$
       description: The sector code of the business entity or functional unit, formatted as two digits.
-    Month:
-      type: string
-      pattern: ^\d{4}-\d{2}$
-      example: 2025-03
-    EmissionsSourceStatus:
-      type: string
-      enum:
-      - ACTIVE
-      - INACTIVE
-      description: The status of this emissions source
     BusinessEntityID:
       type: string
       format: uuid
-    FacilityType:
+    IndustryTaxonomySubIndustry:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/FacilityTypeID'
-          description: The unique identifier of the facility type
+          $ref: '#/components/schemas/IndustryTaxonomySubIndustryID'
         name:
           type: string
-          description: The name of the facility type
-        description:
-          type: string
-          description: A description of the facility type
-          nullable: true
         subIndustryCode:
-          $ref: '#/components/schemas/NullableIndustryTaxonomySubIndustryCode'
-          description: The industry code of the facility type
-        orgID:
-          $ref: '#/components/schemas/NullableOrganizationID'
-          description: The ID of the organization this facility type belongs to
+          $ref: '#/components/schemas/IndustryTaxonomySubIndustryCode'
       required:
       - id
       - name
       - subIndustryCode
-    IndustryTaxonomySubIndustryCode:
+    NullableOrganizationID:
       type: string
-      pattern: ^\d{8}$
-      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
+      format: uuid
+      nullable: true
+    IndustryTaxonomySubIndustryID:
+      type: string
+      format: uuid
+    NullableFacilityTypeID:
+      type: string
+      format: uuid
+      description: The facility type of the business entity if it is a facility.
+      nullable: true
+    EmissionsSourceType:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+          description: The unique identifier of the emissions source type
+        name:
+          type: string
+          description: The name of the emissions source type
+        scope:
+          $ref: '#/components/schemas/EmissionsScope'
+          description: The GHG protocol scope this source type belongs to
+      required:
+      - id
+      - name
+      - scope
+      additionalProperties: false
     EmissionsSource:
       type: object
       properties:
@@ -1333,28 +1338,59 @@ components:
       - scope
       - status
       additionalProperties: false
-    NullableIndustryTaxonomySubIndustryCode:
+    EmissionsModelID:
       type: string
-      pattern: ^\d{8}$
-      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
+      format: uuid
+    NullableProcessTypeID:
+      type: string
+      format: uuid
+      description: The process type of the business entity if it is a process.
       nullable: true
-    IndustryTaxonomyIndustry:
+    Organization:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/IndustryTaxonomyIndustryID'
+          $ref: '#/components/schemas/OrganizationID'
+          description: The id of the organization
+        rootBusinessEntityID:
+          $ref: '#/components/schemas/BusinessEntityID'
+          description: The id of the root business entity
+        defaultFunctionalUnitID:
+          $ref: '#/components/schemas/FunctionalUnitID'
+          description: The id of the default functional unit
+        fiscalYearStartMonth:
+          type: number
+          description: The month of the fiscal year start
+    FacilityType:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/FacilityTypeID'
+          description: The unique identifier of the facility type
         name:
           type: string
-        industryCode:
-          $ref: '#/components/schemas/IndustryTaxonomyIndustryCode'
+          description: The name of the facility type
+        description:
+          type: string
+          description: A description of the facility type
+          nullable: true
+        subIndustryCode:
+          $ref: '#/components/schemas/NullableIndustryTaxonomySubIndustryCode'
+          description: The industry code of the facility type
+        orgID:
+          $ref: '#/components/schemas/NullableOrganizationID'
+          description: The ID of the organization this facility type belongs to
       required:
       - id
       - name
-      - industryCode
-    FacilityTypeID:
+      - subIndustryCode
+    IndustryTaxonomySectorID:
       type: string
       format: uuid
-      description: The facility type of the business entity if it is a facility.
+    IndustryTaxonomySubIndustryCode:
+      type: string
+      pattern: ^\d{8}$
+      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
     IndustryTaxonomyIndustryGroup:
       type: object
       properties:
@@ -1368,6 +1404,9 @@ components:
       - id
       - name
       - industryGroupCode
+    IndustryTaxonomyIndustryGroupID:
+      type: string
+      format: uuid
     FunctionalUnit:
       type: object
       properties:
@@ -1400,6 +1439,24 @@ components:
       - supportedUnits
       - defaultDisplayUnit
       - subIndustryCode
+    Year:
+      type: string
+      pattern: ^\d{4}$
+      example: '2025'
+    Protocol:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the protocol
+        displayName:
+          type: string
+          description: The display name of the protocol
+      required:
+      - id
+      - displayName
+      additionalProperties: false
     EmissionsModel:
       type: object
       properties:
@@ -1426,71 +1483,6 @@ components:
       - displayName
       - emissionsFactorsSources
       additionalProperties: false
-    ProcessTypeID:
-      type: string
-      format: uuid
-      description: The process type of the business entity if it is a process.
-    NullableProcessTypeID:
-      type: string
-      format: uuid
-      description: The process type of the business entity if it is a process.
-      nullable: true
-    IndustryTaxonomyIndustryID:
-      type: string
-      format: uuid
-    IndustryTaxonomySector:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/IndustryTaxonomySectorID'
-        name:
-          type: string
-        sectorCode:
-          $ref: '#/components/schemas/IndustryTaxonomySectorCode'
-      required:
-      - id
-      - name
-      - sectorCode
-    FunctionalUnitMeasurementType:
-      type: string
-      description: 'The type of measurement of the functional unit. COUNTER is used for attributes that are added across time periods (e.g., steel produced). GAUGE is used for attributes that are not added across time periods (e.g., number of employees).
-
-        '
-      enum:
-      - COUNTER
-      - GAUGE
-    IndustryTaxonomyIndustryCode:
-      type: string
-      pattern: ^\d{6}$
-      description: The industry code of the business entity or functional unit, formatted as six digits.
-    BusinessEntityTypeCategory:
-      type: string
-      enum:
-      - ORG_LEVEL
-      - MID_LEVEL
-      - FACILITY_LEVEL
-      - PROCESS_LEVEL
-    BusinessEntityTypeID:
-      type: string
-      format: uuid
-    Protocol:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The unique identifier of the protocol
-        displayName:
-          type: string
-          description: The display name of the protocol
-      required:
-      - id
-      - displayName
-      additionalProperties: false
-    NullableEmissionsSourceID:
-      type: string
-      format: uuid
-      nullable: true
   responses:
     UserInputError:
       description: Your request is missing a parameter or has the wrong data type
@@ -1498,18 +1490,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UserInputError'
-    NotFoundError:
-      description: Object not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/NotFoundError'
     ForbiddenError:
       description: You are not authorized to access this object
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ForbiddenError'
+    NotFoundError:
+      description: Object not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundError'
   securitySchemes:
     OAuth2ClientCredentialsProduction:
       type: oauth2

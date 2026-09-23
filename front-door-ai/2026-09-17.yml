@@ -1,0 +1,29 @@
+# Front Door AI Index — sinai-technologies — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: sinai-technologies
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: sinaitechnologies.com
+  final_host: www.sinai.com
+  ownership: inherited
+  owner: sinai-technologies
+  shares_host_with: null
+  inherited_from: www.sinai.com
+  verdict: scored
+  score: null
+  host_score: 6
+  density: null
+  words: 1380
+  tiers:
+    agentic: 2
+    core: 4
+    model: 0
+  ambiguous: 3
+  top_terms:
+    AI: 4
+    smart: 2
+    AI agent: 1
+    agent: 1
+    inference: 1
