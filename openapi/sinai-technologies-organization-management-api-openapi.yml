@@ -968,63 +968,25 @@ paths:
       - OAuth2AuthCodeProduction: []
 components:
   schemas:
+    Year:
+      type: string
+      pattern: ^\d{4}$
+      example: '2025'
+    OrganizationID:
+      type: string
+      format: uuid
     NullableEmissionsSourceID:
       type: string
       format: uuid
       nullable: true
-    ProcessTypeID:
+    FunctionalUnitMeasurementType:
       type: string
-      format: uuid
-      description: The process type of the business entity if it is a process.
-    CountryCode:
-      type: string
-      description: The country code of the business entity.
-    IndustryTaxonomyIndustryGroupCode:
-      type: string
-      pattern: ^\d{4}$
-      description: The industry group code of the business entity or functional unit, formatted as four digits.
-    IndustryTaxonomyIndustryID:
-      type: string
-      format: uuid
-    EmissionsSourceTypeID:
-      type: string
-      format: uuid
-    FacilityTypeID:
-      type: string
-      format: uuid
-      description: The facility type of the business entity if it is a facility.
-    IndustryTaxonomyIndustryCode:
-      type: string
-      pattern: ^\d{6}$
-      description: The industry code of the business entity or functional unit, formatted as six digits.
-    FunctionalUnitID:
-      type: string
-      format: uuid
-    BusinessEntityType:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/BusinessEntityTypeID'
-          description: The unique identifier of the business entity type
-        name:
-          type: string
-          description: The name of the business entity type
-        description:
-          type: string
-          description: A description of the business entity type
-        typeCategory:
-          $ref: '#/components/schemas/BusinessEntityTypeCategory'
-          description: The category of the business entity type
-        allowedAtRoot:
-          type: boolean
-          description: Whether the business entity type is allowed at the root level
-        orgID:
-          $ref: '#/components/schemas/NullableOrganizationID'
-          description: The ID of the organization this business entity type belongs to
-      required:
-      - id
-      - name
-      - typeCategory
+      description: 'The type of measurement of the functional unit. COUNTER is used for attributes that are added across time periods (e.g., steel produced). GAUGE is used for attributes that are not added across time periods (e.g., number of employees).
+
+        '
+      enum:
+      - COUNTER
+      - GAUGE
     EmissionsScope:
       type: number
       enum:
@@ -1035,10 +997,329 @@ components:
       - 3
       - -1
       description: The GHG protocol scope this source belongs to
+    ProcessTypeID:
+      type: string
+      format: uuid
+      description: The process type of the business entity if it is a process.
     BusinessEntityTypeID:
       type: string
       format: uuid
+    NullableOrganizationID:
+      type: string
+      format: uuid
+      nullable: true
+    FacilityTypeID:
+      type: string
+      format: uuid
+      description: The facility type of the business entity if it is a facility.
+    NullableIndustryTaxonomySubIndustryCode:
+      type: string
+      pattern: ^\d{8}$
+      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
+      nullable: true
     EmissionsSourceID:
+      type: string
+      format: uuid
+    Unit:
+      type: string
+      description: A unit of measurement (e.g., kg, MWh, etc).
+      example: kg
+    IndustryTaxonomySectorCode:
+      type: string
+      pattern: ^\d{2}$
+      description: The sector code of the business entity or functional unit, formatted as two digits.
+    ForbiddenError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 403
+          enum:
+          - 403
+        name:
+          type: string
+          example: Forbidden
+        type:
+          type: string
+          example: forbidden
+          enum:
+          - forbidden
+        message:
+          type: string
+          example: You do not have permission to access this resource.
+        details:
+          type: string
+          example: You are authenticated but do not have sufficient permissions.
+    IndustryTaxonomySubIndustryID:
+      type: string
+      format: uuid
+    IndustryTaxonomySubIndustryCode:
+      type: string
+      pattern: ^\d{8}$
+      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
+    IndustryTaxonomyIndustryID:
+      type: string
+      format: uuid
+    FunctionalUnitID:
+      type: string
+      format: uuid
+    NullableProcessTypeID:
+      type: string
+      format: uuid
+      description: The process type of the business entity if it is a process.
+      nullable: true
+    NullableFacilityTypeID:
+      type: string
+      format: uuid
+      description: The facility type of the business entity if it is a facility.
+      nullable: true
+    IndustryTaxonomySectorID:
+      type: string
+      format: uuid
+    Month:
+      type: string
+      pattern: ^\d{4}-\d{2}$
+      example: 2025-03
+    IndustryTaxonomyIndustryGroup:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/IndustryTaxonomyIndustryGroupID'
+        name:
+          type: string
+        industryGroupCode:
+          $ref: '#/components/schemas/IndustryTaxonomyIndustryGroupCode'
+      required:
+      - id
+      - name
+      - industryGroupCode
+    IndustryTaxonomyIndustryCode:
+      type: string
+      pattern: ^\d{6}$
+      description: The industry code of the business entity or functional unit, formatted as six digits.
+    IndustryTaxonomyIndustryGroupCode:
+      type: string
+      pattern: ^\d{4}$
+      description: The industry group code of the business entity or functional unit, formatted as four digits.
+    IndustryTaxonomySector:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/IndustryTaxonomySectorID'
+        name:
+          type: string
+        sectorCode:
+          $ref: '#/components/schemas/IndustryTaxonomySectorCode'
+      required:
+      - id
+      - name
+      - sectorCode
+    ProcessType:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ProcessTypeID'
+          description: The unique identifier of the process type
+        name:
+          type: string
+          description: The name of the process type
+        description:
+          type: string
+          description: A description of the process type
+          nullable: true
+        facilityTypeID:
+          $ref: '#/components/schemas/NullableFacilityTypeID'
+          description: The facility type of the process type
+        orgID:
+          $ref: '#/components/schemas/NullableOrganizationID'
+          description: The ID of the organization this process type belongs to, if any
+      required:
+      - id
+      - name
+      - facilityTypeID
+    FacilityType:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/FacilityTypeID'
+          description: The unique identifier of the facility type
+        name:
+          type: string
+          description: The name of the facility type
+        description:
+          type: string
+          description: A description of the facility type
+          nullable: true
+        subIndustryCode:
+          $ref: '#/components/schemas/NullableIndustryTaxonomySubIndustryCode'
+          description: The industry code of the facility type
+        orgID:
+          $ref: '#/components/schemas/NullableOrganizationID'
+          description: The ID of the organization this facility type belongs to
+      required:
+      - id
+      - name
+      - subIndustryCode
+    IndustryTaxonomySubIndustry:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/IndustryTaxonomySubIndustryID'
+        name:
+          type: string
+        subIndustryCode:
+          $ref: '#/components/schemas/IndustryTaxonomySubIndustryCode'
+      required:
+      - id
+      - name
+      - subIndustryCode
+    Organization:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/OrganizationID'
+          description: The id of the organization
+        rootBusinessEntityID:
+          $ref: '#/components/schemas/BusinessEntityID'
+          description: The id of the root business entity
+        defaultFunctionalUnitID:
+          $ref: '#/components/schemas/FunctionalUnitID'
+          description: The id of the default functional unit
+        fiscalYearStartMonth:
+          type: number
+          description: The month of the fiscal year start
+    CountryCode:
+      type: string
+      description: The country code of the business entity.
+    UserInputError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+          enum:
+          - 400
+        name:
+          type: string
+          example: Bad Request
+        type:
+          type: string
+          example: bad_request
+          enum:
+          - bad_request
+        message:
+          type: string
+          example: You are missing a parameter.
+        details:
+          type: string
+          example: You are missing the id parameter.
+    EmissionsSource:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/EmissionsSourceID'
+          description: The unique identifier of the emissions source
+        processID:
+          $ref: '#/components/schemas/BusinessEntityID'
+          description: The id of the process business entity this source belongs to
+        emissionsSourceTypeID:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+          description: The type of emissions source this is
+        emissionsModelID:
+          $ref: '#/components/schemas/EmissionsModelID'
+          description: The id of the emissions model used to compute the emissions
+        relatedSourceID:
+          $ref: '#/components/schemas/NullableEmissionsSourceID'
+          description: ID of a related emissions source, or null if there is no related source
+        scope:
+          $ref: '#/components/schemas/EmissionsScope'
+          description: The GHG protocol scope this source belongs to
+        status:
+          $ref: '#/components/schemas/EmissionsSourceStatus'
+          description: The status of this emissions source
+        description:
+          type: string
+          description: A description of what this emissions source represents
+        referenceSourceIDs:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmissionsSourceID'
+          description: List of reference emissions source IDs
+          nullable: true
+      required:
+      - id
+      - processID
+      - emissionsSourceTypeID
+      - emissionsModelID
+      - scope
+      - status
+      additionalProperties: false
+    Protocol:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the protocol
+        displayName:
+          type: string
+          description: The display name of the protocol
+      required:
+      - id
+      - displayName
+      additionalProperties: false
+    BusinessEntityID:
+      type: string
+      format: uuid
+    NotFoundError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 404
+          enum:
+          - 404
+        name:
+          type: string
+          example: Not Found
+        type:
+          type: string
+          example: not_found
+          enum:
+          - not_found
+        message:
+          type: string
+          example: Object not found
+        details:
+          type: string
+          example: The object with the specified ID does not exist in the database.
+    EmissionsModel:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/EmissionsModelID'
+          description: The unique identifier of the emissions model
+        emissionsSourceTypeID:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+          description: The type of emissions source this model is for
+        protocol:
+          $ref: '#/components/schemas/Protocol'
+          description: The protocol this model follows
+        displayName:
+          type: string
+          description: The display name of the emissions model
+        emissionsFactorsSources:
+          type: array
+          items:
+            type: string
+          description: List of emissions factors sources used by this model
+      required:
+      - id
+      - protocol
+      - displayName
+      - emissionsFactorsSources
+      additionalProperties: false
+    EmissionsModelID:
       type: string
       format: uuid
     BusinessEntity:
@@ -1092,60 +1373,38 @@ components:
       - id
       - name
       additionalProperties: false
-    UserInputError:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-          enum:
-          - 400
-        name:
-          type: string
-          example: Bad Request
-        type:
-          type: string
-          example: bad_request
-          enum:
-          - bad_request
-        message:
-          type: string
-          example: You are missing a parameter.
-        details:
-          type: string
-          example: You are missing the id parameter.
-    IndustryTaxonomySector:
+    BusinessEntityType:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/IndustryTaxonomySectorID'
+          $ref: '#/components/schemas/BusinessEntityTypeID'
+          description: The unique identifier of the business entity type
         name:
           type: string
-        sectorCode:
-          $ref: '#/components/schemas/IndustryTaxonomySectorCode'
+          description: The name of the business entity type
+        description:
+          type: string
+          description: A description of the business entity type
+        typeCategory:
+          $ref: '#/components/schemas/BusinessEntityTypeCategory'
+          description: The category of the business entity type
+        allowedAtRoot:
+          type: boolean
+          description: Whether the business entity type is allowed at the root level
+        orgID:
+          $ref: '#/components/schemas/NullableOrganizationID'
+          description: The ID of the organization this business entity type belongs to
       required:
       - id
       - name
-      - sectorCode
-    NullableIndustryTaxonomySubIndustryCode:
-      type: string
-      pattern: ^\d{8}$
-      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
-      nullable: true
-    Month:
-      type: string
-      pattern: ^\d{4}-\d{2}$
-      example: 2025-03
-    NullableBusinessEntityID:
-      type: string
-      format: uuid
-      nullable: true
-    EmissionsSourceStatus:
+      - typeCategory
+    BusinessEntityTypeCategory:
       type: string
       enum:
-      - ACTIVE
-      - INACTIVE
-      description: The status of this emissions source
+      - ORG_LEVEL
+      - MID_LEVEL
+      - FACILITY_LEVEL
+      - PROCESS_LEVEL
     IndustryTaxonomyIndustry:
       type: object
       properties:
@@ -1159,251 +1418,19 @@ components:
       - id
       - name
       - industryCode
-    BusinessEntityTypeCategory:
+    EmissionsSourceTypeID:
+      type: string
+      format: uuid
+    EmissionsSourceStatus:
       type: string
       enum:
-      - ORG_LEVEL
-      - MID_LEVEL
-      - FACILITY_LEVEL
-      - PROCESS_LEVEL
-    FunctionalUnitMeasurementType:
-      type: string
-      description: 'The type of measurement of the functional unit. COUNTER is used for attributes that are added across time periods (e.g., steel produced). GAUGE is used for attributes that are not added across time periods (e.g., number of employees).
-
-        '
-      enum:
-      - COUNTER
-      - GAUGE
-    ForbiddenError:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 403
-          enum:
-          - 403
-        name:
-          type: string
-          example: Forbidden
-        type:
-          type: string
-          example: forbidden
-          enum:
-          - forbidden
-        message:
-          type: string
-          example: You do not have permission to access this resource.
-        details:
-          type: string
-          example: You are authenticated but do not have sufficient permissions.
-    Unit:
-      type: string
-      description: A unit of measurement (e.g., kg, MWh, etc).
-      example: kg
-    OrganizationID:
-      type: string
-      format: uuid
-    NotFoundError:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 404
-          enum:
-          - 404
-        name:
-          type: string
-          example: Not Found
-        type:
-          type: string
-          example: not_found
-          enum:
-          - not_found
-        message:
-          type: string
-          example: Object not found
-        details:
-          type: string
-          example: The object with the specified ID does not exist in the database.
-    ProcessType:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/ProcessTypeID'
-          description: The unique identifier of the process type
-        name:
-          type: string
-          description: The name of the process type
-        description:
-          type: string
-          description: A description of the process type
-          nullable: true
-        facilityTypeID:
-          $ref: '#/components/schemas/NullableFacilityTypeID'
-          description: The facility type of the process type
-        orgID:
-          $ref: '#/components/schemas/NullableOrganizationID'
-          description: The ID of the organization this process type belongs to, if any
-      required:
-      - id
-      - name
-      - facilityTypeID
-    IndustryTaxonomySectorCode:
-      type: string
-      pattern: ^\d{2}$
-      description: The sector code of the business entity or functional unit, formatted as two digits.
-    BusinessEntityID:
-      type: string
-      format: uuid
-    IndustryTaxonomySubIndustry:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/IndustryTaxonomySubIndustryID'
-        name:
-          type: string
-        subIndustryCode:
-          $ref: '#/components/schemas/IndustryTaxonomySubIndustryCode'
-      required:
-      - id
-      - name
-      - subIndustryCode
-    NullableOrganizationID:
+      - ACTIVE
+      - INACTIVE
+      description: The status of this emissions source
+    NullableBusinessEntityID:
       type: string
       format: uuid
       nullable: true
-    IndustryTaxonomySubIndustryID:
-      type: string
-      format: uuid
-    NullableFacilityTypeID:
-      type: string
-      format: uuid
-      description: The facility type of the business entity if it is a facility.
-      nullable: true
-    EmissionsSourceType:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/EmissionsSourceTypeID'
-          description: The unique identifier of the emissions source type
-        name:
-          type: string
-          description: The name of the emissions source type
-        scope:
-          $ref: '#/components/schemas/EmissionsScope'
-          description: The GHG protocol scope this source type belongs to
-      required:
-      - id
-      - name
-      - scope
-      additionalProperties: false
-    EmissionsSource:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/EmissionsSourceID'
-          description: The unique identifier of the emissions source
-        processID:
-          $ref: '#/components/schemas/BusinessEntityID'
-          description: The id of the process business entity this source belongs to
-        emissionsSourceTypeID:
-          $ref: '#/components/schemas/EmissionsSourceTypeID'
-          description: The type of emissions source this is
-        emissionsModelID:
-          $ref: '#/components/schemas/EmissionsModelID'
-          description: The id of the emissions model used to compute the emissions
-        relatedSourceID:
-          $ref: '#/components/schemas/NullableEmissionsSourceID'
-          description: ID of a related emissions source, or null if there is no related source
-        scope:
-          $ref: '#/components/schemas/EmissionsScope'
-          description: The GHG protocol scope this source belongs to
-        status:
-          $ref: '#/components/schemas/EmissionsSourceStatus'
-          description: The status of this emissions source
-        description:
-          type: string
-          description: A description of what this emissions source represents
-        referenceSourceIDs:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmissionsSourceID'
-          description: List of reference emissions source IDs
-          nullable: true
-      required:
-      - id
-      - processID
-      - emissionsSourceTypeID
-      - emissionsModelID
-      - scope
-      - status
-      additionalProperties: false
-    EmissionsModelID:
-      type: string
-      format: uuid
-    NullableProcessTypeID:
-      type: string
-      format: uuid
-      description: The process type of the business entity if it is a process.
-      nullable: true
-    Organization:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/OrganizationID'
-          description: The id of the organization
-        rootBusinessEntityID:
-          $ref: '#/components/schemas/BusinessEntityID'
-          description: The id of the root business entity
-        defaultFunctionalUnitID:
-          $ref: '#/components/schemas/FunctionalUnitID'
-          description: The id of the default functional unit
-        fiscalYearStartMonth:
-          type: number
-          description: The month of the fiscal year start
-    FacilityType:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/FacilityTypeID'
-          description: The unique identifier of the facility type
-        name:
-          type: string
-          description: The name of the facility type
-        description:
-          type: string
-          description: A description of the facility type
-          nullable: true
-        subIndustryCode:
-          $ref: '#/components/schemas/NullableIndustryTaxonomySubIndustryCode'
-          description: The industry code of the facility type
-        orgID:
-          $ref: '#/components/schemas/NullableOrganizationID'
-          description: The ID of the organization this facility type belongs to
-      required:
-      - id
-      - name
-      - subIndustryCode
-    IndustryTaxonomySectorID:
-      type: string
-      format: uuid
-    IndustryTaxonomySubIndustryCode:
-      type: string
-      pattern: ^\d{8}$
-      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
-    IndustryTaxonomyIndustryGroup:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/IndustryTaxonomyIndustryGroupID'
-        name:
-          type: string
-        industryGroupCode:
-          $ref: '#/components/schemas/IndustryTaxonomyIndustryGroupCode'
-      required:
-      - id
-      - name
-      - industryGroupCode
     IndustryTaxonomyIndustryGroupID:
       type: string
       format: uuid
@@ -1439,49 +1466,22 @@ components:
       - supportedUnits
       - defaultDisplayUnit
       - subIndustryCode
-    Year:
-      type: string
-      pattern: ^\d{4}$
-      example: '2025'
-    Protocol:
+    EmissionsSourceType:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
-          description: The unique identifier of the protocol
-        displayName:
-          type: string
-          description: The display name of the protocol
-      required:
-      - id
-      - displayName
-      additionalProperties: false
-    EmissionsModel:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/EmissionsModelID'
-          description: The unique identifier of the emissions model
-        emissionsSourceTypeID:
           $ref: '#/components/schemas/EmissionsSourceTypeID'
-          description: The type of emissions source this model is for
-        protocol:
-          $ref: '#/components/schemas/Protocol'
-          description: The protocol this model follows
-        displayName:
+          description: The unique identifier of the emissions source type
+        name:
           type: string
-          description: The display name of the emissions model
-        emissionsFactorsSources:
-          type: array
-          items:
-            type: string
-          description: List of emissions factors sources used by this model
+          description: The name of the emissions source type
+        scope:
+          $ref: '#/components/schemas/EmissionsScope'
+          description: The GHG protocol scope this source type belongs to
       required:
       - id
-      - protocol
-      - displayName
-      - emissionsFactorsSources
+      - name
+      - scope
       additionalProperties: false
   responses:
     UserInputError:
@@ -1490,18 +1490,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UserInputError'
-    ForbiddenError:
-      description: You are not authorized to access this object
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ForbiddenError'
     NotFoundError:
       description: Object not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/NotFoundError'
+    ForbiddenError:
+      description: You are not authorized to access this object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ForbiddenError'
   securitySchemes:
     OAuth2ClientCredentialsProduction:
       type: oauth2

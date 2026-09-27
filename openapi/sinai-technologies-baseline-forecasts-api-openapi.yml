@@ -284,19 +284,10 @@ paths:
       - OAuth2AuthCodeProduction: []
 components:
   schemas:
-    BaselineScenarioID:
+    Year:
       type: string
-      format: uuid
-    MainMetricProjection:
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/MainMetricProjectionConfig'
-        projection:
-          $ref: '#/components/schemas/MainMetricProjectionData'
-      required:
-      - config
-      - projection
+      pattern: ^\d{4}$
+      example: '2025'
     MainMetricProjectionConfig:
       type: object
       properties:
@@ -348,6 +339,17 @@ components:
       - total
       - hasMore
       additionalProperties: false
+    OrganizationID:
+      type: string
+      format: uuid
+    FunctionalUnitMeasurementType:
+      type: string
+      description: 'The type of measurement of the functional unit. COUNTER is used for attributes that are added across time periods (e.g., steel produced). GAUGE is used for attributes that are not added across time periods (e.g., number of employees).
+
+        '
+      enum:
+      - COUNTER
+      - GAUGE
     MainMetricProjectionData:
       type: object
       properties:
@@ -383,40 +385,6 @@ components:
       - displayUnit
       - historicalValues
       - projectedValues
-    EmissionsSourceTypeID:
-      type: string
-      format: uuid
-    ActivityDataProjectionEmissionsProjectionMethod:
-      type: object
-      description: 'Describes how a projection is configured. This is a discriminated union of objects with a ''projectionMethod'' property of type ProjectionMethod.
-
-        '
-      oneOf:
-      - $ref: '#/components/schemas/HistoricalAverageGrowthRateProjectionConfig'
-      - $ref: '#/components/schemas/HistoricalAverageValueProjectionConfig'
-      - $ref: '#/components/schemas/HistoricalFixedValueProjectionConfig'
-      - $ref: '#/components/schemas/CustomDataProjectionConfig'
-      - $ref: '#/components/schemas/CustomGrowthRateProjectionConfig'
-      - $ref: '#/components/schemas/CustomYearlyPercentageChangesConfig'
-    ActivityDataProjectionID:
-      type: string
-      format: uuid
-    FunctionalUnitID:
-      type: string
-      format: uuid
-    EmissionsScope:
-      type: number
-      enum:
-      - 1
-      - 2
-      - 21
-      - 22
-      - 3
-      - -1
-      description: The GHG protocol scope this source belongs to
-    ActivityTypeID:
-      type: string
-      format: uuid
     ActivityDataProjectionData:
       type: object
       properties:
@@ -495,57 +463,47 @@ components:
       - projectedScopeEmissions
       - historicalBioCO2Emissions
       - projectedBioCO2Emissions
-    YearData:
-      type: object
-      properties:
-        year:
-          $ref: '#/components/schemas/Year'
-        value:
-          type: number
-      required:
-      - year
-      - value
-    EmissionsSourceID:
-      type: string
-      format: uuid
-    CustomGrowthRateProjectionConfig:
+    EmissionsScope:
+      type: number
+      enum:
+      - 1
+      - 2
+      - 21
+      - 22
+      - 3
+      - -1
+      description: The GHG protocol scope this source belongs to
+    HistoricalAverageValueProjectionConfig:
       type: object
       properties:
         projectionMethod:
           type: string
           enum:
-          - CUSTOM_GROWTH_RATE
-          example: CUSTOM_GROWTH_RATE
+          - HISTORICAL_AVERAGE_VALUE
+          example: HISTORICAL_AVERAGE_VALUE
+        historicalPeriodStart:
+          $ref: '#/components/schemas/Year'
+        historicalPeriodEnd:
+          $ref: '#/components/schemas/Year'
+      required:
+      - projectionMethod
+      - historicalPeriodStart
+      - historicalPeriodEnd
+    ActivityType:
+      type: string
+    HistoricalFixedValueProjectionConfig:
+      type: object
+      properties:
+        projectionMethod:
+          type: string
+          enum:
+          - HISTORICAL_FIXED_VALUE
+          example: HISTORICAL_FIXED_VALUE
         baseYear:
           $ref: '#/components/schemas/Year'
-        customGrowthRate:
-          type: number
       required:
       - projectionMethod
       - baseYear
-      - customGrowthRate
-    UserInputError:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-          enum:
-          - 400
-        name:
-          type: string
-          example: Bad Request
-        type:
-          type: string
-          example: bad_request
-          enum:
-          - bad_request
-        message:
-          type: string
-          example: You are missing a parameter.
-        details:
-          type: string
-          example: You are missing the id parameter.
     HistoricalAverageGrowthRateProjectionConfig:
       type: object
       properties:
@@ -565,6 +523,99 @@ components:
       - baseYear
       - historicalPeriodStart
       - historicalPeriodEnd
+    ForecastSummaryDataPointValue:
+      type: object
+      properties:
+        mainMetric:
+          type: number
+          description: Value of the main metric for the year.
+          nullable: true
+        scope1Emissions:
+          type: number
+          description: Scope 1 emissions value for the year.
+          nullable: true
+        scope2Emissions:
+          type: number
+          description: Scope 2 emissions value for the year.
+          nullable: true
+        scope3Emissions:
+          type: number
+          description: Scope 3 emissions value for the year.
+          nullable: true
+        emissionsIntensity:
+          type: number
+          description: Calculated intensity value for the year.
+          nullable: true
+      additionalProperties: false
+    NullableOrganizationID:
+      type: string
+      format: uuid
+      nullable: true
+    CustomYearlyPercentageChangesConfig:
+      type: object
+      properties:
+        projectionMethod:
+          type: string
+          enum:
+          - CUSTOM_YEARLY_PERCENTAGE_CHANGES
+          example: CUSTOM_YEARLY_PERCENTAGE_CHANGES
+        baseYear:
+          $ref: '#/components/schemas/Year'
+        yearlyValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/YearData'
+      required:
+      - projectionMethod
+      - baseYear
+      - yearlyValues
+    SecondaryActivityValueOverride:
+      type: object
+      description: Map of secondary activity value keys to override objects.
+      properties:
+        displayName:
+          type: string
+        key:
+          type: string
+        value:
+          type: number
+        unit:
+          $ref: '#/components/schemas/Unit'
+      required:
+      - displayName
+      - key
+      - value
+      - unit
+    ActivityDataProjectionID:
+      type: string
+      format: uuid
+    BaselineScenario:
+      description: 'A baseline scenario is the collection of main metric and activity data projections for an organization. Each business entity process has a specific main metric projection under a baseline scenario. Each activity data type within each emissions source has a projection under a baseline scenario. Together they make up a baseline scenario. All organizations have a default baseline scenario that is created when the organization is created. Additional baseline scenarios can be defined.
+
+        '
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/BaselineScenarioID'
+          description: The unique identifier of the baseline scenario
+        name:
+          type: string
+          description: The name of the baseline scenario
+        description:
+          type: string
+          nullable: true
+          description: A description of the baseline scenario
+        isDefault:
+          type: boolean
+          description: Whether this is the default baseline scenario
+        orgID:
+          $ref: '#/components/schemas/OrganizationID'
+          description: The ID of the organization this baseline scenario belongs to
+      required:
+      - name
+      - isDefault
+      - orgID
+      additionalProperties: false
     MainMetricProjectionID:
       type: string
       format: uuid
@@ -573,6 +624,101 @@ components:
       pattern: ^\d{8}$
       description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
       nullable: true
+    Unit:
+      type: string
+      description: A unit of measurement (e.g., kg, MWh, etc).
+      example: kg
+    EmissionsSourceID:
+      type: string
+      format: uuid
+    EmissionsFactorOverride:
+      type: object
+      description: Map of emissions factor keys to override objects.
+      properties:
+        key:
+          type: string
+        value:
+          type: number
+        unit:
+          $ref: '#/components/schemas/Unit'
+      required:
+      - key
+      - value
+      - unit
+    ForbiddenError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 403
+          enum:
+          - 403
+        name:
+          type: string
+          example: Forbidden
+        type:
+          type: string
+          example: forbidden
+          enum:
+          - forbidden
+        message:
+          type: string
+          example: You do not have permission to access this resource.
+        details:
+          type: string
+          example: You are authenticated but do not have sufficient permissions.
+    ForecastSummaryDataPoint:
+      type: object
+      properties:
+        year:
+          type: integer
+          description: The year for this data point.
+        value:
+          $ref: '#/components/schemas/ForecastSummaryDataPointValue'
+          description: The forecast values for the year.
+      required:
+      - year
+      - value
+      additionalProperties: false
+    FunctionalUnitID:
+      type: string
+      format: uuid
+    BusinessEntityBaselineForecastSummary:
+      type: object
+      properties:
+        functionalUnitID:
+          type: string
+          format: uuid
+          description: The ID of the functional unit for the forecasts.
+          nullable: true
+        forecastStartYear:
+          type: integer
+          description: The starting year of the forecast data - any data points prior to this year are historical.
+        mainMetricDisplayUnit:
+          type: string
+          description: The unit used for displaying the main metric.
+          nullable: true
+        data:
+          type: array
+          description: Array of historical and forecasted data points with emissions and intensity.
+          items:
+            $ref: '#/components/schemas/ForecastSummaryDataPoint'
+      required:
+      - forecastStartYear
+      - data
+      additionalProperties: false
+    ActivityDataProjectionValueProjectionMethod:
+      type: object
+      description: 'Describes how a projection is configured. This is a discriminated union of objects with a ''projectionMethod'' property of type ProjectionMethod.
+
+        '
+      oneOf:
+      - $ref: '#/components/schemas/HistoricalAverageGrowthRateProjectionConfig'
+      - $ref: '#/components/schemas/HistoricalAverageValueProjectionConfig'
+      - $ref: '#/components/schemas/HistoricalFixedValueProjectionConfig'
+      - $ref: '#/components/schemas/CustomDataProjectionConfig'
+      - $ref: '#/components/schemas/CustomGrowthRateProjectionConfig'
+      - $ref: '#/components/schemas/CustomYearlyPercentageChangesConfig'
     MainMetricProjectionProjectionMethod:
       type: object
       description: 'Describes how a projection is configured. This is a discriminated union of objects with a ''projectionMethod'' property of type ProjectionMethod.
@@ -600,166 +746,57 @@ components:
       required:
       - projectionMethod
       - yearlyValues
-    ActivityType:
-      type: string
-    ActivityDataProjectionValueProjectionMethod:
-      type: object
-      description: 'Describes how a projection is configured. This is a discriminated union of objects with a ''projectionMethod'' property of type ProjectionMethod.
-
-        '
-      oneOf:
-      - $ref: '#/components/schemas/HistoricalAverageGrowthRateProjectionConfig'
-      - $ref: '#/components/schemas/HistoricalAverageValueProjectionConfig'
-      - $ref: '#/components/schemas/HistoricalFixedValueProjectionConfig'
-      - $ref: '#/components/schemas/CustomDataProjectionConfig'
-      - $ref: '#/components/schemas/CustomGrowthRateProjectionConfig'
-      - $ref: '#/components/schemas/CustomYearlyPercentageChangesConfig'
-    ForbiddenError:
+    CustomGrowthRateProjectionConfig:
       type: object
       properties:
-        status:
-          type: integer
-          example: 403
+        projectionMethod:
+          type: string
           enum:
-          - 403
-        name:
-          type: string
-          example: Forbidden
-        type:
-          type: string
-          example: forbidden
-          enum:
-          - forbidden
-        message:
-          type: string
-          example: You do not have permission to access this resource.
-        details:
-          type: string
-          example: You are authenticated but do not have sufficient permissions.
-    FunctionalUnitMeasurementType:
-      type: string
-      description: 'The type of measurement of the functional unit. COUNTER is used for attributes that are added across time periods (e.g., steel produced). GAUGE is used for attributes that are not added across time periods (e.g., number of employees).
-
-        '
-      enum:
-      - COUNTER
-      - GAUGE
-    Unit:
-      type: string
-      description: A unit of measurement (e.g., kg, MWh, etc).
-      example: kg
-    NotFoundError:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 404
-          enum:
-          - 404
-        name:
-          type: string
-          example: Not Found
-        type:
-          type: string
-          example: not_found
-          enum:
-          - not_found
-        message:
-          type: string
-          example: Object not found
-        details:
-          type: string
-          example: The object with the specified ID does not exist in the database.
-    OrganizationID:
-      type: string
-      format: uuid
-    SecondaryActivityValueOverride:
-      type: object
-      description: Map of secondary activity value keys to override objects.
-      properties:
-        displayName:
-          type: string
-        key:
-          type: string
-        value:
+          - CUSTOM_GROWTH_RATE
+          example: CUSTOM_GROWTH_RATE
+        baseYear:
+          $ref: '#/components/schemas/Year'
+        customGrowthRate:
           type: number
-        unit:
-          $ref: '#/components/schemas/Unit'
-      required:
-      - displayName
-      - key
-      - value
-      - unit
-    HistoricalFixedValueProjectionConfig:
-      type: object
-      properties:
-        projectionMethod:
-          type: string
-          enum:
-          - HISTORICAL_FIXED_VALUE
-          example: HISTORICAL_FIXED_VALUE
-        baseYear:
-          $ref: '#/components/schemas/Year'
       required:
       - projectionMethod
       - baseYear
-    BusinessEntityID:
+      - customGrowthRate
+    BaselineScenarioID:
       type: string
       format: uuid
-    NullableOrganizationID:
-      type: string
-      format: uuid
-      nullable: true
-    CustomYearlyPercentageChangesConfig:
+    MainMetricProjection:
       type: object
       properties:
-        projectionMethod:
-          type: string
-          enum:
-          - CUSTOM_YEARLY_PERCENTAGE_CHANGES
-          example: CUSTOM_YEARLY_PERCENTAGE_CHANGES
-        baseYear:
-          $ref: '#/components/schemas/Year'
-        yearlyValues:
-          type: array
-          items:
-            $ref: '#/components/schemas/YearData'
+        config:
+          $ref: '#/components/schemas/MainMetricProjectionConfig'
+        projection:
+          $ref: '#/components/schemas/MainMetricProjectionData'
       required:
-      - projectionMethod
-      - baseYear
-      - yearlyValues
-    FunctionalUnit:
+      - config
+      - projection
+    UserInputError:
       type: object
       properties:
-        id:
-          $ref: '#/components/schemas/FunctionalUnitID'
+        status:
+          type: integer
+          example: 400
+          enum:
+          - 400
         name:
           type: string
-          description: The name of the functional unit
-        description:
+          example: Bad Request
+        type:
           type: string
-          description: The description of the functional unit
-        defaultDisplayUnit:
-          $ref: '#/components/schemas/Unit'
-        supportedUnits:
-          type: array
-          items:
-            $ref: '#/components/schemas/Unit'
-        orgID:
-          $ref: '#/components/schemas/NullableOrganizationID'
-          description: The ID of the organization that owns the functional unit
-        subIndustryCode:
-          $ref: '#/components/schemas/NullableIndustryTaxonomySubIndustryCode'
-          description: The sub-industry code of the functional unit
-        measurementType:
-          $ref: '#/components/schemas/FunctionalUnitMeasurementType'
-          description: The type of measurement of the functional unit
-      required:
-      - id
-      - name
-      - supportedUnits
-      - defaultDisplayUnit
-      - subIndustryCode
+          example: bad_request
+          enum:
+          - bad_request
+        message:
+          type: string
+          example: You are missing a parameter.
+        details:
+          type: string
+          example: You are missing the id parameter.
     ActivityDataProjectionConfig:
       type: object
       properties:
@@ -813,113 +850,44 @@ components:
       - emissionsProjectionMethod
       - emissionsFactorsOverrides
       - secondaryActivityValueOverrides
-    ForecastSummaryDataPoint:
+    YearData:
       type: object
       properties:
         year:
-          type: integer
-          description: The year for this data point.
+          $ref: '#/components/schemas/Year'
         value:
-          $ref: '#/components/schemas/ForecastSummaryDataPointValue'
-          description: The forecast values for the year.
+          type: number
       required:
       - year
       - value
-      additionalProperties: false
-    BaselineScenario:
-      description: 'A baseline scenario is the collection of main metric and activity data projections for an organization. Each business entity process has a specific main metric projection under a baseline scenario. Each activity data type within each emissions source has a projection under a baseline scenario. Together they make up a baseline scenario. All organizations have a default baseline scenario that is created when the organization is created. Additional baseline scenarios can be defined.
-
-        '
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/BaselineScenarioID'
-          description: The unique identifier of the baseline scenario
-        name:
-          type: string
-          description: The name of the baseline scenario
-        description:
-          type: string
-          nullable: true
-          description: A description of the baseline scenario
-        isDefault:
-          type: boolean
-          description: Whether this is the default baseline scenario
-        orgID:
-          $ref: '#/components/schemas/OrganizationID'
-          description: The ID of the organization this baseline scenario belongs to
-      required:
-      - name
-      - isDefault
-      - orgID
-      additionalProperties: false
-    ForecastSummaryDataPointValue:
-      type: object
-      properties:
-        mainMetric:
-          type: number
-          description: Value of the main metric for the year.
-          nullable: true
-        scope1Emissions:
-          type: number
-          description: Scope 1 emissions value for the year.
-          nullable: true
-        scope2Emissions:
-          type: number
-          description: Scope 2 emissions value for the year.
-          nullable: true
-        scope3Emissions:
-          type: number
-          description: Scope 3 emissions value for the year.
-          nullable: true
-        emissionsIntensity:
-          type: number
-          description: Calculated intensity value for the year.
-          nullable: true
-      additionalProperties: false
-    EmissionsModelID:
+    BusinessEntityID:
       type: string
       format: uuid
-    BusinessEntityBaselineForecastSummary:
+    ActivityTypeID:
+      type: string
+      format: uuid
+    NotFoundError:
       type: object
       properties:
-        functionalUnitID:
-          type: string
-          format: uuid
-          description: The ID of the functional unit for the forecasts.
-          nullable: true
-        forecastStartYear:
+        status:
           type: integer
-          description: The starting year of the forecast data - any data points prior to this year are historical.
-        mainMetricDisplayUnit:
-          type: string
-          description: The unit used for displaying the main metric.
-          nullable: true
-        data:
-          type: array
-          description: Array of historical and forecasted data points with emissions and intensity.
-          items:
-            $ref: '#/components/schemas/ForecastSummaryDataPoint'
-      required:
-      - forecastStartYear
-      - data
-      additionalProperties: false
-    HistoricalAverageValueProjectionConfig:
-      type: object
-      properties:
-        projectionMethod:
-          type: string
+          example: 404
           enum:
-          - HISTORICAL_AVERAGE_VALUE
-          example: HISTORICAL_AVERAGE_VALUE
-        historicalPeriodStart:
-          $ref: '#/components/schemas/Year'
-        historicalPeriodEnd:
-          $ref: '#/components/schemas/Year'
-      required:
-      - projectionMethod
-      - historicalPeriodStart
-      - historicalPeriodEnd
+          - 404
+        name:
+          type: string
+          example: Not Found
+        type:
+          type: string
+          example: not_found
+          enum:
+          - not_found
+        message:
+          type: string
+          example: Object not found
+        details:
+          type: string
+          example: The object with the specified ID does not exist in the database.
     ActivityDataProjection:
       type: object
       properties:
@@ -930,24 +898,56 @@ components:
       required:
       - config
       - projection
-    Year:
+    EmissionsModelID:
       type: string
-      pattern: ^\d{4}$
-      example: '2025'
-    EmissionsFactorOverride:
+      format: uuid
+    EmissionsSourceTypeID:
+      type: string
+      format: uuid
+    FunctionalUnit:
       type: object
-      description: Map of emissions factor keys to override objects.
       properties:
-        key:
+        id:
+          $ref: '#/components/schemas/FunctionalUnitID'
+        name:
           type: string
-        value:
-          type: number
-        unit:
+          description: The name of the functional unit
+        description:
+          type: string
+          description: The description of the functional unit
+        defaultDisplayUnit:
           $ref: '#/components/schemas/Unit'
+        supportedUnits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Unit'
+        orgID:
+          $ref: '#/components/schemas/NullableOrganizationID'
+          description: The ID of the organization that owns the functional unit
+        subIndustryCode:
+          $ref: '#/components/schemas/NullableIndustryTaxonomySubIndustryCode'
+          description: The sub-industry code of the functional unit
+        measurementType:
+          $ref: '#/components/schemas/FunctionalUnitMeasurementType'
+          description: The type of measurement of the functional unit
       required:
-      - key
-      - value
-      - unit
+      - id
+      - name
+      - supportedUnits
+      - defaultDisplayUnit
+      - subIndustryCode
+    ActivityDataProjectionEmissionsProjectionMethod:
+      type: object
+      description: 'Describes how a projection is configured. This is a discriminated union of objects with a ''projectionMethod'' property of type ProjectionMethod.
+
+        '
+      oneOf:
+      - $ref: '#/components/schemas/HistoricalAverageGrowthRateProjectionConfig'
+      - $ref: '#/components/schemas/HistoricalAverageValueProjectionConfig'
+      - $ref: '#/components/schemas/HistoricalFixedValueProjectionConfig'
+      - $ref: '#/components/schemas/CustomDataProjectionConfig'
+      - $ref: '#/components/schemas/CustomGrowthRateProjectionConfig'
+      - $ref: '#/components/schemas/CustomYearlyPercentageChangesConfig'
   responses:
     UserInputError:
       description: Your request is missing a parameter or has the wrong data type
@@ -955,18 +955,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UserInputError'
-    ForbiddenError:
-      description: You are not authorized to access this object
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ForbiddenError'
     NotFoundError:
       description: Object not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/NotFoundError'
+    ForbiddenError:
+      description: You are not authorized to access this object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ForbiddenError'
   securitySchemes:
     OAuth2ClientCredentialsProduction:
       type: oauth2

@@ -324,19 +324,6 @@ paths:
         - https://api.sinai.com/carbon_accounting
       - OAuth2AuthCodeProduction: []
 components:
-  responses:
-    UserInputError:
-      description: Your request is missing a parameter or has the wrong data type
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UserInputError'
-    ForbiddenError:
-      description: You are not authorized to access this object
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ForbiddenError'
   schemas:
     PaginationResult:
       type: object
@@ -367,9 +354,10 @@ components:
       - total
       - hasMore
       additionalProperties: false
-    EmissionsSourceTypeID:
+    Year:
       type: string
-      format: uuid
+      pattern: ^\d{4}$
+      example: '2025'
     EmissionsScope:
       type: number
       enum:
@@ -380,27 +368,42 @@ components:
       - 3
       - -1
       description: The GHG protocol scope this source belongs to
-    ActivityTypeID:
-      type: string
-      format: uuid
-    EmissionsScopes:
-      type: array
-      items:
-        $ref: '#/components/schemas/EmissionsScope'
-      style: form
-      explode: true
-    BusinessEntityTypeID:
-      type: string
-      format: uuid
     BusinessEntityIDs:
       type: array
       items:
         $ref: '#/components/schemas/BusinessEntityID'
       style: form
       explode: true
+    ActivityType:
+      type: string
+    BusinessEntityTypeID:
+      type: string
+      format: uuid
     EmissionsSourceID:
       type: string
       format: uuid
+    ForbiddenError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 403
+          enum:
+          - 403
+        name:
+          type: string
+          example: Forbidden
+        type:
+          type: string
+          example: forbidden
+          enum:
+          - forbidden
+        message:
+          type: string
+          example: You do not have permission to access this resource.
+        details:
+          type: string
+          example: You are authenticated but do not have sufficient permissions.
     MonthlyEmissionsSourceEmissionsSummary:
       type: object
       properties:
@@ -454,28 +457,6 @@ components:
       - emissionsModelID
       - emissionsModelName
       additionalProperties: false
-    UserInputError:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-          enum:
-          - 400
-        name:
-          type: string
-          example: Bad Request
-        type:
-          type: string
-          example: bad_request
-          enum:
-          - bad_request
-        message:
-          type: string
-          example: You are missing a parameter.
-        details:
-          type: string
-          example: You are missing the id parameter.
     Month:
       type: string
       pattern: ^\d{4}-\d{2}$
@@ -555,6 +536,52 @@ components:
       - emissionsModelID
       - emissionsModelName
       additionalProperties: false
+    EmissionsSourceIDs:
+      type: array
+      items:
+        $ref: '#/components/schemas/EmissionsSourceID'
+      style: form
+      explode: true
+    EmissionsScopes:
+      type: array
+      items:
+        $ref: '#/components/schemas/EmissionsScope'
+      style: form
+      explode: true
+    UserInputError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+          enum:
+          - 400
+        name:
+          type: string
+          example: Bad Request
+        type:
+          type: string
+          example: bad_request
+          enum:
+          - bad_request
+        message:
+          type: string
+          example: You are missing a parameter.
+        details:
+          type: string
+          example: You are missing the id parameter.
+    BusinessEntityID:
+      type: string
+      format: uuid
+    ActivityTypeID:
+      type: string
+      format: uuid
+    EmissionsModelID:
+      type: string
+      format: uuid
+    EmissionsSourceTypeID:
+      type: string
+      format: uuid
     MonthlyBusinessEntityEmissionsSummary:
       type: object
       properties:
@@ -602,46 +629,19 @@ components:
       - emissionsModelID
       - emissionsModelName
       additionalProperties: false
-    ActivityType:
-      type: string
-    BusinessEntityID:
-      type: string
-      format: uuid
-    EmissionsModelID:
-      type: string
-      format: uuid
-    EmissionsSourceIDs:
-      type: array
-      items:
-        $ref: '#/components/schemas/EmissionsSourceID'
-      style: form
-      explode: true
+  responses:
+    UserInputError:
+      description: Your request is missing a parameter or has the wrong data type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserInputError'
     ForbiddenError:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 403
-          enum:
-          - 403
-        name:
-          type: string
-          example: Forbidden
-        type:
-          type: string
-          example: forbidden
-          enum:
-          - forbidden
-        message:
-          type: string
-          example: You do not have permission to access this resource.
-        details:
-          type: string
-          example: You are authenticated but do not have sufficient permissions.
-    Year:
-      type: string
-      pattern: ^\d{4}$
-      example: '2025'
+      description: You are not authorized to access this object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ForbiddenError'
   securitySchemes:
     OAuth2ClientCredentialsProduction:
       type: oauth2
