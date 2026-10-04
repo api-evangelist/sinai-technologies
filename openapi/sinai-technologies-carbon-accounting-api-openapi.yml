@@ -325,24 +325,123 @@ paths:
       - OAuth2AuthCodeProduction: []
 components:
   responses:
-    UserInputError:
-      description: Your request is missing a parameter or has the wrong data type
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UserInputError'
     ForbiddenError:
       description: You are not authorized to access this object
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ForbiddenError'
+    UserInputError:
+      description: Your request is missing a parameter or has the wrong data type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserInputError'
   schemas:
     Year:
       type: string
       pattern: ^\d{4}$
       example: '2025'
+    EmissionsScope:
+      type: number
+      enum:
+      - 1
+      - 2
+      - 21
+      - 22
+      - 3
+      - -1
+      description: The GHG protocol scope this source belongs to
+    ActivityTypeID:
+      type: string
+      format: uuid
+    BusinessEntityID:
+      type: string
+      format: uuid
+    MonthlyEmissionsSourceEmissionsSummary:
+      type: object
+      properties:
+        month:
+          $ref: '#/components/schemas/Month'
+          description: The month of this detailed emissions summary in YYYY-MM format
+        scopeEmissions:
+          type: number
+          description: The total scope emissions, in kgCO2e
+        scope:
+          $ref: '#/components/schemas/EmissionsScope'
+          description: The GHG protocol scope of this emissions summary
+        energyConsumption:
+          type: number
+          description: The amount of energy consumed, in kWh
+        processID:
+          $ref: '#/components/schemas/BusinessEntityID'
+          description: The unique identifier for the process business entity this emissions summary belongs to
+        processName:
+          type: string
+          description: The name of the process business entity this emissions summary belongs to
+        emissionsSourceID:
+          $ref: '#/components/schemas/EmissionsSourceID'
+          description: The ID of the emissions source for this emissions summary
+        emissionsSourceName:
+          type: string
+          description: The name of the emissions source for this emissions summary
+        emissionsSourceTypeID:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+          description: The ID of the emissions source type for the source for this emissions summary
+        emissionsSourceTypeName:
+          type: string
+          description: The name of the emissions source type for the source for this emissions summary
+        emissionsModelID:
+          $ref: '#/components/schemas/EmissionsModelID'
+          description: The ID of the emissions model for the source for this emissions summary
+        emissionsModelName:
+          type: string
+          description: The name of the emissions model for the source for this emissions summary
+      required:
+      - month
+      - scopeEmissions
+      - scope
+      - energyConsumption
+      - processID
+      - processName
+      - emissionsSourceID
+      - emissionsSourceName
+      - emissionsSourceTypeID
+      - emissionsSourceTypeName
+      - emissionsModelID
+      - emissionsModelName
+      additionalProperties: false
     EmissionsSourceTypeID:
+      type: string
+      format: uuid
+    UserInputError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+          enum:
+          - 400
+        name:
+          type: string
+          example: Bad Request
+        type:
+          type: string
+          example: bad_request
+          enum:
+          - bad_request
+        message:
+          type: string
+          example: You are missing a parameter.
+        details:
+          type: string
+          example: You are missing the id parameter.
+    ActivityType:
+      type: string
+    EmissionsSourceID:
+      type: string
+      format: uuid
+    EmissionsModelID:
       type: string
       format: uuid
     MonthlyDetailedEmissionsSummary:
@@ -420,110 +519,10 @@ components:
       - emissionsModelID
       - emissionsModelName
       additionalProperties: false
-    ForbiddenError:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 403
-          enum:
-          - 403
-        name:
-          type: string
-          example: Forbidden
-        type:
-          type: string
-          example: forbidden
-          enum:
-          - forbidden
-        message:
-          type: string
-          example: You do not have permission to access this resource.
-        details:
-          type: string
-          example: You are authenticated but do not have sufficient permissions.
-    ActivityTypeID:
-      type: string
-      format: uuid
-    PaginationResult:
-      type: object
-      properties:
-        offset:
-          type: integer
-          description: The current offset in the pagination
-        limit:
-          type: integer
-          description: The maximum number of items per page
-        total:
-          type: integer
-          description: The total number of items available
-        hasMore:
-          type: boolean
-          description: Whether there are more items available after this page
-        nextOffset:
-          type: integer
-          description: The offset for the next page, if available
-          nullable: true
-        previousOffset:
-          type: integer
-          description: The offset for the previous page, if available
-          nullable: true
-      required:
-      - offset
-      - limit
-      - total
-      - hasMore
-      additionalProperties: false
-    BusinessEntityTypeID:
-      type: string
-      format: uuid
-    EmissionsSourceIDs:
-      type: array
-      items:
-        $ref: '#/components/schemas/EmissionsSourceID'
-      style: form
-      explode: true
-    UserInputError:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-          enum:
-          - 400
-        name:
-          type: string
-          example: Bad Request
-        type:
-          type: string
-          example: bad_request
-          enum:
-          - bad_request
-        message:
-          type: string
-          example: You are missing a parameter.
-        details:
-          type: string
-          example: You are missing the id parameter.
-    BusinessEntityID:
-      type: string
-      format: uuid
     Month:
       type: string
       pattern: ^\d{4}-\d{2}$
       example: 2025-03
-    EmissionsSourceID:
-      type: string
-      format: uuid
-    BusinessEntityIDs:
-      type: array
-      items:
-        $ref: '#/components/schemas/BusinessEntityID'
-      style: form
-      explode: true
-    EmissionsModelID:
-      type: string
-      format: uuid
     MonthlyBusinessEntityEmissionsSummary:
       type: object
       properties:
@@ -571,77 +570,78 @@ components:
       - emissionsModelID
       - emissionsModelName
       additionalProperties: false
-    ActivityType:
+    BusinessEntityTypeID:
       type: string
-    EmissionsScope:
-      type: number
-      enum:
-      - 1
-      - 2
-      - 21
-      - 22
-      - 3
-      - -1
-      description: The GHG protocol scope this source belongs to
+      format: uuid
     EmissionsScopes:
       type: array
       items:
         $ref: '#/components/schemas/EmissionsScope'
       style: form
       explode: true
-    MonthlyEmissionsSourceEmissionsSummary:
+    PaginationResult:
       type: object
       properties:
-        month:
-          $ref: '#/components/schemas/Month'
-          description: The month of this detailed emissions summary in YYYY-MM format
-        scopeEmissions:
-          type: number
-          description: The total scope emissions, in kgCO2e
-        scope:
-          $ref: '#/components/schemas/EmissionsScope'
-          description: The GHG protocol scope of this emissions summary
-        energyConsumption:
-          type: number
-          description: The amount of energy consumed, in kWh
-        processID:
-          $ref: '#/components/schemas/BusinessEntityID'
-          description: The unique identifier for the process business entity this emissions summary belongs to
-        processName:
-          type: string
-          description: The name of the process business entity this emissions summary belongs to
-        emissionsSourceID:
-          $ref: '#/components/schemas/EmissionsSourceID'
-          description: The ID of the emissions source for this emissions summary
-        emissionsSourceName:
-          type: string
-          description: The name of the emissions source for this emissions summary
-        emissionsSourceTypeID:
-          $ref: '#/components/schemas/EmissionsSourceTypeID'
-          description: The ID of the emissions source type for the source for this emissions summary
-        emissionsSourceTypeName:
-          type: string
-          description: The name of the emissions source type for the source for this emissions summary
-        emissionsModelID:
-          $ref: '#/components/schemas/EmissionsModelID'
-          description: The ID of the emissions model for the source for this emissions summary
-        emissionsModelName:
-          type: string
-          description: The name of the emissions model for the source for this emissions summary
+        offset:
+          type: integer
+          description: The current offset in the pagination
+        limit:
+          type: integer
+          description: The maximum number of items per page
+        total:
+          type: integer
+          description: The total number of items available
+        hasMore:
+          type: boolean
+          description: Whether there are more items available after this page
+        nextOffset:
+          type: integer
+          description: The offset for the next page, if available
+          nullable: true
+        previousOffset:
+          type: integer
+          description: The offset for the previous page, if available
+          nullable: true
       required:
-      - month
-      - scopeEmissions
-      - scope
-      - energyConsumption
-      - processID
-      - processName
-      - emissionsSourceID
-      - emissionsSourceName
-      - emissionsSourceTypeID
-      - emissionsSourceTypeName
-      - emissionsModelID
-      - emissionsModelName
+      - offset
+      - limit
+      - total
+      - hasMore
       additionalProperties: false
+    BusinessEntityIDs:
+      type: array
+      items:
+        $ref: '#/components/schemas/BusinessEntityID'
+      style: form
+      explode: true
+    EmissionsSourceIDs:
+      type: array
+      items:
+        $ref: '#/components/schemas/EmissionsSourceID'
+      style: form
+      explode: true
+    ForbiddenError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 403
+          enum:
+          - 403
+        name:
+          type: string
+          example: Forbidden
+        type:
+          type: string
+          example: forbidden
+          enum:
+          - forbidden
+        message:
+          type: string
+          example: You do not have permission to access this resource.
+        details:
+          type: string
+          example: You are authenticated but do not have sufficient permissions.
   securitySchemes:
     OAuth2ClientCredentialsProduction:
       type: oauth2

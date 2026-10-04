@@ -967,110 +967,31 @@ paths:
         - https://api.sinai.com/organization
       - OAuth2AuthCodeProduction: []
 components:
-  schemas:
-    Unit:
-      type: string
-      description: A unit of measurement (e.g., kg, MWh, etc).
-      example: kg
-    NullableOrganizationID:
-      type: string
-      format: uuid
-      nullable: true
-    FunctionalUnitMeasurementType:
-      type: string
-      description: 'The type of measurement of the functional unit. COUNTER is used for attributes that are added across time periods (e.g., steel produced). GAUGE is used for attributes that are not added across time periods (e.g., number of employees).
-
-        '
-      enum:
-      - COUNTER
-      - GAUGE
-    IndustryTaxonomySectorID:
-      type: string
-      format: uuid
-    EmissionsModel:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/EmissionsModelID'
-          description: The unique identifier of the emissions model
-        emissionsSourceTypeID:
-          $ref: '#/components/schemas/EmissionsSourceTypeID'
-          description: The type of emissions source this model is for
-        protocol:
-          $ref: '#/components/schemas/Protocol'
-          description: The protocol this model follows
-        displayName:
-          type: string
-          description: The display name of the emissions model
-        emissionsFactorsSources:
-          type: array
-          items:
-            type: string
-          description: List of emissions factors sources used by this model
-      required:
-      - id
-      - protocol
-      - displayName
-      - emissionsFactorsSources
-      additionalProperties: false
-    IndustryTaxonomyIndustryID:
-      type: string
-      format: uuid
-    Organization:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/OrganizationID'
-          description: The id of the organization
-        rootBusinessEntityID:
-          $ref: '#/components/schemas/BusinessEntityID'
-          description: The id of the root business entity
-        defaultFunctionalUnitID:
-          $ref: '#/components/schemas/FunctionalUnitID'
-          description: The id of the default functional unit
-        fiscalYearStartMonth:
-          type: number
-          description: The month of the fiscal year start
-    Year:
-      type: string
-      pattern: ^\d{4}$
-      example: '2025'
-    EmissionsSourceTypeID:
-      type: string
-      format: uuid
+  responses:
     ForbiddenError:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 403
-          enum:
-          - 403
-        name:
-          type: string
-          example: Forbidden
-        type:
-          type: string
-          example: forbidden
-          enum:
-          - forbidden
-        message:
-          type: string
-          example: You do not have permission to access this resource.
-        details:
-          type: string
-          example: You are authenticated but do not have sufficient permissions.
-    BusinessEntityTypeCategory:
+      description: You are not authorized to access this object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ForbiddenError'
+    NotFoundError:
+      description: Object not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundError'
+    UserInputError:
+      description: Your request is missing a parameter or has the wrong data type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserInputError'
+  schemas:
+    NullableIndustryTaxonomySubIndustryCode:
       type: string
-      enum:
-      - ORG_LEVEL
-      - MID_LEVEL
-      - FACILITY_LEVEL
-      - PROCESS_LEVEL
-    ProcessTypeID:
-      type: string
-      format: uuid
-      description: The process type of the business entity if it is a process.
+      pattern: ^\d{8}$
+      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
+      nullable: true
     NotFoundError:
       type: object
       properties:
@@ -1093,10 +1014,6 @@ components:
         details:
           type: string
           example: The object with the specified ID does not exist in the database.
-    IndustryTaxonomyIndustryGroupCode:
-      type: string
-      pattern: ^\d{4}$
-      description: The industry group code of the business entity or functional unit, formatted as four digits.
     FacilityType:
       type: object
       properties:
@@ -1120,52 +1037,50 @@ components:
       - id
       - name
       - subIndustryCode
-    IndustryTaxonomySubIndustry:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/IndustryTaxonomySubIndustryID'
-        name:
-          type: string
-        subIndustryCode:
-          $ref: '#/components/schemas/IndustryTaxonomySubIndustryCode'
-      required:
-      - id
-      - name
-      - subIndustryCode
-    CountryCode:
+    NullableProcessTypeID:
       type: string
-      description: The country code of the business entity.
-    IndustryTaxonomyIndustry:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/IndustryTaxonomyIndustryID'
-        name:
-          type: string
-        industryCode:
-          $ref: '#/components/schemas/IndustryTaxonomyIndustryCode'
-      required:
-      - id
-      - name
-      - industryCode
-    EmissionsSourceStatus:
+      format: uuid
+      description: The process type of the business entity if it is a process.
+      nullable: true
+    Year:
       type: string
+      pattern: ^\d{4}$
+      example: '2025'
+    EmissionsScope:
+      type: number
       enum:
-      - ACTIVE
-      - INACTIVE
-      description: The status of this emissions source
+      - 1
+      - 2
+      - 21
+      - 22
+      - 3
+      - -1
+      description: The GHG protocol scope this source belongs to
+    FunctionalUnitMeasurementType:
+      type: string
+      description: 'The type of measurement of the functional unit. COUNTER is used for attributes that are added across time periods (e.g., steel produced). GAUGE is used for attributes that are not added across time periods (e.g., number of employees).
+
+        '
+      enum:
+      - COUNTER
+      - GAUGE
+    IndustryTaxonomyIndustryGroupID:
+      type: string
+      format: uuid
+    BusinessEntityID:
+      type: string
+      format: uuid
     FacilityTypeID:
       type: string
       format: uuid
       description: The facility type of the business entity if it is a facility.
-    BusinessEntityTypeID:
+    IndustryTaxonomySubIndustryID:
       type: string
       format: uuid
-    IndustryTaxonomySectorCode:
+    NullableBusinessEntityID:
       type: string
-      pattern: ^\d{2}$
-      description: The sector code of the business entity or functional unit, formatted as two digits.
+      format: uuid
+      nullable: true
     EmissionsSource:
       type: object
       properties:
@@ -1207,10 +1122,23 @@ components:
       - scope
       - status
       additionalProperties: false
-    IndustryTaxonomyIndustryCode:
+    IndustryTaxonomySector:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/IndustryTaxonomySectorID'
+        name:
+          type: string
+        sectorCode:
+          $ref: '#/components/schemas/IndustryTaxonomySectorCode'
+      required:
+      - id
+      - name
+      - sectorCode
+    IndustryTaxonomySubIndustryCode:
       type: string
-      pattern: ^\d{6}$
-      description: The industry code of the business entity or functional unit, formatted as six digits.
+      pattern: ^\d{8}$
+      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
     BusinessEntity:
       type: object
       properties:
@@ -1262,20 +1190,69 @@ components:
       - id
       - name
       additionalProperties: false
-    Protocol:
+    EmissionsModel:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
-          description: The unique identifier of the protocol
+          $ref: '#/components/schemas/EmissionsModelID'
+          description: The unique identifier of the emissions model
+        emissionsSourceTypeID:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+          description: The type of emissions source this model is for
+        protocol:
+          $ref: '#/components/schemas/Protocol'
+          description: The protocol this model follows
         displayName:
           type: string
-          description: The display name of the protocol
+          description: The display name of the emissions model
+        emissionsFactorsSources:
+          type: array
+          items:
+            type: string
+          description: List of emissions factors sources used by this model
       required:
       - id
+      - protocol
       - displayName
+      - emissionsFactorsSources
       additionalProperties: false
+    Organization:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/OrganizationID'
+          description: The id of the organization
+        rootBusinessEntityID:
+          $ref: '#/components/schemas/BusinessEntityID'
+          description: The id of the root business entity
+        defaultFunctionalUnitID:
+          $ref: '#/components/schemas/FunctionalUnitID'
+          description: The id of the default functional unit
+        fiscalYearStartMonth:
+          type: number
+          description: The month of the fiscal year start
+    NullableEmissionsSourceID:
+      type: string
+      format: uuid
+      nullable: true
+    IndustryTaxonomyIndustryGroupCode:
+      type: string
+      pattern: ^\d{4}$
+      description: The industry group code of the business entity or functional unit, formatted as four digits.
+    EmissionsSourceTypeID:
+      type: string
+      format: uuid
+    EmissionsSourceStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - INACTIVE
+      description: The status of this emissions source
+    NullableFacilityTypeID:
+      type: string
+      format: uuid
+      description: The facility type of the business entity if it is a facility.
+      nullable: true
     UserInputError:
       type: object
       properties:
@@ -1298,83 +1275,76 @@ components:
         details:
           type: string
           example: You are missing the id parameter.
-    OrganizationID:
+    EmissionsSourceID:
       type: string
       format: uuid
-    BusinessEntityID:
+    IndustryTaxonomyIndustryCode:
       type: string
-      format: uuid
-    NullableEmissionsSourceID:
-      type: string
-      format: uuid
-      nullable: true
-    IndustryTaxonomySector:
+      pattern: ^\d{6}$
+      description: The industry code of the business entity or functional unit, formatted as six digits.
+    IndustryTaxonomySubIndustry:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/IndustryTaxonomySectorID'
+          $ref: '#/components/schemas/IndustryTaxonomySubIndustryID'
         name:
           type: string
-        sectorCode:
-          $ref: '#/components/schemas/IndustryTaxonomySectorCode'
+        subIndustryCode:
+          $ref: '#/components/schemas/IndustryTaxonomySubIndustryCode'
       required:
       - id
       - name
-      - sectorCode
-    FunctionalUnitID:
+      - subIndustryCode
+    ProcessTypeID:
       type: string
       format: uuid
+      description: The process type of the business entity if it is a process.
+    EmissionsModelID:
+      type: string
+      format: uuid
+    IndustryTaxonomyIndustryID:
+      type: string
+      format: uuid
+    FunctionalUnit:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/FunctionalUnitID'
+        name:
+          type: string
+          description: The name of the functional unit
+        description:
+          type: string
+          description: The description of the functional unit
+        defaultDisplayUnit:
+          $ref: '#/components/schemas/Unit'
+        supportedUnits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Unit'
+        orgID:
+          $ref: '#/components/schemas/NullableOrganizationID'
+          description: The ID of the organization that owns the functional unit
+        subIndustryCode:
+          $ref: '#/components/schemas/NullableIndustryTaxonomySubIndustryCode'
+          description: The sub-industry code of the functional unit
+        measurementType:
+          $ref: '#/components/schemas/FunctionalUnitMeasurementType'
+          description: The type of measurement of the functional unit
+      required:
+      - id
+      - name
+      - supportedUnits
+      - defaultDisplayUnit
+      - subIndustryCode
+    Unit:
+      type: string
+      description: A unit of measurement (e.g., kg, MWh, etc).
+      example: kg
     Month:
       type: string
       pattern: ^\d{4}-\d{2}$
       example: 2025-03
-    EmissionsSourceType:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/EmissionsSourceTypeID'
-          description: The unique identifier of the emissions source type
-        name:
-          type: string
-          description: The name of the emissions source type
-        scope:
-          $ref: '#/components/schemas/EmissionsScope'
-          description: The GHG protocol scope this source type belongs to
-      required:
-      - id
-      - name
-      - scope
-      additionalProperties: false
-    EmissionsSourceID:
-      type: string
-      format: uuid
-    EmissionsModelID:
-      type: string
-      format: uuid
-    IndustryTaxonomySubIndustryID:
-      type: string
-      format: uuid
-    NullableFacilityTypeID:
-      type: string
-      format: uuid
-      description: The facility type of the business entity if it is a facility.
-      nullable: true
-    NullableBusinessEntityID:
-      type: string
-      format: uuid
-      nullable: true
-    IndustryTaxonomyIndustryGroupID:
-      type: string
-      format: uuid
-    NullableProcessTypeID:
-      type: string
-      format: uuid
-      description: The process type of the business entity if it is a process.
-      nullable: true
-    IndustryTaxonomySubIndustryCode:
-      type: string
-      pattern: ^\d{8}$
-      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
     ProcessType:
       type: object
       properties:
@@ -1398,16 +1368,63 @@ components:
       - id
       - name
       - facilityTypeID
-    EmissionsScope:
-      type: number
-      enum:
-      - 1
-      - 2
-      - 21
-      - 22
-      - 3
-      - -1
-      description: The GHG protocol scope this source belongs to
+    IndustryTaxonomySectorID:
+      type: string
+      format: uuid
+    CountryCode:
+      type: string
+      description: The country code of the business entity.
+    Protocol:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the protocol
+        displayName:
+          type: string
+          description: The display name of the protocol
+      required:
+      - id
+      - displayName
+      additionalProperties: false
+    BusinessEntityTypeID:
+      type: string
+      format: uuid
+    NullableOrganizationID:
+      type: string
+      format: uuid
+      nullable: true
+    EmissionsSourceType:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/EmissionsSourceTypeID'
+          description: The unique identifier of the emissions source type
+        name:
+          type: string
+          description: The name of the emissions source type
+        scope:
+          $ref: '#/components/schemas/EmissionsScope'
+          description: The GHG protocol scope this source type belongs to
+      required:
+      - id
+      - name
+      - scope
+      additionalProperties: false
+    IndustryTaxonomyIndustry:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/IndustryTaxonomyIndustryID'
+        name:
+          type: string
+        industryCode:
+          $ref: '#/components/schemas/IndustryTaxonomyIndustryCode'
+      required:
+      - id
+      - name
+      - industryCode
     IndustryTaxonomyIndustryGroup:
       type: object
       properties:
@@ -1446,62 +1463,45 @@ components:
       - id
       - name
       - typeCategory
-    NullableIndustryTaxonomySubIndustryCode:
+    OrganizationID:
       type: string
-      pattern: ^\d{8}$
-      description: The sub-industry code of the business entity or functional unit, formatted as eight digits.
-      nullable: true
-    FunctionalUnit:
+      format: uuid
+    BusinessEntityTypeCategory:
+      type: string
+      enum:
+      - ORG_LEVEL
+      - MID_LEVEL
+      - FACILITY_LEVEL
+      - PROCESS_LEVEL
+    FunctionalUnitID:
+      type: string
+      format: uuid
+    ForbiddenError:
       type: object
       properties:
-        id:
-          $ref: '#/components/schemas/FunctionalUnitID'
+        status:
+          type: integer
+          example: 403
+          enum:
+          - 403
         name:
           type: string
-          description: The name of the functional unit
-        description:
+          example: Forbidden
+        type:
           type: string
-          description: The description of the functional unit
-        defaultDisplayUnit:
-          $ref: '#/components/schemas/Unit'
-        supportedUnits:
-          type: array
-          items:
-            $ref: '#/components/schemas/Unit'
-        orgID:
-          $ref: '#/components/schemas/NullableOrganizationID'
-          description: The ID of the organization that owns the functional unit
-        subIndustryCode:
-          $ref: '#/components/schemas/NullableIndustryTaxonomySubIndustryCode'
-          description: The sub-industry code of the functional unit
-        measurementType:
-          $ref: '#/components/schemas/FunctionalUnitMeasurementType'
-          description: The type of measurement of the functional unit
-      required:
-      - id
-      - name
-      - supportedUnits
-      - defaultDisplayUnit
-      - subIndustryCode
-  responses:
-    UserInputError:
-      description: Your request is missing a parameter or has the wrong data type
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UserInputError'
-    ForbiddenError:
-      description: You are not authorized to access this object
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ForbiddenError'
-    NotFoundError:
-      description: Object not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/NotFoundError'
+          example: forbidden
+          enum:
+          - forbidden
+        message:
+          type: string
+          example: You do not have permission to access this resource.
+        details:
+          type: string
+          example: You are authenticated but do not have sufficient permissions.
+    IndustryTaxonomySectorCode:
+      type: string
+      pattern: ^\d{2}$
+      description: The sector code of the business entity or functional unit, formatted as two digits.
   securitySchemes:
     OAuth2ClientCredentialsProduction:
       type: oauth2
