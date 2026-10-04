@@ -1,0 +1,37 @@
+slug: sinai-technologies
+provider: Sinai Technologies
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Carbon accounting
+  spec_file: sinai-technologies-carbon-accounting-api-openapi.yml
+  capability_id: BC-740.20
+  capability_id_l1: BC-740
+  capability_name: Climate & Carbon Management
+  confidence: 0.95
+  evidence: GET /v1/carbon_accounting/summaries/monthly_detailed_emissions_summaries — 'Retrieve monthly,
+    activity-level detailed emissions summaries'; schemas EmissionsScope, MonthlyBusinessEntityEmissionsSummary
+  reason: Operations compute and retrieve greenhouse-gas emissions summaries by scope, source and business
+    entity, and open/close activity months for emissions accounting — this is carbon footprint measurement
+    and disclosure, i.e. Climate & Carbon Management.
+- tag: Baseline forecasts
+  spec_file: sinai-technologies-baseline-forecasts-api-openapi.yml
+  capability_id: BC-740.20
+  capability_id_l1: BC-740
+  capability_name: Climate & Carbon Management
+  confidence: 0.85
+  evidence: GET /v1/baseline_forecasts/baseline_scenarios  getBaselineScenarios  Get all baseline scenarios;
+    schemas include ActivityDataProjectionEmissionsProjectionMethod, EmissionsFactorOverride
+  reason: Baseline emissions scenarios and activity/emissions projections used for 'baseline forecasts
+    for decarbonization planning' are carbon footprint forecasting, squarely Climate & Carbon Management
+    within Sustainability Management.

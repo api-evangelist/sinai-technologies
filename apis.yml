@@ -114,6 +114,9 @@ apis:
   - type: Authentication
     url: authentication/sinai-technologies-authentication.yml
 common:
+- type: CapabilityMap
+  url: capabilities/sinai-technologies-capability-edges.yml
+  name: Sinai Technologies Business Capability Map
 - type: DomainSecurity
   url: security/sinai-technologies-domain-security.yml
 - type: Authentication
