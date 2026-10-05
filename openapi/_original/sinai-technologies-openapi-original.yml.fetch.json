@@ -1,0 +1,12 @@
+{
+ "url": "https://api.sinai.com/openapi.yaml",
+ "requested_url": "https://api.sinai.com/openapi.yaml",
+ "status": 200,
+ "content_type": "text/yaml; charset=utf-8",
+ "bytes": 123935,
+ "sha256": "f7cb73580f5e7337f5c79ddaf1c0daa035521495cc05c75495aaef885a88400d",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.929), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
